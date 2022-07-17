@@ -1,0 +1,95 @@
+@import 'colors'
+
+@mixin flex_row-center($gap)
+    display: flex
+    flex-flow: row nowrap
+    justify-content: center
+    align-items: center
+    gap: $gap
+
+@mixin hover-shadow
+    box-shadow: 5px 5px 5px $gray-shadow
+
+@mixin hover-shadow_full
+    box-shadow: 3px 3px 3px $gray-shadow, -3px 3px 3px $gray-shadow
+
+@mixin outline-and-caret-color
+    outline-color: $green
+    caret-color: $green
+
+@mixin unselectable
+    -webkit-touch-callout: none /* iOS Safari */
+    -webkit-user-select: none /* Chrome/Safari/Opera */
+    -khtml-user-select: none /* Konqueror */
+    -moz-user-select: none /* Firefox */
+    -ms-user-select: none /* Internet Explorer/Edge */
+    user-select: none /* Non-prefixed version, currently not supported by any browser */
+
+@mixin input_accent-color($color)
+    accent-color: $color
+    margin: 0px 0px 0px 0px
+    width: 17px
+    height: 17px
+    &:checked
+        width: 17px
+        height: 17px
+        -webkit-transition: wall 0.3s
+        transition: all 0.3s
+
+@mixin input-count
+    margin: 0px
+    border: none
+    height: 32px
+    width: 32px
+    text-align: center
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none
+    margin: 0
+
+@mixin datepicker
+    @include flex_row-center($gap: 10px)
+    padding: 0px 10px 0px 10px
+    height: 32px
+    border: none
+    border-radius: 3px
+    &::-webkit-datetime-edit
+        font-size: 14px
+        color: #333333
+    &::-webkit-datetime-edit-fields-wrapper
+    &::-webkit-datetime-edit-text
+    &::-webkit-datetime-edit-month-field
+    &::-webkit-datetime-edit-day-field
+    &::-webkit-datetime-edit-year-field
+    &::-webkit-inner-spin-button
+    &::-webkit-calendar-picker-indicator
+        color: transparent
+        background: url(./Components/Icon/icons/datepicker.svg)
+        background-size: contain
+    &:focus
+        outline-color: $green
+
+@keyframes hidden_effect
+    from
+        opacity: 1
+    25%
+        opacity: 0.75
+    50%
+        opacity: 0.5
+    75%
+        opacity: 0.25
+    to
+        opacity: 0
+
+@keyframes show_effect
+    from
+        opacity: 0
+    25%
+        opacity: 0.25
+    50%
+        opacity: 0.5
+    75%
+        opacity: 0.75
+    to
+        opacity: 1

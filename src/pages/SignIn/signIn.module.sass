@@ -1,0 +1,55 @@
+@import '../../styles/colors'
+@import '../../styles/mixins'
+
+.signIn
+    display: flex
+    flex-flow: column nowrap
+    justify-content: flex-start
+    align-items: center
+    height: 460px
+    width: 340px
+    background: #FFFFFF
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14)
+    border-radius: 12px
+
+.signIn__span
+    margin-top: 50px
+
+.signIn__inputs
+    display: flex
+    flex-flow: column nowrap
+    margin-top: 40px
+    gap: 16px
+
+.inputs__item
+    display: flex
+    flex-flow: column nowrap
+
+.item__input
+    border-top: none
+    border-left: none
+    border-right: none
+    border-bottom: 1px $blue solid
+    width: 280px
+    font-size: 13px
+    line-height: 13px
+
+.signIn__btns
+    display: flex
+    flex-flow: column nowrap
+    justify-content: center
+    align-items: center
+    margin-top: 159px
+    gap: 14px
+
+.btns__signInBtn
+    width: 280px
+    height: 37px
+    background: $blue
+    border: none
+    border-radius: 8px
+    color: $white
+
+.btns__signUpBtn
+    color: $blue
+    text-decoration: none

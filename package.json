@@ -1,0 +1,28 @@
+{
+  "name": "middle.messenger.praktikum.yandex",
+  "version": "1.0.0",
+  "description": "---",
+  "main": "app.js",
+  "dependencies": {
+    "handlebars": "^4.7.7",
+    "parcel": "^2.6.2"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.6.2"
+  },
+  "scripts": {
+    "dev": "parcel ./public/index.html --port 3000 --open",
+    "build": "parcel build ./public/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/s-gumerov/middle.messenger.praktikum.yandex.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/s-gumerov/middle.messenger.praktikum.yandex/issues"
+  },
+  "homepage": "https://github.com/s-gumerov/middle.messenger.praktikum.yandex#readme"
+}
