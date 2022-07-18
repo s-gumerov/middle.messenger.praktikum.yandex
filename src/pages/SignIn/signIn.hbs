@@ -1,0 +1,19 @@
+<article class={{form}}>
+    <span class={{form__span}}>Вход</span>
+    <section class={{form__inputs}}>
+        <div class={{inputs__item}}>
+            <label id="login-label" for="login" class={{item__label}} onchange="showLabel">Логин</label>
+            <input type="text" name="login" id="login" class={{item__input}} placeholder="Логин">
+        </div>
+        <div class={{inputs__item}}>
+            <label id="password-label" for="password" class={{item__label}}>Пароль</label>
+            <input type="password" name="password" id="password" class={{item__input}} placeholder="Пароль"
+                onchange={{showLabel}}>
+            {{{content}}}
+        </div>
+    </section>
+    <section class={{form__btns}}>
+        <button class={{btns__btn}}>Авторизоваться</button>
+        <a href="/sign-up" class={{btns__anchor}}>Нет аккаунта?</a>
+    </section>
+</article>

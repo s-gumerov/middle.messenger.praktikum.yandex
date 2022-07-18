@@ -1,14 +1,16 @@
 import signUpStyles from './signUp.module.sass';
-const Handlebars = require("handlebars");
+import SignUpTmpl from './signUp.hbs';
 
-const SignUpProps = { containerStyle: signUpStyles.container, mainStyle: signUpStyles.main }
+const styles = {
+    form: signUpStyles.form,
+    form__span: signUpStyles.form__span,
+    form__inputs: signUpStyles.form__inputs,
+    inputs__item: signUpStyles.inputs__item,
+    form__btns: signUpStyles.form__btns,
+    item__input: signUpStyles.item__input,
+    item__label: signUpStyles.item__label,
+    btns__btn: signUpStyles.btns__btn,
+    btns__anchor: signUpStyles.btns__anchor,
+};
 
-const SignUpTmpl = Handlebars.compile(`
-    <div class={{containerStyle}}>
-<a href='/sign-in'>Есть аккаунт? Войти</a>
-    SignUp
-
-    </div>
-    `);
-
-export const SignUp = SignUpTmpl(SignUpProps);
+export const SignUp = SignUpTmpl({ ...styles });

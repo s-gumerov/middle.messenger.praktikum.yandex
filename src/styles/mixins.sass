@@ -7,15 +7,15 @@
     align-items: center
     gap: $gap
 
-@mixin hover-shadow
-    box-shadow: 5px 5px 5px $gray-shadow
+@mixin hover-shadow($color)
+    box-shadow: 0 0 5px $color
 
 @mixin hover-shadow_full
     box-shadow: 3px 3px 3px $gray-shadow, -3px 3px 3px $gray-shadow
 
-@mixin outline-and-caret-color
-    outline-color: $green
-    caret-color: $green
+@mixin outline-and-caret-color($color)
+    outline-color: $color
+    caret-color: $color
 
 @mixin unselectable
     -webkit-touch-callout: none /* iOS Safari */

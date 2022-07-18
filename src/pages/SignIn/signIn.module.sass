@@ -1,55 +1,81 @@
 @import '../../styles/colors'
 @import '../../styles/mixins'
 
-.signIn
+.form
+    padding: 50px 0px 30px 0px
     display: flex
     flex-flow: column nowrap
     justify-content: flex-start
     align-items: center
-    height: 460px
+    gap: 20px
+    min-height: 465px
     width: 340px
     background: #FFFFFF
     box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14)
     border-radius: 12px
+    position: relative
 
-.signIn__span
-    margin-top: 50px
+.form__span
+    font-style: normal
+    font-size: 20px
+    line-height: 20px
+    text-align: center
+    color: $black
 
-.signIn__inputs
+.form__inputs
     display: flex
     flex-flow: column nowrap
-    margin-top: 40px
     gap: 16px
 
 .inputs__item
     display: flex
     flex-flow: column nowrap
 
+.item__label
+    width: 27px
+    height: 9px
+    font-style: normal
+    font-weight: 500
+    font-size: 9px
+    line-height: 9px
+    color: $gray
+
 .item__input
+    color: $black
     border-top: none
     border-left: none
     border-right: none
     border-bottom: 1px $blue solid
     width: 280px
-    font-size: 13px
-    line-height: 13px
+    font-style: normal
+    font-size: 14px
+    line-height: 24px
+    &:focus
+        border-radius: 5px
+        outline: none
+        caret-color: $blue
+        @include hover-shadow($color: $blue)
 
-.signIn__btns
+.form__btns
     display: flex
     flex-flow: column nowrap
     justify-content: center
     align-items: center
-    margin-top: 159px
     gap: 14px
+    position: absolute
+    bottom: 20px
 
-.btns__signInBtn
+.btns__btn
     width: 280px
     height: 37px
     background: $blue
     border: none
     border-radius: 8px
     color: $white
+    &:hover
+        cursor: pointer
+        @include hover-shadow($color: $blue)
 
-.btns__signUpBtn
+.btns__anchor
     color: $blue
     text-decoration: none
