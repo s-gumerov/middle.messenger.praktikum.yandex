@@ -1,16 +1,15 @@
 import signUpStyles from './signUp.module.sass';
 import SignUpTmpl from './signUp.hbs';
+import { BtnsGroup } from '../../components/buttonsGroup/BtnsGroup';
 
-const styles = {
-    form: signUpStyles.form,
-    form__span: signUpStyles.form__span,
-    form__inputs: signUpStyles.form__inputs,
-    inputs__item: signUpStyles.inputs__item,
-    form__btns: signUpStyles.form__btns,
-    item__input: signUpStyles.item__input,
-    item__label: signUpStyles.item__label,
-    btns__btn: signUpStyles.btns__btn,
-    btns__anchor: signUpStyles.btns__anchor,
+const btnsGroupProps = {
+    btnMsg: 'Зарегистрироваться',
+    anchorMsg: 'Войти',
+    anchorPath: '/sign-in'
 };
 
-export const SignUp = SignUpTmpl({ ...styles });
+const btns = {
+    btnsGroup: BtnsGroup(btnsGroupProps)
+};
+
+export const SignUp = SignUpTmpl({ ...signUpStyles, ...btns });

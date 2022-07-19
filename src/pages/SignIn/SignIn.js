@@ -1,16 +1,15 @@
 import signInStyles from './signIn.module.sass';
 import SignInTmpl from './signIn.hbs';
+import { BtnsGroup } from '../../components/buttonsGroup/BtnsGroup';
 
-const styles = {
-    form: signInStyles.form,
-    form__span: signInStyles.form__span,
-    form__inputs: signInStyles.form__inputs,
-    inputs__item: signInStyles.inputs__item,
-    form__btns: signInStyles.form__btns,
-    item__input: signInStyles.item__input,
-    item__label: signInStyles.item__label,
-    btns__btn: signInStyles.btns__btn,
-    btns__anchor: signInStyles.btns__anchor,
+const btnsGroupProps = {
+    btnMsg: 'Авторизоваться',
+    anchorMsg: 'Нет аккаунта?',
+    anchorPath: '/sign-up'
 };
 
-export const SignIn = SignInTmpl({ ...styles });
+const btns = {
+    btnsGroup: BtnsGroup(btnsGroupProps)
+};
+
+export const SignIn = SignInTmpl({ ...signInStyles, ...btns });
