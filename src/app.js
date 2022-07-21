@@ -2,10 +2,16 @@ import appStyles from './app.module.sass';
 const Handlebars = require("handlebars");
 import { SignIn } from './pages/SignIn/SignIn';
 import { SignUp } from './pages/SignUp/SignUp';
+import { Profile } from './pages/Profile/Profile';
+import { NotFoundPage } from './pages/404/NotFoundPage';
+import { ServerErrorPage } from './pages/500/ServerErrorPage';
 
 const routes = {
     '/sign-in': SignIn,
     '/sign-up': SignUp,
+    '/profile': Profile,
+    '/404': NotFoundPage,
+    '/500': ServerErrorPage
 };
 
 const appProps = { containerStyle: appStyles.container, mainStyle: appStyles.main }
@@ -24,5 +30,4 @@ const path = window.location.pathname;
 
 const root = document.getElementById('root');
 
-// root.innerHTML = App
-Object.keys(routes).find(page => page === path) ? root.innerHTML = routes[path] : App;
+Object.keys(routes).find(page => page === path) ? root.innerHTML = routes[path] : NotFoundPage;

@@ -1,26 +1,15 @@
 @import '../../styles/colors'
 @import '../../styles/mixins'
 
-.btnsGroup
+.btn
     display: flex
-    flex-flow: column nowrap
     justify-content: center
     align-items: center
-    gap: 14px
-    position: absolute
-    bottom: 20px
-
-.btnsGroup__btn
     width: 280px
     height: 37px
-    background: $blue
     border: none
     border-radius: 8px
-    color: $white
+    text-decoration: none
     &:hover
         cursor: pointer
         @include hover-shadow($color: $blue)
-
-.btnsGroup__anchor
-    color: $blue
-    text-decoration: none
