@@ -3,6 +3,7 @@ const Handlebars = require("handlebars");
 import { SignIn } from './pages/SignIn/SignIn';
 import { SignUp } from './pages/SignUp/SignUp';
 import { Profile } from './pages/Profile/Profile';
+import { ChangePassword } from './pages/ChangePassword/ChangePassword';
 import { NotFoundPage } from './pages/404/NotFoundPage';
 import { ServerErrorPage } from './pages/500/ServerErrorPage';
 
@@ -10,6 +11,7 @@ const routes = {
     '/sign-in': SignIn,
     '/sign-up': SignUp,
     '/profile': Profile,
+    '/profile/change-password': ChangePassword,
     '/404': NotFoundPage,
     '/500': ServerErrorPage
 };

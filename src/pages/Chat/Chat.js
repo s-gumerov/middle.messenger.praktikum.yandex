@@ -1,5 +1,5 @@
 import styles from './styles.module.sass';
-import ProfileTmpl from './profile.hbs';
+import ChatTmpl from './profile.hbs';
 import { Avatar } from '../../components/avatar/avatar';
 import { Input } from '../../components/input/input';
 import { Btn } from '../../components/button/button';
@@ -100,4 +100,4 @@ const props = {
     btnsGroup: btnsGroup,
 };
 
-export const Profile = ProfileTmpl({ ...styles, ...props });
+export const Chat = ChatTmpl({ ...styles, ...props });
