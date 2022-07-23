@@ -94,7 +94,12 @@ ${Btn(btn)}
     ${btnsProps.length - 1 !== index ? `<div class=${styles.inputs__line}></div>` : ''}
 `).join('');
 
+const anchor = Btn({
+    anchorPath: '/profile/chat',
+    className: styles.anchorToProfile
+})
 const props = {
+    anchor: anchor,
     avatar: Avatar(avatarProps),
     inputs: inputs,
     btnsGroup: btnsGroup,
