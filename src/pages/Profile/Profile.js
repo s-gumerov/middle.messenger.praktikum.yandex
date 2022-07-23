@@ -8,7 +8,7 @@ import { Btn } from '../../components/button/button';
 const avatarProps =
 {
     alt: 'автар',
-    src: `https://www.meme-arsenal.com/memes/8fad74f2d563151e2be1fbc3b3aea87e.jpg`,
+    src: 'https://www.meme-arsenal.com/memes/8fad74f2d563151e2be1fbc3b3aea87e.jpg',
     figureClassName: styles.figure,
     imgClassName: styles.figure__img
 };
@@ -71,7 +71,7 @@ ${inputsProps.length - 1 !== index ? `<div class=${styles.inputs__line}></div>` 
 
 const btnsProps = [
     {
-        anchorPath: '/profile/edit-profile',
+        anchorPath: '/profile/edit',
         msg: 'Изменить данные',
         className: styles.btns__anchor
     },
@@ -81,7 +81,7 @@ const btnsProps = [
         className: styles.btns__anchor
     },
     {
-        anchorPath: '/profile/chat',
+        anchorPath: '/chat',
         msg: 'Выйти',
         className: styles.btns__anchor_red
     }
@@ -95,9 +95,10 @@ ${Btn(btn)}
 `).join('');
 
 const anchor = Btn({
-    anchorPath: '/profile/chat',
+    anchorPath: '/chat',
     className: styles.anchorToProfile
-})
+});
+
 const props = {
     anchor: anchor,
     avatar: Avatar(avatarProps),
