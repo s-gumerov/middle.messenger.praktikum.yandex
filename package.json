@@ -12,8 +12,18 @@
     "parcel-transformer-hbs": "^1.0.4"
   },
   "scripts": {
-    "dev": "parcel ./public/index.html --port 3000 --open",
-    "build": "parcel build ./public/index.html"
+    "dev": "parcel ./public/index.html --no-source-maps --target default --dist-dir ./dist --port 3000 --open",
+    "build": "parcel build ./public/index.html  --no-source-maps --target default --dist-dir ./dist "
+  },
+  "targets": {
+    "default": {
+      "sourceMap": true,
+      "includeNodeModules": [
+        "handlebars",
+        "uuid"
+      ],
+      "context": "browser"
+    }
   },
   "repository": {
     "type": "git",

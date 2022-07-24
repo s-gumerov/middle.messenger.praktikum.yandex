@@ -8,6 +8,7 @@ import { NotFoundPage } from './pages/404/NotFoundPage';
 import { ServerErrorPage } from './pages/500/ServerErrorPage';
 
 const routes = {
+    '/': SignIn,
     '/sign-in': SignIn,
     '/sign-up': SignUp,
     '/chat': Chat,
