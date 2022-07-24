@@ -1,5 +1,3 @@
-import appStyles from './app.module.sass';
-const Handlebars = require("handlebars");
 import { SignIn } from './pages/SignIn/SignIn';
 import { SignUp } from './pages/SignUp/SignUp';
 import { Chat } from './pages/Chat/Chat';
@@ -19,18 +17,6 @@ const routes = {
     '/404': NotFoundPage,
     '/500': ServerErrorPage
 };
-
-const appProps = { containerStyle: appStyles.container, mainStyle: appStyles.main }
-
-const AppTmpl = Handlebars.compile(`
-    <div class={{containerStyle}}>
-        <main class={{mainStyle}}>
-            App
-        </main>
-    </div>
-    `);
-
-export const App = AppTmpl(appProps);
 
 const path = window.location.pathname;
 

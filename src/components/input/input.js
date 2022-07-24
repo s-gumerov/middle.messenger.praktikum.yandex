@@ -1,12 +1,11 @@
 const Handlebars = require("handlebars");
-import styles from './styles.module.sass';
 
 export const Input = ({ id, type, className, placeholder, disabled, value }) => {
 
     const inpTmplProps = {
         id: id,
         type: type,
-        className: `${className} ${styles.input}`,
+        className: className,
         placeholder: placeholder,
         disabled: disabled,
         value: value ?? ''

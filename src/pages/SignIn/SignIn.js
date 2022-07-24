@@ -1,10 +1,7 @@
-import styles from './styles.module.sass';
+import * as styles from './styles.module.sass';
 import SignInTmpl from './signIn.hbs';
 import { Input } from '../../components/input/input';
 import { Btn } from '../../components/button/button';
-
-console.log(styles.item__input);
-
 
 const btnsProps = [
     {

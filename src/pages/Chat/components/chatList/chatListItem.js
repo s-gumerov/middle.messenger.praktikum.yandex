@@ -1,7 +1,7 @@
+import * as styles from './styles.module.sass';
 import ChatListItemTmpl from './chatListItem.hbs';
 import { Avatar } from '../../../../components/avatar/avatar';
 import { Btn } from '../../../../components/button/button';
-import styles from './styles.module.sass';
 
 export const ChatListItem = ({ avatarImg, chatName, lastMsg, lastMsgTime, msgCount }) => {
 

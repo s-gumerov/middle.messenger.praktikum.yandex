@@ -1,5 +1,5 @@
 import AvatarTmpl from './avatar.hbs';
-import styles from './styles.module.sass';
+import * as styles from './styles.module.sass';
 
 export const Avatar = ({ alt, src, figureClassName, imgClassName }) => {
 

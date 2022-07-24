@@ -1,4 +1,4 @@
-import styles from './styles.module.sass';
+import * as styles from './styles.module.sass';
 import NotFoundPageTmpl from './notFound.hbs';
 import { Btn } from '../../components/button/button';
 

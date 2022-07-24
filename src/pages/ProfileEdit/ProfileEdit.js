@@ -1,4 +1,4 @@
-import styles from './styles.module.sass';
+import * as styles from './styles.module.sass';
 import ProfileEditTmpl from './profileEdit.hbs';
 import { Avatar } from '../../components/avatar/avatar';
 import { Input } from '../../components/input/input';
