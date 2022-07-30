@@ -1,0 +1,121 @@
+@import '../../styles/colors'
+@import '../../styles/mixins'
+
+.container
+    position: relative
+    display: flex
+    flex-flow: row nowrap
+    justify-content: center
+    width: 100%
+
+.aside
+    position: absolute
+    left: 0
+    height: 100vh
+    display: flex
+    flex-flow: row nowrap
+    justify-content: center
+    align-items: center
+    width: 64px
+    background: #FBFBFB
+
+.form
+    padding: 60px 0px 30px 0px
+    display: flex
+    flex-flow: column nowrap
+    justify-content: flex-start
+    align-items: center
+    gap: 60px
+    min-height: 465px
+    width: 510px
+    background: #FFFFFF
+
+.form__span
+    font-weight: 600
+    font-size: 16px
+    line-height: 16px
+    color: $black
+
+.form__inputs
+    display: flex
+    flex-flow: column nowrap
+    gap: 10px
+
+.inputs__item
+    width: 500px
+    display: flex
+    flex-flow: row nowrap
+    justify-content: space-between
+    align-items: center
+
+.item__label
+    height: 13px
+    font-style: normal
+    font-weight: 500
+    font-size: 13px
+    line-height: 13px
+    color: $black
+
+.item__input
+    color: $gray
+    border: none
+    font-style: normal
+    font-size: 14px
+    line-height: 24px
+    text-align: end
+    &:focus
+        outline: none
+    &:disabled
+        background: none
+
+.inputs__line
+    width: 100%
+    height: 1px
+    background: #EAEAEA
+
+.form__item
+    width: 100%
+
+.form__item__btns
+    display: flex
+    flex-flow: column nowrap
+    gap: 10px
+
+.btns__btn
+    display: flex
+    justify-content: center
+    align-items: center
+    text-decoration: none
+    width: 280px
+    height: 37px
+    background: $blue
+    border: none
+    border-radius: 8px
+    color: $white
+    &:hover
+        cursor: pointer
+        @include hover-shadow($color: $blue)
+
+.btns__anchor
+    color: $blue
+    text-decoration: none
+
+.btns__anchor_red
+    color: #FF0000
+    text-decoration: none
+
+.figure
+    background-color: $grayAvatarBackground
+    border-radius: 50%
+    cursor: pointer
+
+.figure__img
+    width: 130px
+    height: 130px
+    border-radius: 50%
+
+.anchorToProfile
+    height: 28px
+    width: 28px
+    border-radius: 50%
+    content: url('../../styles/icons/backBtn.svg')
