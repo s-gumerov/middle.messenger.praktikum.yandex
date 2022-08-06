@@ -1,19 +1,9 @@
-import * as styles from './styles.module.sass';
-import ServerErrorTmpl from './serverError.hbs';
-import { Btn } from '../../components/button/button';
+import Component from '../../services/Component';
+import { tpl } from './tpl';
 
-const btnProps =
-{
-    anchorPath: '/sign-up',
-    msg: 'Назад к чатам',
-    className: styles.notFound__btn
+export class ServerErrorPage extends Component {
+    render() {
+        console.log('ServerErrorPage render');
+        return this.compile(tpl);
+    }
 };
-
-
-const props = {
-    h1Msg: '500',
-    spanMsg: 'Мы уже фиксим',
-    anchor: Btn(btnProps)
-};
-
-export const ServerErrorPage = ServerErrorTmpl({ ...styles, ...props });
