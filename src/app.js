@@ -1,5 +1,5 @@
 import IndexLayout from './layout/index';
-import { SignIn } from './pages/SignIn/SignIn';
+import { signIn } from './pages/SignIn';
 import { SignUp } from './pages/SignUp/SignUp';
 import { Chat } from './pages/Chat/Chat';
 import { Profile } from './pages/Profile/Profile';
@@ -10,8 +10,8 @@ import { serverErrorPage } from './pages/500';
 import { render as renderDom } from './utils/render';
 
 const routes = {
-    '/': SignIn,
-    '/sign-in': SignIn,
+    '/': signIn,
+    '/sign-in': signIn,
     '/sign-up': SignUp,
     '/chat': Chat,
     '/profile': Profile,

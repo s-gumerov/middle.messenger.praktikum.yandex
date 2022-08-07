@@ -1,18 +1,10 @@
 import Component from "../../services/Component";
+import { btnTpl } from "./btnTpl";
+import { anchorTpl } from "./anchorTpl";
 
 export default class Btn extends Component {
     render() {
-        const anchor = `
-            <a href={{anchorPath}} class={{className}}>
-                {{msg}}
-            </a>`;
-
-        const button = `
-            <button class={{className}}>
-                {{msg}}
-            </button>`;
-
-        const tag = this._props.anchorPath ? anchor : button;
+        const tag = this._props.anchorPath ? anchorTpl : btnTpl;
         return this.compile(tag);
     }
 }

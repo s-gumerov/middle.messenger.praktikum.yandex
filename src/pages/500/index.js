@@ -2,6 +2,11 @@ import * as styles from './styles.module.sass';
 import Btn from '../../components/btn/btn';
 import { ServerErrorPage } from './serverErrorPage';
 
+const clickHandler = (e) => {
+    e.preventDefault();
+    console.log(e.currentTarget)
+};
+
 const button = new Btn(
     "div",
     {
@@ -9,11 +14,7 @@ const button = new Btn(
         msg: 'Назад к чатам',
         className: styles.notFound__btn,
         events: {
-            click: e => {
-                // e.preventDefault()
-                const t = e.target;
-                console.log(t)
-            }
+            click: clickHandler
         }
     });
 

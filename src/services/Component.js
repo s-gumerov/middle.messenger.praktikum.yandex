@@ -95,6 +95,7 @@ export default class Component {
         const props = {};
 
         Object.keys(propsAndChilds).forEach(key => {
+
             if (propsAndChilds[key] instanceof Component)
                 children[key] = propsAndChilds[key];
             else

@@ -8,17 +8,7 @@ export const Btn = ({ anchorPath, msg, className }) => {
         className: `${className}`
     }
 
-    const anchor = `
-        <a href={{anchorPath}} 
-            class={{className}}>
-                {{msg}}
-        </a>`;
 
-    const button = `
-        <button 
-            class={{className}}>
-                {{msg}}
-        </button>`;
 
     const tag = anchorPath ? anchor : button;
 
