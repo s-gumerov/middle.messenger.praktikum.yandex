@@ -17,7 +17,7 @@ export const inputAndLabel = ({ props }) => {
         focusHandler: props.focusHandler,
         blurHandler: props.blurHandler,
         clickHandler: props.clickHandler,
-        keydownHandler:props.keydownHandler,
+        keydownHandler: props.keydownHandler,
     };
 
     const labelProps =
@@ -34,8 +34,11 @@ export const inputAndLabel = ({ props }) => {
     return new InputAndLabel(
         'div',
         {
+            attr:{
+                class:styles.inputs__item
+            },
             input: input,
             label: label,
-            className: styles.item__input
+            className: styles.inputs__item
         })
 };

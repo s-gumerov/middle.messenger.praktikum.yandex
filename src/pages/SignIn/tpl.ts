@@ -1,8 +1,6 @@
 import * as styles from './styles.module.sass';
 
 export const tpl = `
-<div class=${styles.container}>
-    <div class=${styles.form}>
     <span class=${styles.form__span}>
     Вход
     </span>
@@ -12,6 +10,4 @@ export const tpl = `
     </section>
     {{{loginBtn}}}
     {{{signUpAnchor}}}
-    </div>
-</div>
 `;        

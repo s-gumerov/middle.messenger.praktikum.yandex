@@ -1,6 +1,6 @@
 export const render = (query, component) => {
 
-    const root = document.querySelector(query);
+    const root = document.getElementById(query);
 
     if (root)
         root.appendChild(component.getContent());

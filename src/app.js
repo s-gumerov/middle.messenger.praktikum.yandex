@@ -1,4 +1,5 @@
 import IndexLayout from './layout/index';
+import * as styles from './app.module.sass';
 import { signIn } from './pages/SignIn';
 import { SignUp } from './pages/SignUp/SignUp';
 import { Chat } from './pages/Chat/Chat';
@@ -21,14 +22,16 @@ const routes = {
     '/500': serverErrorPage,
 };
 
-
 const path = window.location.pathname;
 
 Object.keys(routes)
     .find(page => page === path) ?
-    renderDom('.app',
+    renderDom('root',
         new IndexLayout(
             "div", {
+            attr: {
+                class: styles.app
+            },
             page: routes[path]
         }
         ))

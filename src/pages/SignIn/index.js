@@ -10,17 +10,21 @@ import * as styles from './styles.module.sass';
 login — от 3 до 20 символов, латиница, может содержать цифры, но не состоять из них, без пробелов, без спецсимволов (допустимы дефис и нижнее подчёркивание).
 
 */
-const clickHandler = (e) => {
-    e.preventDefault();
-    console.log(e.target)
-};
 
-const keydownHandler=(e)=>{
-    console.log('keydownHandler', e)
+const loginInputTitle = 'от 3 до 20 символов, латиница, может содержать цифры, но не состоять из них, без пробелов, без спецсимволов (допустимы дефис и нижнее подчёркивание)'
+
+
+
+const inputHandler = (e) => {
+    const { value, name } = e.target;
+    console.log(value, name, 'inputHandler');
+    // if (name === 'login')
+
 };
 
 const changeHandler = (e) => {
-    console.log('changeHandler', e.target)
+    const { value, name } = e.target;
+    console.log(value, name, 'changeHandler');
 };
 
 const focusHandler = (e) => {
@@ -47,11 +51,12 @@ const loginInputProps = {
     placeholder: 'Логин',
     disabled: false,
     value: '',
+    pattern: "[a-z]{4,8}",
+    title: loginInputTitle,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
-    keydownHandler:keydownHandler,
-    focusHandler: focusHandler,
-    blurHandler: blurHandler,
+    // focusHandler: focusHandler,
+    // blurHandler: blurHandler,
 };
 
 const passwordInputProps = {
@@ -59,13 +64,10 @@ const passwordInputProps = {
     name: 'password',
     type: 'password',
     placeholder: 'Пароль',
-    disabled: false,
-    value: '',
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
-    keydownHandler:keydownHandler,
-    focusHandler: focusHandler,
-    blurHandler: blurHandler,
+    // focusHandler: focusHandler,
+    // blurHandler: blurHandler,
 };
 
 const loginInput = inputAndLabelComponent(
@@ -99,14 +101,18 @@ const signUpAnchor = btnComponent(
 export const signIn = new SignIn(
     'form',
     {
+        attr: {
+            class: styles.form
+        },
         loginInput: loginInput,
         passwordInput: passwordInput,
         loginBtn: loginBtn,
         signUpAnchor: signUpAnchor,
         events: {
-            focus: focusHandler,
-            blur: blurHandler,
-            submit: submitHandler,
-            change: changeHandler
+            "focus": focusHandler,
+            "blur": blurHandler,
+            "submit": submitHandler,
+            "change": changeHandler,
+            "input": inputHandler,
         }
     });

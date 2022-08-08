@@ -28,7 +28,8 @@ export default class Component {
 
         this._eventBus = new EventBus();
         this._id = makeUUID();
-        this._children = children;
+        // this._children = children;
+        this._children = this.makePropsProxy(children);
         this._props = this.makePropsProxy({ ...props, __id: this._id });
         this._meta = { tag, props };
 
@@ -85,7 +86,9 @@ export default class Component {
     addAttribute() {
         const { attr = {} } = this._props;
         Object.entries(attr).forEach(([key, value]) => {
-            this._element.setAttribute([key, value]);
+            console.log([key, value]);
+
+            this._element.setAttribute(key, value);
         });
     }
 
