@@ -2,7 +2,7 @@ import * as styles from './styles.module.sass';
 import ProfileTmpl from './profile.hbs';
 import { Avatar } from '../../components/avatar/avatar';
 import { Input } from '../../components/input/input';
-import { Btn } from '../../components/button/button';
+import { Btn } from '../../components/btn/button';
 
 
 const avatarProps =

@@ -4,13 +4,23 @@ import { btn as btnComponent } from '../../components/btn';
 import { inputAndLabel as inputAndLabelComponent } from '../../components/inputAndLabel';
 import * as styles from './styles.module.sass';
 
+
+
+/* 
+login — от 3 до 20 символов, латиница, может содержать цифры, но не состоять из них, без пробелов, без спецсимволов (допустимы дефис и нижнее подчёркивание).
+
+*/
 const clickHandler = (e) => {
     e.preventDefault();
-    console.log(e.currentTarget)
+    console.log(e.target)
+};
+
+const keydownHandler=(e)=>{
+    console.log('keydownHandler', e)
 };
 
 const changeHandler = (e) => {
-    console.log('changeHandler', e.currentTarget)
+    console.log('changeHandler', e.target)
 };
 
 const focusHandler = (e) => {
@@ -39,6 +49,7 @@ const loginInputProps = {
     value: '',
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
+    keydownHandler:keydownHandler,
     focusHandler: focusHandler,
     blurHandler: blurHandler,
 };
@@ -52,6 +63,7 @@ const passwordInputProps = {
     value: '',
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
+    keydownHandler:keydownHandler,
     focusHandler: focusHandler,
     blurHandler: blurHandler,
 };

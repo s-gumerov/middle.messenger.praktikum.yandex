@@ -1,6 +1,6 @@
 import Input from "./Input2";
 
-export const input = ({ id, name, type, className, placeholder, disabled, value, focusHandler, blurHandler }) => {
+export const input = ({ id, name, type, className, placeholder, disabled, value,keydownHandler, focusHandler, blurHandler }) => {
     return new Input(
         'div',
         {
@@ -14,6 +14,7 @@ export const input = ({ id, name, type, className, placeholder, disabled, value,
             events: {
                 focus: focusHandler,
                 blur: blurHandler,
+                keydown : keydownHandler,
             }
 
         }

@@ -17,7 +17,7 @@ export const inputAndLabel = ({ props }) => {
         focusHandler: props.focusHandler,
         blurHandler: props.blurHandler,
         clickHandler: props.clickHandler,
-
+        keydownHandler:props.keydownHandler,
     };
 
     const labelProps =
