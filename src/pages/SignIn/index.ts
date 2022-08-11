@@ -55,8 +55,9 @@ const loginInputProps = {
     title: loginInputTitle,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
-    // focusHandler: focusHandler,
-    // blurHandler: blurHandler,
+    focusHandler: focusHandler,
+    blurHandler: blurHandler,
+    inputHandler: inputHandler
 };
 
 const passwordInputProps = {
@@ -66,8 +67,9 @@ const passwordInputProps = {
     placeholder: 'Пароль',
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
-    // focusHandler: focusHandler,
-    // blurHandler: blurHandler,
+    focusHandler: focusHandler,
+    blurHandler: blurHandler,
+    inputHandler: inputHandler
 };
 
 const loginInput = inputAndLabelComponent(

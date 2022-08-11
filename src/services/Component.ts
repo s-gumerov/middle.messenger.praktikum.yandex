@@ -2,6 +2,11 @@ import { v4 as makeUUID } from 'uuid';
 import Handlebars from 'handlebars';
 import EventBus from './EventBus';
 
+export type TProps = Record<string, any>;
+interface IPropsAndChilds {
+    [unit: string]: string
+};
+
 export default class Component {
     static EVENTS = {
         INIT: "init",
@@ -10,10 +15,10 @@ export default class Component {
         FLOW_RENDER: "flow:render"
     };
 
-    _props;
+    _props: TProps;
     _children;
     _id;
-    _element;
+    _element!: HTMLElement;
     _meta;
     _eventBus;
     _setUpdate = false;
@@ -22,7 +27,7 @@ export default class Component {
     // _element = null;
     // _meta = null;
 
-    constructor(tag = "div", propsAndChilds = {}) {
+    constructor(tag = "div", propsAndChilds: TProps = {}) {
 
         const { children, props } = this.getChildren(propsAndChilds);
 
@@ -49,7 +54,7 @@ export default class Component {
         this._eventBus.emit(Component.EVENTS.FLOW_RENDER);
     }
 
-    createDocumentElement(tag) {
+    createDocumentElement(tag: string) {
         const element = document.createElement(tag);
 
         if (this._props.settings?.withInternalID)
@@ -58,11 +63,12 @@ export default class Component {
         return element;
     }
 
-    _render() {
+    private _render(): void {
         const block = this.render();
         this.removeEvents();
         this._element.innerHTML = '';
-        this._element.appendChild(block);
+        if (block !== undefined)
+            this._element.appendChild(block);
         this.addEvents();
         this.addAttribute();
     }
@@ -86,21 +92,19 @@ export default class Component {
     addAttribute() {
         const { attr = {} } = this._props;
         Object.entries(attr).forEach(([key, value]) => {
-            console.log([key, value]);
 
-            this._element.setAttribute(key, value);
+            this._element.setAttribute(key, value as string);
         });
     }
 
-    getChildren(propsAndChilds) {
-
-        const children = {};
-        const props = {};
+    getChildren(propsAndChilds: TProps) {
+        const children: IPropsAndChilds = {};
+        const props: IPropsAndChilds = {};
 
         Object.keys(propsAndChilds).forEach(key => {
-
             if (propsAndChilds[key] instanceof Component)
                 children[key] = propsAndChilds[key];
+
             else
                 props[key] = propsAndChilds[key];
         });
@@ -108,7 +112,7 @@ export default class Component {
         return { children, props };
     }
 
-    compile(template, props) {
+    compile(template: string, props?: TProps) {
         if (typeof (props) === 'undefined')
             props = this._props;
 
@@ -118,17 +122,20 @@ export default class Component {
             propsAndStubs[key] = `<div data-id="${child._id}"></div>`;
         });
 
-        const fragment = this.createDocumentElement('template');
+        const fragment: HTMLElement = this.createDocumentElement('template');
         fragment.innerHTML = Handlebars.compile(template)(propsAndStubs);
 
         Object.values(this._children).forEach(child => {
-            const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
+            if (fragment instanceof HTMLTemplateElement) {
+                const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
 
-            if (stub)
-                stub.replaceWith(child.getContent());
+                if (stub)
+                    stub.replaceWith(child.getContent());
+            }
         });
 
-        return fragment.content;
+        if (fragment instanceof HTMLTemplateElement)
+            return fragment.content;
     }
 
 
@@ -137,7 +144,9 @@ export default class Component {
         Object.values(this._children).forEach(child => { child.dispatchComponentDidMount() });
     }
 
-    componentDidMount(oldProps) { }
+    // componentDidMount(oldProps: TProps) { }
+    componentDidMount() { }
+
 
     dispatchComponentDidMount() {
         this._eventBus.emit(Component.EVENTS.FLOW_CDM);
@@ -145,17 +154,18 @@ export default class Component {
             this._eventBus.emit(Component.EVENTS.FLOW_RENDER);
     }
 
-    _componentDidUpdate(oldProps, newProps) {
+    _componentDidUpdate(oldProps: TProps, newProps: TProps) {
         const isReRender = this.componentDidUpdate(oldProps, newProps);
         if (isReRender)
             this._eventBus.emit(Component.EVENTS.FLOW_RENDER);
     }
 
-    componentDidUpdate(oldProps, newProps) {
-        return true;
+    componentDidUpdate(oldProps: TProps, newProps: TProps) {
+        if (JSON.stringify(oldProps) === JSON.stringify(newProps))
+            return true;
     }
 
-    setProps(newProps) {
+    setProps(newProps: TProps) {
 
         if (!newProps) {
             return;
@@ -171,20 +181,24 @@ export default class Component {
     }
 
 
-    makePropsProxy(props) {
+    makePropsProxy(props: TProps) {
 
         return new Proxy(props, {
-            get(target, prop) {
+            get(target, prop: string) {
                 const value = target[prop];
                 return typeof value === "function" ? value.bind(target) : value;
             },
 
-            set: (target, prop, value) => {
+            set: (target: TProps, prop: string, value: unknown) => {
                 const oldValue = { ...target };
 
                 target[prop] = value;
                 this._eventBus.emit(Component.EVENTS.FLOW_CDU, oldValue, target);
                 return true;
+            },
+
+            deleteProperty: () => {
+                throw new Error('Нет доступа');
             },
 
         });

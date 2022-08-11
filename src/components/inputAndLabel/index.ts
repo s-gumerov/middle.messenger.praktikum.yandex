@@ -34,8 +34,8 @@ export const inputAndLabel = ({ props }) => {
     return new InputAndLabel(
         'div',
         {
-            attr:{
-                class:styles.inputs__item
+            attr: {
+                class: styles.inputs__item
             },
             input: input,
             label: label,

@@ -1,6 +1,7 @@
-import Btn from "./Btn"
+import { Btn } from "./Btn";
+import { IBtnProps } from "./interfaces";
 
-export const btn = ({ anchorPath, btnType, msg, className, clickHandler, focusHandler, blurHandler }) => {
+export const btn = ({ anchorPath, btnType, msg, className, clickHandler, focusHandler, blurHandler }: IBtnProps) => {
 
     return new Btn(
         "div",

@@ -12,7 +12,11 @@
     "sourceMap": true,
     "strictNullChecks": true,
     "removeComments": true,
-    "preserveConstEnums": true
+    "preserveConstEnums": true,
+    "lib": [
+      "esnext",
+      "DOM"
+    ],
   },
   "exclude": [
     "dist",
