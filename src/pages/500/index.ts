@@ -1,21 +1,19 @@
 import * as styles from './styles.module.sass';
-import Btn from '../../components/btn/btn';
+import { btn as btnComponent } from '../../components/btn';
+
 import { ServerErrorPage } from './serverErrorPage';
 
-const clickHandler = (e) => {
+const clickHandler = (e: Event) => {
     e.preventDefault();
     console.log(e.currentTarget)
 };
 
-const button = new Btn(
-    "div",
+const button = btnComponent(
     {
         anchorPath: '/sign-up',
         msg: 'Назад к чатам',
         className: styles.notFound__btn,
-        events: {
-            click: clickHandler
-        }
+        clickHandler: clickHandler
     });
 
 export const serverErrorPage = new ServerErrorPage(
@@ -23,5 +21,8 @@ export const serverErrorPage = new ServerErrorPage(
     {
         h1Msg: '500',
         spanMsg: 'Мы уже фиксим',
-        anchor: button
+        anchor: button,
+        attr: {
+            class: styles.container
+        }
     });

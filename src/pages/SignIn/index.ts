@@ -3,86 +3,76 @@ import { SignIn } from './SignIn';
 import { btn as btnComponent } from '../../components/btn';
 import { inputAndLabel as inputAndLabelComponent } from '../../components/inputAndLabel';
 import * as styles from './styles.module.sass';
+import { InputAndLabelProps } from '../../components/inputAndLabel/interfaces';
+import { loginRegexp, passwordRegexp } from '../../utils/regularExpressions';
+import { loginInputTitle, passwordInputTitle } from '../../utils/inputTitleMsg';
 
 
-
-/* 
-login — от 3 до 20 символов, латиница, может содержать цифры, но не состоять из них, без пробелов, без спецсимволов (допустимы дефис и нижнее подчёркивание).
-
-*/
-
-const loginInputTitle = 'от 3 до 20 символов, латиница, может содержать цифры, но не состоять из них, без пробелов, без спецсимволов (допустимы дефис и нижнее подчёркивание)'
-
-
-
-const inputHandler = (e) => {
-    const { value, name } = e.target;
-    console.log(value, name, 'inputHandler');
-    // if (name === 'login')
+const validate = (value: string, name: string) => {
+    if (name === 'login') {
+        return console.log(value.match(loginRegexp))
+    }
+    if (name === 'password') {
+        return console.log(value.match(passwordRegexp))
+    }
 
 };
 
-const changeHandler = (e) => {
-    const { value, name } = e.target;
-    console.log(value, name, 'changeHandler');
+
+const focusHandler = (e: Event) => {
+    const { value, name } = e.target as HTMLInputElement;
+    console.log(value, name, 'focusHandler')
+    // validate(value, name)
 };
 
-const focusHandler = (e) => {
-    console.log('focusHandler')
+const blurHandler = (e: Event) => {
+    const { value, name } = e.target as HTMLInputElement;
+    console.log(value, name, 'blurHandler')
+    // validate(value, name)
 };
 
-const blurHandler = (e) => {
-    console.log('blurHandler')
-};
-
-const submitHandler = (e) => {
+const submitHandler = (e: Event) => {
     e.preventDefault();
-    console.log('onsubmitHandler')
+    const { login, password } = e.target as HTMLFormElement;
     console.log({
-        login: e.target.elements.login.value,
-        password: e.target.elements.password.value
+        login: login.value,
+        password: password.value
     })
 };
 
-const loginInputProps = {
-    id: makeUUID(),
+const loginInputProps: InputAndLabelProps = {
+    id: makeUUID() as string,
     name: 'login',
     type: 'text',
     placeholder: 'Логин',
     disabled: false,
     value: '',
-    pattern: "[a-z]{4,8}",
+    pattern: `${loginRegexp}`,
     title: loginInputTitle,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
     focusHandler: focusHandler,
     blurHandler: blurHandler,
-    inputHandler: inputHandler
 };
 
-const passwordInputProps = {
-    id: makeUUID(),
+const passwordInputProps: InputAndLabelProps = {
+    id: makeUUID() as string,
     name: 'password',
     type: 'password',
     placeholder: 'Пароль',
+    disabled: false,
+    value: '',
+    // pattern: `${passwordRegexp}`,
+    title: passwordInputTitle,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
     focusHandler: focusHandler,
     blurHandler: blurHandler,
-    inputHandler: inputHandler
 };
 
-const loginInput = inputAndLabelComponent(
-    {
-        props: loginInputProps
-    }
-);
+const loginInput = inputAndLabelComponent(loginInputProps);
 
-const passwordInput = inputAndLabelComponent(
-    {
-        props: passwordInputProps
-    }
-);
+const passwordInput = inputAndLabelComponent(passwordInputProps);
 
 const loginBtn = btnComponent(
     {
@@ -114,7 +104,5 @@ export const signIn = new SignIn(
             "focus": focusHandler,
             "blur": blurHandler,
             "submit": submitHandler,
-            "change": changeHandler,
-            "input": inputHandler,
         }
     });

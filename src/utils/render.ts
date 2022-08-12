@@ -1,4 +1,6 @@
-export const render = (query, component) => {
+import Component from "../services/Component";
+
+export const render = (query: string, component: Component) => {
 
     const root = document.getElementById(query);
 

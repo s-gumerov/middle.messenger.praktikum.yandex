@@ -1,6 +1,6 @@
 export interface IInputProps {
-    pattern: string,
-    title: string,
+    pattern?: string,
+    title?: string,
     id: string,
     name: string,
     type: string,

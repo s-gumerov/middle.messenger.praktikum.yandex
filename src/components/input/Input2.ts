@@ -14,4 +14,15 @@ export default class Input extends Component {
             input.addEventListener('input', this._props.events.input);
         });
     };
+
+    addAttribute() {
+        const { attr = {} } = this._props;
+        this._element.querySelectorAll('input').forEach(input => {
+            Object.entries(attr).forEach(([key, value]) => {
+                if (value !== undefined)
+                    input.setAttribute(key, value as string);
+            });
+        })
+
+    }
 };

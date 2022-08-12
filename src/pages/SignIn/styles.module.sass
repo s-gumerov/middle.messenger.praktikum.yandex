@@ -56,6 +56,14 @@
         outline: none
         caret-color: $blue
         @include hover-shadow($color: $blue)
+    &:valid
+        border: none
+        border-radius: 5px
+        outline: none
+        caret-color: $blue
+        @include hover-shadow($color: $blue)
+    &:invalid
+        @include hover-shadow($color: red)
 
 .form__btns
     display: flex

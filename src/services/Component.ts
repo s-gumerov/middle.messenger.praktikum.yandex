@@ -163,6 +163,7 @@ export default class Component {
     componentDidUpdate(oldProps: TProps, newProps: TProps) {
         if (JSON.stringify(oldProps) === JSON.stringify(newProps))
             return true;
+        else false
     }
 
     setProps(newProps: TProps) {

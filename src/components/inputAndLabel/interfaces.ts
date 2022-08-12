@@ -1,0 +1,15 @@
+export interface InputAndLabelProps {
+    id: string,
+    name: string,
+    type: string,
+    placeholder: string,
+    disabled: boolean,
+    value: string,
+    pattern?: string,
+    title?: string,
+    inputClassName: string,
+    labelClassName: string,
+    focusHandler: (e: Event) => void,
+    blurHandler: (e: Event) => void,
+    inputHandler?: (e: Event) => void,
+}

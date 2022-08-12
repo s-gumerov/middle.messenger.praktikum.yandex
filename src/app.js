@@ -1,7 +1,7 @@
 import IndexLayout from './layout/index';
 import * as styles from './app.module.sass';
 import { signIn } from './pages/SignIn';
-import { SignUp } from './pages/SignUp/SignUp';
+import { signUp } from './pages/SignUp';
 import { Chat } from './pages/Chat/Chat';
 import { Profile } from './pages/Profile/Profile';
 import { ProfileEdit } from './pages/ProfileEdit/ProfileEdit';
@@ -13,7 +13,7 @@ import { render as renderDom } from './utils/render';
 const routes = {
     '/': signIn,
     '/sign-in': signIn,
-    '/sign-up': SignUp,
+    '/sign-up': signUp,
     '/chat': Chat,
     '/profile': Profile,
     '/profile/edit': ProfileEdit,

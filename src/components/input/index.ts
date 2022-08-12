@@ -1,7 +1,7 @@
 import Input from "./Input2";
 import { IInputProps } from "./interfaces";
 
-export const input = ({ pattern, title, id, name, type, className, placeholder, disabled, value, inputHandler, focusHandler, blurHandler }:IInputProps) => {
+export const input = ({ pattern, title, id, name, type, className, placeholder, disabled, value, inputHandler, focusHandler, blurHandler }: IInputProps) => {
 
     return new Input(
         'div',
@@ -19,6 +19,10 @@ export const input = ({ pattern, title, id, name, type, className, placeholder, 
                 focus: focusHandler,
                 blur: blurHandler,
                 input: inputHandler,
+            },
+            attr: {
+                pattern: pattern,
+                title: title ?? ''
             }
 
         }

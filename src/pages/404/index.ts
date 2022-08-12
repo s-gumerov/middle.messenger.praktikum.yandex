@@ -1,21 +1,18 @@
 import * as styles from './styles.module.sass';
-import Btn from '../../components/btn/btn';
+import { btn as btnComponent } from '../../components/btn';
 import { NotFoundPage } from './NotFoundPage';
 
-const clickHandler = (e) => {
+const clickHandler = (e: Event) => {
     e.preventDefault();
     console.log(e.currentTarget)
 };
 
-const button = new Btn(
-    "div",
+const button = btnComponent(
     {
         anchorPath: '/sign-up',
         msg: 'Назад к чатам',
         className: styles.notFound__btn,
-        events: {
-            click: clickHandler
-        }
+        clickHandler: clickHandler
     });
 
 export const notFoundPage = new NotFoundPage(
@@ -23,5 +20,8 @@ export const notFoundPage = new NotFoundPage(
     {
         h1Msg: '404',
         spanMsg: 'Не туда попали',
-        anchor: button
+        anchor: button,
+        attr: {
+            class: styles.container
+        }
     });

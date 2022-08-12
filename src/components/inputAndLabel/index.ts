@@ -2,30 +2,33 @@ import * as styles from './styles.module.sass';
 import { InputAndLabel } from './InputAndLabel';
 import { label as labelComponent } from '../label';
 import { input as inputComponent } from '../input';
+import { InputAndLabelProps } from './interfaces';
+import { IInputProps } from '../input/interfaces';
 
 
-export const inputAndLabel = ({ props }) => {
+export const inputAndLabel = ({ id, name, type, placeholder, disabled, value, pattern, title, inputClassName, labelClassName, inputHandler, focusHandler, blurHandler }: InputAndLabelProps) => {
 
-    const inputProps = {
-        id: props.id,
-        name: props.name,
-        type: props.type,
-        className: props.inputClassName,
-        placeholder: props.placeholder,
-        disabled: props.disabled,
-        value: props.value,
-        focusHandler: props.focusHandler,
-        blurHandler: props.blurHandler,
-        clickHandler: props.clickHandler,
-        keydownHandler: props.keydownHandler,
+    const inputProps: IInputProps = {
+        id: id,
+        name: name,
+        type: type,
+        className: inputClassName,
+        placeholder: placeholder,
+        disabled: disabled,
+        value: value,
+        focusHandler: focusHandler,
+        blurHandler: blurHandler,
+        inputHandler: inputHandler,
+        pattern: pattern,
+        title: title
     };
 
     const labelProps =
     {
-        id: `label-${props.id}`,
-        to: props.id,
-        className: props.labelClassName,
-        message: props.placeholder,
+        id: `label-${id}`,
+        to: id,
+        className: labelClassName,
+        message: placeholder,
     };
 
     const input = inputComponent(inputProps);
@@ -35,7 +38,7 @@ export const inputAndLabel = ({ props }) => {
         'div',
         {
             attr: {
-                class: styles.inputs__item
+                class: styles.inputs__item,
             },
             input: input,
             label: label,
