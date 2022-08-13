@@ -1,6 +1,7 @@
 export interface IInputProps {
     pattern?: string,
     title?: string,
+    required?: boolean,
     id: string,
     name: string,
     type: string,
@@ -8,7 +9,7 @@ export interface IInputProps {
     placeholder: string,
     disabled: boolean,
     value: string,
-    inputHandler: (e: Event) => void,
-    focusHandler: (e: Event) => void,
-    blurHandler: (e: Event) => void
+    inputHandler?: (e: Event) => void,
+    focusHandler?: (e: Event) => void,
+    blurHandler?: (e: Event) => void
 }

@@ -7,6 +7,7 @@ export interface InputAndLabelProps {
     value: string,
     pattern?: string,
     title?: string,
+    required?: true,
     inputClassName: string,
     labelClassName: string,
     focusHandler: (e: Event) => void,

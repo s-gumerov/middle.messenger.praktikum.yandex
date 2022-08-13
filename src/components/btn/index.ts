@@ -1,7 +1,7 @@
 import { Btn } from "./Btn";
 import { IBtnProps } from "./interfaces";
 
-export const btn = ({ anchorPath, btnType, msg, className, clickHandler, focusHandler, blurHandler }: IBtnProps) => {
+export const btn = ({ anchorPath, btnType, msg, className, clickHandler, focusHandler, blurHandler, disabled }: IBtnProps) => {
 
     return new Btn(
         "div",
@@ -9,12 +9,16 @@ export const btn = ({ anchorPath, btnType, msg, className, clickHandler, focusHa
             anchorPath: anchorPath,
             btnType: btnType,
             msg: msg,
-            className: className,
             events: {
                 click: clickHandler,
                 focus: focusHandler,
                 blur: blurHandler
+            },
+            attr: {
+                disabled: disabled,
+                class: className,
             }
+
         }
     );
 

@@ -56,14 +56,18 @@
         outline: none
         caret-color: $blue
         @include hover-shadow($color: $blue)
-    &:valid
-        border: none
+    &:required
         border-radius: 5px
         outline: none
         caret-color: $blue
         @include hover-shadow($color: $blue)
-    &:invalid
-        @include hover-shadow($color: red)
+    &:valid
+        border-top: none
+        border-left: none
+        border-right: none
+        border-bottom: 1px $blue solid
+        border-radius: 0px
+        box-shadow: none
 
 .form__btns
     display: flex
@@ -75,6 +79,7 @@
     bottom: 20px
 
 .btns__btn
+    cursor: pointer
     display: flex
     justify-content: center
     align-items: center
@@ -86,8 +91,12 @@
     border-radius: 8px
     color: $white
     &:hover
-        cursor: pointer
         @include hover-shadow($color: $blue)
+    &:disabled
+        background: $white
+        color: $blue
+        box-shadow: none
+        cursor: not-allowed
 
 .btns__anchor
     color: $blue

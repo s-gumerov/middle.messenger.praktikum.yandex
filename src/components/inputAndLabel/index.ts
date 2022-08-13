@@ -6,7 +6,7 @@ import { InputAndLabelProps } from './interfaces';
 import { IInputProps } from '../input/interfaces';
 
 
-export const inputAndLabel = ({ id, name, type, placeholder, disabled, value, pattern, title, inputClassName, labelClassName, inputHandler, focusHandler, blurHandler }: InputAndLabelProps) => {
+export const inputAndLabel = ({ id, name, type, placeholder, disabled, value, pattern, title, required, inputClassName, labelClassName, inputHandler, focusHandler, blurHandler }: InputAndLabelProps) => {
 
     const inputProps: IInputProps = {
         id: id,
@@ -16,11 +16,12 @@ export const inputAndLabel = ({ id, name, type, placeholder, disabled, value, pa
         placeholder: placeholder,
         disabled: disabled,
         value: value,
+        pattern: pattern,
+        title: title,
+        required: required,
         focusHandler: focusHandler,
         blurHandler: blurHandler,
         inputHandler: inputHandler,
-        pattern: pattern,
-        title: title
     };
 
     const labelProps =

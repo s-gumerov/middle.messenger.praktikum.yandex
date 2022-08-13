@@ -5,7 +5,7 @@ import { inputAndLabel as inputAndLabelComponent } from '../../components/inputA
 import * as styles from './styles.module.sass';
 import { InputAndLabelProps } from '../../components/inputAndLabel/interfaces';
 import { loginRegexp, passwordRegexp } from '../../utils/regularExpressions';
-import { loginInputTitle, passwordInputTitle } from '../../utils/inputTitleMsg';
+import { firstNameAndSecondName, emailInputTitle, loginInputTitle, passwordInputTitle, phoneInputTitle } from '../../utils/inputTitleMsg';
 
 
 const validate = (value: string, name: string) => {
@@ -53,7 +53,7 @@ const emailInputProps: InputAndLabelProps = {
     disabled: false,
     value: '',
     // pattern: `${loginRegexp}`,
-    title: loginInputTitle,
+    title: emailInputTitle,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
     focusHandler: focusHandler,
@@ -67,7 +67,7 @@ const loginInputProps: InputAndLabelProps = {
     placeholder: 'Логин',
     disabled: false,
     value: '',
-    // pattern: `${loginRegexp}`,
+    pattern: loginRegexp,
     title: loginInputTitle,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
@@ -83,7 +83,7 @@ const firstNameInputProps: InputAndLabelProps = {
     disabled: false,
     value: '',
     // pattern: `${loginRegexp}`,
-    title: loginInputTitle,
+    title: firstNameAndSecondName,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
     focusHandler: focusHandler,
@@ -98,7 +98,7 @@ const secondNameInputProps: InputAndLabelProps = {
     disabled: false,
     value: '',
     // pattern: `${loginRegexp}`,
-    title: loginInputTitle,
+    title: firstNameAndSecondName,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
     focusHandler: focusHandler,
@@ -113,7 +113,7 @@ const phoneInputProps: InputAndLabelProps = {
     disabled: false,
     value: '',
     // pattern: `${loginRegexp}`,
-    title: loginInputTitle,
+    title: phoneInputTitle,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
     focusHandler: focusHandler,
@@ -127,7 +127,7 @@ const passwordInputProps: InputAndLabelProps = {
     placeholder: 'Пароль',
     disabled: false,
     value: '',
-    // pattern: `${passwordRegexp}`,
+    pattern: passwordRegexp,
     title: passwordInputTitle,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
@@ -142,7 +142,7 @@ const againPasswordInputProps: InputAndLabelProps = {
     placeholder: 'Пароль',
     disabled: false,
     value: '',
-    // pattern: `${passwordRegexp}`,
+    pattern: passwordRegexp,
     title: passwordInputTitle,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,

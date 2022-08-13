@@ -6,29 +6,34 @@ import * as styles from './styles.module.sass';
 import { InputAndLabelProps } from '../../components/inputAndLabel/interfaces';
 import { loginRegexp, passwordRegexp } from '../../utils/regularExpressions';
 import { loginInputTitle, passwordInputTitle } from '../../utils/inputTitleMsg';
+import { setSubmitBtnDisabled, checkingAllFields, validate, setComletedFieldsState } from '../../utils/helpers'
 
-
-const validate = (value: string, name: string) => {
-    if (name === 'login') {
-        return console.log(value.match(loginRegexp))
-    }
-    if (name === 'password') {
-        return console.log(value.match(passwordRegexp))
-    }
-
+const completedFields = {
+    login: false,
+    password: false
 };
 
 
 const focusHandler = (e: Event) => {
     const { value, name } = e.target as HTMLInputElement;
-    console.log(value, name, 'focusHandler')
-    // validate(value, name)
+    const fieldCompleted = validate(name, value);
+    setComletedFieldsState(completedFields, name, fieldCompleted);
+};
+
+const inputHandler = (e: Event) => {
+    const { value, name } = e.target as HTMLInputElement;
+    const fieldCompleted = validate(name, value);
+    setComletedFieldsState(completedFields, name, fieldCompleted);
+
+    //проверяем все поля на форме и записываем результат boolean в state, чтобы передать его в disabled кнопки
+    const state = checkingAllFields(completedFields);
+    setSubmitBtnDisabled(styles.btns__btn, state);
 };
 
 const blurHandler = (e: Event) => {
     const { value, name } = e.target as HTMLInputElement;
-    console.log(value, name, 'blurHandler')
-    // validate(value, name)
+    const fieldCompleted = validate(name, value);
+    setComletedFieldsState(completedFields, name, fieldCompleted);
 };
 
 const submitHandler = (e: Event) => {
@@ -49,10 +54,12 @@ const loginInputProps: InputAndLabelProps = {
     value: '',
     pattern: `${loginRegexp}`,
     title: loginInputTitle,
+    required: true,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
     focusHandler: focusHandler,
     blurHandler: blurHandler,
+    inputHandler: inputHandler
 };
 
 const passwordInputProps: InputAndLabelProps = {
@@ -62,12 +69,14 @@ const passwordInputProps: InputAndLabelProps = {
     placeholder: 'Пароль',
     disabled: false,
     value: '',
-    // pattern: `${passwordRegexp}`,
+    pattern: `${passwordRegexp}`,
     title: passwordInputTitle,
+    required: true,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
     focusHandler: focusHandler,
     blurHandler: blurHandler,
+    inputHandler: inputHandler
 };
 
 const loginInput = inputAndLabelComponent(loginInputProps);
@@ -79,6 +88,7 @@ const loginBtn = btnComponent(
         btnType: 'submit',
         msg: 'Авторизоваться',
         className: styles.btns__btn,
+        disabled: true
     }
 );
 
