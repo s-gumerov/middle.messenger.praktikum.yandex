@@ -6,7 +6,6 @@ export const tpl = `
     </aside>
     <section class=${styles.form}>
         {{{avatar}}}
-        <section class=${styles.form__item}>
             <section class=${styles.form__inputs}>
                 {{{emailInput}}}
                 <div class=${styles.line}></div>
@@ -20,7 +19,6 @@ export const tpl = `
                 <div class=${styles.line}></div>
                 {{{phoneInput}}}
             </section>
-        </section>
             <section class=${styles.form__btn}>
                 {{{saveBtn}}}
             </section>

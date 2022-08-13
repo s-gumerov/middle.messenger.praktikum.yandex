@@ -6,7 +6,6 @@ export const tpl = `
     </aside>
     <section class=${styles.form}>
         {{{avatar}}}
-        <section class=${styles.form__item}>
             <section class=${styles.form__inputs}>
                 {{{oldPasswordInput}}}
                 <div class=${styles.line}></div>
@@ -14,28 +13,8 @@ export const tpl = `
                 <div class=${styles.line}></div>
                 {{{againNewPasswordInput}}}
             </section>
-        </section>
             <section class=${styles.form__btn}>
                 {{{saveBtn}}}
             </section>
     </section>
 `;
-
-
-/*
-<article class={{container}}>
-    <aside class={{aside}}>
-        {{{anchor}}}
-    </aside>
-    <section class={{form}}>
-        {{{avatar}}}
-        <section class={{form__item}}>
-            <section class={{form__inputs}}>
-                {{{inputs}}}
-            </section>
-        </section>
-        {{{btnsGroup}}}
-    </section>
-</article>
-
-*/

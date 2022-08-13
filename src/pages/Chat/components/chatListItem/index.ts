@@ -28,7 +28,7 @@ export const chatListItem = ({ avatarImg, chatName, lastMsg, lastMsgTime, msgCou
         'article',
         {
             attr: {
-                class: styles.container
+                class: styles.chatListItem
             },
             avatar: avatar,
             chatName: chatName,
