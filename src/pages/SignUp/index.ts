@@ -4,36 +4,57 @@ import { btn as btnComponent } from '../../components/btn';
 import { inputAndLabel as inputAndLabelComponent } from '../../components/inputAndLabel';
 import * as styles from './styles.module.sass';
 import { InputAndLabelProps } from '../../components/inputAndLabel/interfaces';
-import { loginRegexp, passwordRegexp } from '../../utils/regularExpressions';
+import { emailRegexp, loginRegexp, firstNameAndSecondNameRegexp, passwordRegexp, phoneRegexp } from '../../utils/regularExpressions';
 import { firstNameAndSecondName, emailInputTitle, loginInputTitle, passwordInputTitle, phoneInputTitle } from '../../utils/inputTitleMsg';
+import { setSubmitBtnDisabled, checkingAllFields, validate, setComletedFieldsState } from '../../utils/helpers';
 
 
-const validate = (value: string, name: string) => {
-    if (name === 'login') {
-        return console.log(value.match(loginRegexp))
-    }
-    if (name === 'password') {
-        return console.log(value.match(passwordRegexp))
-    }
-
+const completedFields = {
+    email: false,
+    login: false,
+    first_name: false,
+    second_name: false,
+    phone: false,
+    password: false,
+    again_password: false
 };
 
 
 const focusHandler = (e: Event) => {
     const { value, name } = e.target as HTMLInputElement;
-    console.log(value, name, 'focusHandler')
-    // validate(value, name)
+    const fieldCompleted = validate(name, value);
+    setComletedFieldsState(completedFields, name, fieldCompleted);
+};
+
+const inputHandler = (e: Event) => {
+    const { value, name } = e.target as HTMLInputElement;
+    const fieldCompleted = validate(name, value);
+    setComletedFieldsState(completedFields, name, fieldCompleted);
+
+    //проверяем все поля на форме и записываем результат boolean в state, чтобы передать его в disabled кнопки
+    const state = checkingAllFields(completedFields);
+    setSubmitBtnDisabled(styles.btns__btn, state);
 };
 
 const blurHandler = (e: Event) => {
     const { value, name } = e.target as HTMLInputElement;
-    console.log(value, name, 'blurHandler')
-    // validate(value, name)
+    const fieldCompleted = validate(name, value);
+    setComletedFieldsState(completedFields, name, fieldCompleted);
 };
 
 const submitHandler = (e: Event) => {
     e.preventDefault();
-    const { email, login, first_name, second_name, phone, password, again_password } = e.target as HTMLFormElement;
+    const
+        {
+            email,
+            login,
+            first_name,
+            second_name,
+            phone,
+            password,
+            again_password
+        } = e.target as HTMLFormElement;
+
     console.log({
         email: email.value,
         login: login.value,
@@ -52,12 +73,14 @@ const emailInputProps: InputAndLabelProps = {
     placeholder: 'Почта',
     disabled: false,
     value: '',
-    // pattern: `${loginRegexp}`,
+    pattern: `${emailRegexp}`,
     title: emailInputTitle,
+    required: true,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
     focusHandler: focusHandler,
     blurHandler: blurHandler,
+    inputHandler: inputHandler
 };
 
 const loginInputProps: InputAndLabelProps = {
@@ -67,12 +90,14 @@ const loginInputProps: InputAndLabelProps = {
     placeholder: 'Логин',
     disabled: false,
     value: '',
-    pattern: loginRegexp,
+    pattern: `${loginRegexp}`,
     title: loginInputTitle,
+    required: true,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
     focusHandler: focusHandler,
     blurHandler: blurHandler,
+    inputHandler: inputHandler
 };
 
 const firstNameInputProps: InputAndLabelProps = {
@@ -82,12 +107,14 @@ const firstNameInputProps: InputAndLabelProps = {
     placeholder: 'Имя',
     disabled: false,
     value: '',
-    // pattern: `${loginRegexp}`,
+    pattern: `${firstNameAndSecondNameRegexp}`,
     title: firstNameAndSecondName,
+    required: true,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
     focusHandler: focusHandler,
     blurHandler: blurHandler,
+    inputHandler: inputHandler
 };
 
 const secondNameInputProps: InputAndLabelProps = {
@@ -97,12 +124,14 @@ const secondNameInputProps: InputAndLabelProps = {
     placeholder: 'Фамилия',
     disabled: false,
     value: '',
-    // pattern: `${loginRegexp}`,
+    pattern: `${firstNameAndSecondNameRegexp}`,
     title: firstNameAndSecondName,
+    required: true,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
     focusHandler: focusHandler,
     blurHandler: blurHandler,
+    inputHandler: inputHandler
 };
 
 const phoneInputProps: InputAndLabelProps = {
@@ -112,12 +141,14 @@ const phoneInputProps: InputAndLabelProps = {
     placeholder: 'Телефон',
     disabled: false,
     value: '',
-    // pattern: `${loginRegexp}`,
+    pattern: `${phoneRegexp}`,
     title: phoneInputTitle,
+    required: true,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
     focusHandler: focusHandler,
     blurHandler: blurHandler,
+    inputHandler: inputHandler
 };
 
 const passwordInputProps: InputAndLabelProps = {
@@ -129,10 +160,12 @@ const passwordInputProps: InputAndLabelProps = {
     value: '',
     pattern: passwordRegexp,
     title: passwordInputTitle,
+    required: true,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
     focusHandler: focusHandler,
     blurHandler: blurHandler,
+    inputHandler: inputHandler
 };
 
 const againPasswordInputProps: InputAndLabelProps = {
@@ -144,10 +177,12 @@ const againPasswordInputProps: InputAndLabelProps = {
     value: '',
     pattern: passwordRegexp,
     title: passwordInputTitle,
+    required: true,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
     focusHandler: focusHandler,
     blurHandler: blurHandler,
+    inputHandler: inputHandler
 };
 
 const emailInput = inputAndLabelComponent(emailInputProps);
@@ -169,6 +204,7 @@ const signUpBtn = btnComponent(
         btnType: 'submit',
         msg: 'Зарегистрироваться',
         className: styles.btns__btn,
+        disabled: true
     }
 );
 
@@ -196,8 +232,6 @@ export const signUp = new SignUp(
         signUpBtn: signUpBtn,
         signInAnchor: signInAnchor,
         events: {
-            "focus": focusHandler,
-            "blur": blurHandler,
             "submit": submitHandler,
         }
     });

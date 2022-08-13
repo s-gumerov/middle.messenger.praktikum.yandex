@@ -1,4 +1,4 @@
-import { loginRegexp, passwordRegexp } from './regularExpressions';
+import { emailRegexp, loginRegexp, firstNameAndSecondNameRegexp, phoneRegexp, passwordRegexp } from './regularExpressions';
 
 export const setSubmitBtnDisabled = (btnClass: string, disabledState: boolean) => {
     const btn = document.querySelector(`.${btnClass}`);
@@ -30,13 +30,28 @@ export const setComletedFieldsState = (obj: { [index: string]: any }, findProper
 
 };
 
+
 export const validate = (name: string, value: string): boolean => {
+
+    if (name === 'email')
+        return value.match(emailRegexp) !== null;
 
     if (name === 'login')
         return value.match(loginRegexp) !== null
 
+    if (name === 'first_name')
+        return value.match(firstNameAndSecondNameRegexp) !== null;
+
+    if (name === 'second_name')
+        return value.match(firstNameAndSecondNameRegexp) !== null;
+
+    if (name === 'phone')
+        return value.match(phoneRegexp) !== null;
 
     if (name === 'password')
+        return value.match(passwordRegexp) !== null;
+
+    if (name === 'again_password')
         return value.match(passwordRegexp) !== null;
 
 

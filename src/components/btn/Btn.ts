@@ -10,10 +10,19 @@ export class Btn extends Component {
 
     addAttribute() {
         const { attr = {} } = this._props;
+
+        //определяем атрибуты для кнопки и якоря
         this._element.querySelectorAll('button').forEach(button => {
             Object.entries(attr).forEach(([key, value]) => {
                 if (value !== undefined)
                     button.setAttribute(key, value as string);
+            });
+        })
+
+        this._element.querySelectorAll('a').forEach(a => {
+            Object.entries(attr).forEach(([key, value]) => {
+                if (value !== undefined)
+                    a.setAttribute(key, value as string);
             });
         })
 

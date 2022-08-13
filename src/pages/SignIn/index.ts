@@ -6,7 +6,7 @@ import * as styles from './styles.module.sass';
 import { InputAndLabelProps } from '../../components/inputAndLabel/interfaces';
 import { loginRegexp, passwordRegexp } from '../../utils/regularExpressions';
 import { loginInputTitle, passwordInputTitle } from '../../utils/inputTitleMsg';
-import { setSubmitBtnDisabled, checkingAllFields, validate, setComletedFieldsState } from '../../utils/helpers'
+import { setSubmitBtnDisabled, checkingAllFields, validate, setComletedFieldsState } from '../../utils/helpers';
 
 const completedFields = {
     login: false,
@@ -111,8 +111,6 @@ export const signIn = new SignIn(
         loginBtn: loginBtn,
         signUpAnchor: signUpAnchor,
         events: {
-            "focus": focusHandler,
-            "blur": blurHandler,
             "submit": submitHandler,
         }
     });

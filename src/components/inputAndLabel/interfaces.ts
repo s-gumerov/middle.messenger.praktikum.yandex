@@ -8,9 +8,10 @@ export interface InputAndLabelProps {
     pattern?: string,
     title?: string,
     required?: true,
+    containerClass?: string,
     inputClassName: string,
     labelClassName: string,
-    focusHandler: (e: Event) => void,
-    blurHandler: (e: Event) => void,
+    focusHandler?: (e: Event) => void,
+    blurHandler?: (e: Event) => void,
     inputHandler?: (e: Event) => void,
 }
