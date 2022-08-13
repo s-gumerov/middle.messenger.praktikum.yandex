@@ -2,7 +2,7 @@ import IndexLayout from './layout/index';
 import * as styles from './app.module.sass';
 import { signIn } from './pages/SignIn';
 import { signUp } from './pages/SignUp';
-import { Chat } from './pages/Chat/Chat';
+import { chat } from './pages/Chat';
 import { profile } from './pages/Profile';
 import { profileEdit } from './pages/ProfileEdit';
 import { changePassword } from './pages/ChangePassword';
@@ -14,7 +14,7 @@ const routes = {
     '/': signIn,
     '/sign-in': signIn,
     '/sign-up': signUp,
-    '/chat': Chat,
+    '/chat': chat,
     '/profile': profile,
     '/profile/edit': profileEdit,
     '/profile/change-password': changePassword,
