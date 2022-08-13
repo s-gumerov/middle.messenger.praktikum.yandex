@@ -1,4 +1,4 @@
-import Input from "./Input2";
+import {Input} from "./Input";
 import { IInputProps } from "./interfaces";
 
 export const input = ({ pattern, title, required, id, name, type, className, placeholder, disabled, value, inputHandler, focusHandler, blurHandler }: IInputProps) => {

@@ -1,4 +1,4 @@
-import IndexLayout from './layout/index';
+import { Index as IndexLayout } from './layout/index';
 import * as styles from './app.module.sass';
 import { signIn } from './pages/SignIn';
 import { signUp } from './pages/SignUp';
@@ -22,18 +22,25 @@ const routes = {
     '/500': serverErrorPage,
 };
 
-const path = window.location.pathname;
+const pageLoader = (routes: { [index: string]: any }, location: string) => {
+    let loadPage = routes['/404'];
 
-Object.keys(routes)
-    .find(page => page === path) ?
-    renderDom('root',
+    for (let [page] of Object.entries(routes))
+        if (page === location)
+            loadPage = routes[page];
+
+    return renderDom(
+        'root',
         new IndexLayout(
             "div", {
             attr: {
                 class: styles.app
             },
-            page: routes[path]
+            page: loadPage
         }
-        ))
-    :
-    notFoundPage;
+        ));
+};
+
+const location = window.location.pathname;
+
+pageLoader(routes, location);

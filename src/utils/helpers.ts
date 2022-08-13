@@ -10,23 +10,23 @@ export const checkingAllFields = (obj: object) => {
     let completed = false;
 
     if (obj !== null) {
-        for (const [properties, value] of Object.entries(obj)) {
+        for (const [, value] of Object.entries(obj)) {
 
             if (value === false) {
                 completed = value;
-                break
+                break;
             } else
-                completed = value
+                completed = value;
         };
     };
-    return completed
+    return completed;
 };
 
 export const setComletedFieldsState = (obj: { [index: string]: any }, findProperties: string, state: boolean) => {
 
-    for (let [properties, value] of Object.entries(obj))
+    for (let [properties] of Object.entries(obj))
         if (properties === findProperties)
-            obj[properties] = state
+            obj[properties] = state;
 
 };
 
@@ -37,7 +37,7 @@ export const validate = (name: string, value: string): boolean => {
         return value.match(emailRegexp) !== null;
 
     if (name === 'login')
-        return value.match(loginRegexp) !== null
+        return value.match(loginRegexp) !== null;
 
     if (name === 'first_name')
         return value.match(firstNameAndSecondNameRegexp) !== null;
