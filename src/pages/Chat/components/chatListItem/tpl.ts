@@ -1,7 +1,6 @@
 import * as styles from './styles.module.sass';
 
 export const tpl = `
-<article class=${styles.chatListItem}>
 
     {{{avatar}}}
 
@@ -21,6 +20,5 @@ export const tpl = `
         {{{msgCountBtn}}}
 
     </div>
-</article>
 <div class=${styles.sidebar__line}></div>
 `;

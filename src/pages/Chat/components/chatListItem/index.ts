@@ -35,8 +35,5 @@ export const chatListItem = ({ avatarImg, chatName, lastMsg, lastMsgTime, msgCou
             lastMsg: lastMsg,
             lastMsgTime: lastMsgTime,
             msgCountBtn: msgCountBtn
-            // events: {
-            //     "submit": submitHandler,
-            // }
         });
 }; 

@@ -13,9 +13,7 @@ export const chatList = (chatList: IChatListItemProps[]) => {
             attr: {
                 class: styles.sidebar__chatList
             },
-            content: content,
-            // events: {
-            //     "submit": submitHandler,
-            // }
+            content: content[0],
+            list: content
         });
 }; 

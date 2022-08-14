@@ -23,10 +23,6 @@ export default class Component {
     _eventBus;
     _setUpdate = false;
 
-
-    // _element = null;
-    // _meta = null;
-
     constructor(tag = "div", propsAndChilds: TProps = {}) {
 
         const { children, props } = this.getChildren(propsAndChilds);
@@ -118,11 +114,36 @@ export default class Component {
 
         const propsAndStubs = { ...props };
 
+        const fragment: HTMLElement = this.createDocumentElement('template');
+
+        Object.keys(propsAndStubs).forEach(key => {
+            //обработка массива с childs
+            if (Array.isArray(propsAndStubs[key])) {
+                const childs: TProps = propsAndStubs[key];
+
+                Object.entries(childs).forEach(([i, child]) => {
+                    //является ли child "сложным"
+                    if (child instanceof Component) {
+
+
+                    };
+
+
+
+                });
+            };
+        });
+
+
+
         Object.entries(this._children).forEach(([key, child]) => {
             propsAndStubs[key] = `<div data-id="${child._id}"></div>`;
         });
 
-        const fragment: HTMLElement = this.createDocumentElement('template');
+
+
+
+        // const fragment: HTMLElement = this.createDocumentElement('template');
         fragment.innerHTML = Handlebars.compile(template)(propsAndStubs);
 
         Object.values(this._children).forEach(child => {
@@ -144,9 +165,7 @@ export default class Component {
         Object.values(this._children).forEach(child => { child.dispatchComponentDidMount() });
     }
 
-    // componentDidMount(oldProps: TProps) { }
     componentDidMount() { }
-
 
     dispatchComponentDidMount() {
         this._eventBus.emit(Component.EVENTS.FLOW_CDM);
