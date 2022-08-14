@@ -19,8 +19,8 @@ export const tpl = `
                 <div class=${styles.line}></div>
                 {{{phoneInput}}}
             </section>
-            <section class=${styles.form__btn}>
+
                 {{{saveBtn}}}
-            </section>
+
     </section>
 `;

@@ -2,6 +2,7 @@ import { emailRegexp, loginRegexp, firstNameAndSecondNameRegexp, phoneRegexp, pa
 
 export const setSubmitBtnDisabled = (btnClass: string, disabledState: boolean) => {
     const btn = document.querySelector(`.${btnClass}`);
+
     if (btn)
         disabledState ? btn.removeAttribute('disabled') : btn.setAttribute('disabled', 'true');
 };
@@ -45,10 +46,19 @@ export const validate = (name: string, value: string): boolean => {
     if (name === 'second_name')
         return value.match(firstNameAndSecondNameRegexp) !== null;
 
+    if (name === 'display_name')
+        return value.match(firstNameAndSecondNameRegexp) !== null;
+
     if (name === 'phone')
         return value.match(phoneRegexp) !== null;
 
     if (name === 'password')
+        return value.match(passwordRegexp) !== null;
+
+    if (name === 'old_password')
+        return value.match(passwordRegexp) !== null;
+
+    if (name === 'new_password')
         return value.match(passwordRegexp) !== null;
 
     if (name === 'again_password')

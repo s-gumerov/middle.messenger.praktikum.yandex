@@ -6,7 +6,47 @@ import { btn as btnComponent } from '../../components/btn';
 import { inputAndLabel as inputAndLabelComponent } from '../../components/inputAndLabel';
 import * as styles from './styles.module.sass';
 import { InputAndLabelProps } from '../../components/inputAndLabel/interfaces';
+import { setSubmitBtnDisabled, checkingAllFields, validate, setComletedFieldsState } from '../../utils/helpers';
 
+
+const completedFields = {
+    old_password: false,
+    new_password: false,
+    again_password: false
+};
+
+const focusHandler = (e: Event) => {
+    const { value, name } = e.target as HTMLInputElement;
+    const fieldCompleted = validate(name, value);
+    setComletedFieldsState(completedFields, name, fieldCompleted);
+};
+
+const inputHandler = (e: Event) => {
+    const { value, name } = e.target as HTMLInputElement;
+    console.log(value, name)
+    const fieldCompleted = validate(name, value);
+    setComletedFieldsState(completedFields, name, fieldCompleted);
+
+    //проверяем все поля на форме и записываем результат boolean в state, чтобы передать его в disabled кнопки
+    const state = checkingAllFields(completedFields);
+    setSubmitBtnDisabled(styles.form__btn, state);
+};
+
+const blurHandler = (e: Event) => {
+    const { value, name } = e.target as HTMLInputElement;
+    const fieldCompleted = validate(name, value);
+    setComletedFieldsState(completedFields, name, fieldCompleted);
+};
+
+const submitHandler = (e: Event) => {
+    e.preventDefault();
+    const { old_password, new_password, again_password } = e.target as HTMLFormElement;
+    console.log({
+        old_password: old_password.value,
+        new_password: new_password.value,
+        again_password: again_password.value
+    })
+};
 
 const avatarProps: IAvatarProps =
 {
@@ -26,10 +66,13 @@ const oldPasswordInputProps: InputAndLabelProps = {
     type: 'password',
     placeholder: 'Старый пароль',
     disabled: disabledInputs,
-    value: '12345678',
+    value: 'qwe',
     containerClass: styles.inputs__item,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
+    focusHandler: focusHandler,
+    blurHandler: blurHandler,
+    inputHandler: inputHandler
 };
 
 const newPasswordInputNameProps: InputAndLabelProps = {
@@ -38,25 +81,29 @@ const newPasswordInputNameProps: InputAndLabelProps = {
     type: 'password',
     placeholder: 'Новый пароль',
     disabled: disabledInputs,
-    value: '12345678',
+    value: 'qwe',
     containerClass: styles.inputs__item,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
+    focusHandler: focusHandler,
+    blurHandler: blurHandler,
+    inputHandler: inputHandler
 };
 
 const againNewPasswordInputProps: InputAndLabelProps = {
     id: makeUUID() as string,
-    name: 'again_new_password',
+    name: 'again_password',
     type: 'password',
     placeholder: 'Повторите новый пароль',
     disabled: disabledInputs,
-    value: '12345678',
+    value: 'qwe',
     containerClass: styles.inputs__item,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
+    focusHandler: focusHandler,
+    blurHandler: blurHandler,
+    inputHandler: inputHandler
 };
-
-
 
 
 const oldPasswordInput = inputAndLabelComponent(oldPasswordInputProps);
@@ -77,14 +124,15 @@ const anchorToProfile = btnComponent(
 
 const saveBtn = btnComponent(
     {
-        anchorPath: '/profile',
+        btnType: 'submit',
         msg: 'Сохранить',
-        className: styles.form__btn
+        className: styles.form__btn,
+        disabled: true
     }
 );
 
 export const changePassword = new ChangePassword(
-    'article',
+    'form',
     {
         attr: {
             class: styles.container
@@ -94,8 +142,8 @@ export const changePassword = new ChangePassword(
         newPasswordInputName: newPasswordInputName,
         againNewPasswordInput: againNewPasswordInput,
         anchorToProfile: anchorToProfile,
-        saveBtn: saveBtn
-        // events: {
-        //     "submit": submitHandler,
-        // }
+        saveBtn: saveBtn,
+        events: {
+            "submit": submitHandler,
+        }
     });

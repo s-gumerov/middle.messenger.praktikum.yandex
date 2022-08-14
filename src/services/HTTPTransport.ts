@@ -4,7 +4,7 @@ enum METHODS {
     PUT = 'PUT',
     PATCH = 'PATCH',
     DELETE = 'DELETE',
-}
+};
 
 type TQueryStringify = Record<string, string | number>;
 

@@ -13,8 +13,8 @@ export const tpl = `
                 <div class=${styles.line}></div>
                 {{{againNewPasswordInput}}}
             </section>
-            <section class=${styles.form__btn}>
+
                 {{{saveBtn}}}
-            </section>
+
     </section>
 `;

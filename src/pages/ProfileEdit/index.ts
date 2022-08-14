@@ -6,7 +6,60 @@ import { btn as btnComponent } from '../../components/btn';
 import { inputAndLabel as inputAndLabelComponent } from '../../components/inputAndLabel';
 import * as styles from './styles.module.sass';
 import { InputAndLabelProps } from '../../components/inputAndLabel/interfaces';
+import { setSubmitBtnDisabled, checkingAllFields, validate, setComletedFieldsState } from '../../utils/helpers';
 
+const completedFields = {
+    email: false,
+    login: false,
+    first_name: false,
+    second_name: false,
+    display_name: false,
+    phone: false,
+};
+
+const focusHandler = (e: Event) => {
+    const { value, name } = e.target as HTMLInputElement;
+    const fieldCompleted = validate(name, value);
+    setComletedFieldsState(completedFields, name, fieldCompleted);
+};
+
+const inputHandler = (e: Event) => {
+    const { value, name } = e.target as HTMLInputElement;
+    const fieldCompleted = validate(name, value);
+    setComletedFieldsState(completedFields, name, fieldCompleted);
+
+    //проверяем все поля на форме и записываем результат boolean в state, чтобы передать его в disabled кнопки
+    const state = checkingAllFields(completedFields);
+    setSubmitBtnDisabled(styles.form__btn, state);
+};
+
+const blurHandler = (e: Event) => {
+    const { value, name } = e.target as HTMLInputElement;
+    const fieldCompleted = validate(name, value);
+    setComletedFieldsState(completedFields, name, fieldCompleted);
+};
+
+const submitHandler = (e: Event) => {
+    e.preventDefault();
+    const
+        {
+            email,
+            login,
+            first_name,
+            second_name,
+            display_name,
+            phone
+        } = e.target as HTMLFormElement;
+
+    console.log({
+        email: email.value,
+        login: login.value,
+        first_name: first_name.value,
+        second_name: second_name.value,
+        display_name: display_name.value,
+        phone: phone.value,
+    })
+};
 
 const avatarProps: IAvatarProps =
 {
@@ -30,6 +83,9 @@ const emailInputProps: InputAndLabelProps = {
     containerClass: styles.inputs__item,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
+    focusHandler: focusHandler,
+    blurHandler: blurHandler,
+    inputHandler: inputHandler
 };
 
 const loginInputProps: InputAndLabelProps = {
@@ -42,6 +98,9 @@ const loginInputProps: InputAndLabelProps = {
     containerClass: styles.inputs__item,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
+    focusHandler: focusHandler,
+    blurHandler: blurHandler,
+    inputHandler: inputHandler
 };
 
 const firstNameInputProps: InputAndLabelProps = {
@@ -54,6 +113,9 @@ const firstNameInputProps: InputAndLabelProps = {
     containerClass: styles.inputs__item,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
+    focusHandler: focusHandler,
+    blurHandler: blurHandler,
+    inputHandler: inputHandler
 };
 
 const secondNameInputProps: InputAndLabelProps = {
@@ -66,6 +128,9 @@ const secondNameInputProps: InputAndLabelProps = {
     containerClass: styles.inputs__item,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
+    focusHandler: focusHandler,
+    blurHandler: blurHandler,
+    inputHandler: inputHandler
 };
 
 const displayNameProps: InputAndLabelProps = {
@@ -78,6 +143,9 @@ const displayNameProps: InputAndLabelProps = {
     containerClass: styles.inputs__item,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
+    focusHandler: focusHandler,
+    blurHandler: blurHandler,
+    inputHandler: inputHandler
 };
 
 const phoneInputProps: InputAndLabelProps = {
@@ -90,8 +158,10 @@ const phoneInputProps: InputAndLabelProps = {
     containerClass: styles.inputs__item,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
+    focusHandler: focusHandler,
+    blurHandler: blurHandler,
+    inputHandler: inputHandler
 };
-
 
 
 const emailInput = inputAndLabelComponent(emailInputProps);
@@ -115,17 +185,17 @@ const anchorToProfile = btnComponent(
     }
 );
 
-
 const saveBtn = btnComponent(
     {
-        anchorPath: '/profile',
+        btnType: 'submit',
         msg: 'Сохранить',
-        className: styles.form__btn
+        className: styles.form__btn,
+        disabled: true
     }
 );
 
 export const profileEdit = new ProfileEdit(
-    'article',
+    'form',
     {
         attr: {
             class: styles.container
@@ -138,8 +208,8 @@ export const profileEdit = new ProfileEdit(
         displayNameInput: displayNameInput,
         phoneInput: phoneInput,
         anchorToProfile: anchorToProfile,
-        saveBtn: saveBtn
-        // events: {
-        //     "submit": submitHandler,
-        // }
+        saveBtn: saveBtn,
+        events: {
+            "submit": submitHandler,
+        }
     });

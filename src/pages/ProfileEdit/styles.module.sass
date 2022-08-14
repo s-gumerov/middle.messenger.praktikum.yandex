@@ -92,31 +92,11 @@
     &:hover
         cursor: pointer
         @include hover-shadow($color: $blue)
-
-/*============================*/
-
-// .btns__btn
-//     display: flex
-//     justify-content: center
-//     align-items: center
-//     text-decoration: none
-//     width: 280px
-//     height: 37px
-//     background: $blue
-//     border: none
-//     border-radius: 8px
-//     color: $white
-//     &:hover
-//         cursor: pointer
-//         @include hover-shadow($color: $blue)
-
-// .btns__anchor
-//     color: $blue
-//     text-decoration: none
-
-// .btns__anchor_red
-//     color: #FF0000
-//     text-decoration: none
+    &:disabled
+        background: $white
+        color: $blue
+        box-shadow: none
+        cursor: not-allowed
 
 .figure
     background-color: $grayAvatarBackground

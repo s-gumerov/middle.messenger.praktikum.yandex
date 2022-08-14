@@ -68,6 +68,7 @@
     background: #EAEAEA
 
 .form__btn
+    cursor: pointer
     display: flex
     justify-content: center
     align-items: center
@@ -79,8 +80,12 @@
     border-radius: 8px
     color: $white
     &:hover
-        cursor: pointer
         @include hover-shadow($color: $blue)
+    &:disabled
+        background: $white
+        color: $blue
+        box-shadow: none
+        cursor: not-allowed
 
 .figure
     background-color: $grayAvatarBackground
