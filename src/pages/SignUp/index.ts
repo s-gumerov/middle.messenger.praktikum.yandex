@@ -4,7 +4,6 @@ import { btn as btnComponent } from '../../components/btn';
 import { inputAndLabel as inputAndLabelComponent } from '../../components/inputAndLabel';
 import * as styles from './styles.module.sass';
 import { InputAndLabelProps } from '../../components/inputAndLabel/interfaces';
-import { emailRegexp, loginRegexp, firstNameAndSecondNameRegexp, passwordRegexp, phoneRegexp } from '../../utils/regularExpressions';
 import { firstNameAndSecondName, emailInputTitle, loginInputTitle, passwordInputTitle, phoneInputTitle } from '../../utils/inputTitleMsg';
 import { setSubmitBtnDisabled, checkingAllFields, validate, setComletedFieldsState } from '../../utils/helpers';
 
@@ -73,9 +72,7 @@ const emailInputProps: InputAndLabelProps = {
     placeholder: 'Почта',
     disabled: false,
     value: '',
-    pattern: `${emailRegexp}`,
     title: emailInputTitle,
-    required: true,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
     focusHandler: focusHandler,
@@ -90,9 +87,7 @@ const loginInputProps: InputAndLabelProps = {
     placeholder: 'Логин',
     disabled: false,
     value: '',
-    pattern: `${loginRegexp}`,
     title: loginInputTitle,
-    required: true,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
     focusHandler: focusHandler,
@@ -107,9 +102,7 @@ const firstNameInputProps: InputAndLabelProps = {
     placeholder: 'Имя',
     disabled: false,
     value: '',
-    pattern: `${firstNameAndSecondNameRegexp}`,
     title: firstNameAndSecondName,
-    required: true,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
     focusHandler: focusHandler,
@@ -124,9 +117,7 @@ const secondNameInputProps: InputAndLabelProps = {
     placeholder: 'Фамилия',
     disabled: false,
     value: '',
-    pattern: `${firstNameAndSecondNameRegexp}`,
     title: firstNameAndSecondName,
-    required: true,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
     focusHandler: focusHandler,
@@ -141,9 +132,7 @@ const phoneInputProps: InputAndLabelProps = {
     placeholder: 'Телефон',
     disabled: false,
     value: '',
-    pattern: `${phoneRegexp}`,
     title: phoneInputTitle,
-    required: true,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
     focusHandler: focusHandler,
@@ -158,9 +147,7 @@ const passwordInputProps: InputAndLabelProps = {
     placeholder: 'Пароль',
     disabled: false,
     value: '',
-    pattern: passwordRegexp,
     title: passwordInputTitle,
-    required: true,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
     focusHandler: focusHandler,
@@ -175,9 +162,7 @@ const againPasswordInputProps: InputAndLabelProps = {
     placeholder: 'Пароль',
     disabled: false,
     value: '',
-    pattern: passwordRegexp,
     title: passwordInputTitle,
-    required: true,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
     focusHandler: focusHandler,

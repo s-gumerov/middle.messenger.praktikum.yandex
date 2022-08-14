@@ -4,7 +4,6 @@ import { btn as btnComponent } from '../../components/btn';
 import { inputAndLabel as inputAndLabelComponent } from '../../components/inputAndLabel';
 import * as styles from './styles.module.sass';
 import { InputAndLabelProps } from '../../components/inputAndLabel/interfaces';
-import { loginRegexp, passwordRegexp } from '../../utils/regularExpressions';
 import { loginInputTitle, passwordInputTitle } from '../../utils/inputTitleMsg';
 import { setSubmitBtnDisabled, checkingAllFields, validate, setComletedFieldsState } from '../../utils/helpers';
 
@@ -52,9 +51,7 @@ const loginInputProps: InputAndLabelProps = {
     placeholder: 'Логин',
     disabled: false,
     value: '',
-    pattern: `${loginRegexp}`,
     title: loginInputTitle,
-    required: true,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
     focusHandler: focusHandler,
@@ -69,9 +66,7 @@ const passwordInputProps: InputAndLabelProps = {
     placeholder: 'Пароль',
     disabled: false,
     value: '',
-    pattern: `${passwordRegexp}`,
     title: passwordInputTitle,
-    required: true,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
     focusHandler: focusHandler,
