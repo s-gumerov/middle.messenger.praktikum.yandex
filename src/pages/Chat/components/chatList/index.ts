@@ -13,7 +13,6 @@ export const chatList = (chatList: IChatListItemProps[]) => {
             attr: {
                 class: styles.sidebar__chatList
             },
-            content: content[0],
             list: content
         });
 }; 

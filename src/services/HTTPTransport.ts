@@ -1,4 +1,6 @@
-enum METHODS {
+import { queryStringify } from "../utils/queryStringify";
+
+enum Methods {
     GET = 'GET',
     POST = 'POST',
     PUT = 'PUT',
@@ -9,54 +11,42 @@ enum METHODS {
 type TQueryStringify = Record<string, string | number>;
 
 type TRequestOptions = {
-    method?: METHODS
+    method?: Methods
     headers?: Record<string, string>
     timeout?: number
     data?: unknown
 };
 
-function queryStringify(data: TQueryStringify) {
-    if (typeof data !== 'object')
-        throw new Error('Data must be object');
-
-
-    const keys = Object.keys(data);
-
-    return keys.reduce((result, key, index) => {
-        return `${result}${key}=${data[key]}${index < keys.length - 1 ? '&' : ''}`;
-    }, '?');
-};
-
 export default class HTTPTransport {
     public get = (url: string, options = {}) =>
-        this.request(url, { ...options, method: METHODS.GET });
+        this.request(url, { ...options, method: Methods.GET });
 
 
     public post = (url: string, options = {}) =>
-        this.request(url, { ...options, method: METHODS.POST });
+        this.request(url, { ...options, method: Methods.POST });
 
 
     public put = (url: string, options = {}) =>
-        this.request(url, { ...options, method: METHODS.PUT });
+        this.request(url, { ...options, method: Methods.PUT });
 
 
     public patch = (url: string, options = {}) =>
-        this.request(url, { ...options, method: METHODS.PATCH });
+        this.request(url, { ...options, method: Methods.PATCH });
 
 
     public delete = (url: string, options = {}) =>
-        this.request(url, { ...options, method: METHODS.DELETE });
+        this.request(url, { ...options, method: Methods.DELETE });
 
 
     request = (url: string, options: TRequestOptions) => {
         const {
-            method = METHODS.GET,
+            method = Methods.GET,
             headers = {},
             data,
             timeout = 5000,
         } = options;
 
-        const query = method === METHODS.GET ? queryStringify(data as TQueryStringify) : '';
+        const query = method === Methods.GET ? queryStringify(data as TQueryStringify) : '';
 
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
@@ -79,7 +69,7 @@ export default class HTTPTransport {
             xhr.timeout = timeout;
             xhr.ontimeout = reject;
 
-            if (method === METHODS.GET || !data)
+            if (method === Methods.GET || !data)
                 xhr.send();
             else
                 xhr.send(JSON.stringify(data));

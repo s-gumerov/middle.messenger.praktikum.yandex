@@ -1,5 +1,4 @@
 export interface IBtnProps {
-    anchorPath?: string,
     btnType?: string,
     msg: string,
     className: string,

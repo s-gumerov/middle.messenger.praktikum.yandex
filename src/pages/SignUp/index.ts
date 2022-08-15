@@ -1,12 +1,14 @@
 import { v4 as makeUUID } from 'uuid';
 import { SignUp } from './SignUp';
-import { btn as btnComponent } from '../../components/btn';
+import { Btn } from '../../components/btn/Btn';
+import { Anchor } from '../../components/anchor/Anchor';
 import { inputAndLabel as inputAndLabelComponent } from '../../components/inputAndLabel';
 import * as styles from './styles.module.sass';
 import { InputAndLabelProps } from '../../components/inputAndLabel/interfaces';
 import { firstNameAndSecondName, emailInputTitle, loginInputTitle, passwordInputTitle, phoneInputTitle } from '../../utils/inputTitleMsg';
-import { setSubmitBtnDisabled, checkingAllFields, validate, setComletedFieldsState } from '../../utils/helpers';
-
+import { setSubmitBtnDisabled } from '../../utils/setSubmitBtnDisabled';
+import { checkingAllFields } from '../../utils/checkingAllFields';
+import { validateAndsetComletedFields } from '../../utils/validateAndsetComletedFields';
 
 const completedFields = {
     email: false,
@@ -20,15 +22,11 @@ const completedFields = {
 
 
 const focusHandler = (e: Event) => {
-    const { value, name } = e.target as HTMLInputElement;
-    const fieldCompleted = validate(name, value);
-    setComletedFieldsState(completedFields, name, fieldCompleted);
+    validateAndsetComletedFields(e.target as HTMLInputElement, completedFields);
 };
 
 const inputHandler = (e: Event) => {
-    const { value, name } = e.target as HTMLInputElement;
-    const fieldCompleted = validate(name, value);
-    setComletedFieldsState(completedFields, name, fieldCompleted);
+    validateAndsetComletedFields(e.target as HTMLInputElement, completedFields);
 
     //проверяем все поля на форме и записываем результат boolean в state, чтобы передать его в disabled кнопки
     const state = checkingAllFields(completedFields);
@@ -36,9 +34,7 @@ const inputHandler = (e: Event) => {
 };
 
 const blurHandler = (e: Event) => {
-    const { value, name } = e.target as HTMLInputElement;
-    const fieldCompleted = validate(name, value);
-    setComletedFieldsState(completedFields, name, fieldCompleted);
+    validateAndsetComletedFields(e.target as HTMLInputElement, completedFields);
 };
 
 const submitHandler = (e: Event) => {
@@ -184,7 +180,7 @@ const passwordInput = inputAndLabelComponent(passwordInputProps);
 
 const againPasswordInput = inputAndLabelComponent(againPasswordInputProps);
 
-const signUpBtn = btnComponent(
+const signUpBtn = new Btn(
     {
         btnType: 'submit',
         msg: 'Зарегистрироваться',
@@ -193,7 +189,7 @@ const signUpBtn = btnComponent(
     }
 );
 
-const signInAnchor = btnComponent(
+const signInAnchor = new Anchor(
     {
         anchorPath: '/sign-in',
         msg: 'Войти',

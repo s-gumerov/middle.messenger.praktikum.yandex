@@ -1,7 +1,7 @@
 import * as styles from './styles.module.sass';
 import { InputAndLabel } from './InputAndLabel';
-import { label as labelComponent } from '../label';
-import { input as inputComponent } from '../input';
+import { Label } from '../label/Label';
+import { Input } from '../input/Input';
 import { InputAndLabelProps } from './interfaces';
 import { IInputProps } from '../input/interfaces';
 
@@ -32,8 +32,8 @@ export const inputAndLabel = ({ id, name, type, placeholder, disabled, value, pa
         message: placeholder,
     };
 
-    const input = inputComponent(inputProps);
-    const label = labelComponent(labelProps);
+    const input = new Input(inputProps);
+    const label = new Label(labelProps);
 
     return new InputAndLabel(
         'div',

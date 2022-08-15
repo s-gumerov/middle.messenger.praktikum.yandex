@@ -1,6 +1,5 @@
 import * as styles from './styles.module.sass';
-import { btn as btnComponent } from '../../components/btn';
-
+import { Anchor } from '../../components/anchor/Anchor';
 import { ServerErrorPage } from './serverErrorPage';
 
 const clickHandler = (e: Event) => {
@@ -8,7 +7,7 @@ const clickHandler = (e: Event) => {
     console.log(e.currentTarget)
 };
 
-const button = btnComponent(
+const button = new Anchor(
     {
         anchorPath: '/sign-up',
         msg: 'Назад к чатам',

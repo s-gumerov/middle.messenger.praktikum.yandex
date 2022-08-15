@@ -1,13 +1,16 @@
 import { v4 as makeUUID } from 'uuid';
 import { ChangePassword } from './ChangePassword';
-import { avatar as avatarComponent } from '../../components/avatar';
+import { Avatar } from '../../components/avatar/Avatar';
 import { IAvatarProps } from '../../components/avatar/interfaces';
-import { btn as btnComponent } from '../../components/btn';
+import { Btn } from '../../components/btn/Btn';
+import { Anchor } from '../../components/anchor/Anchor';
 import { inputAndLabel as inputAndLabelComponent } from '../../components/inputAndLabel';
 import * as styles from './styles.module.sass';
 import { InputAndLabelProps } from '../../components/inputAndLabel/interfaces';
-import { setSubmitBtnDisabled, checkingAllFields, validate, setComletedFieldsState } from '../../utils/helpers';
-
+import { setSubmitBtnDisabled } from '../../utils/setSubmitBtnDisabled';
+import { checkingAllFields } from '../../utils/checkingAllFields';
+import { setComletedFieldsState } from '../../utils/setComletedFieldsState';
+import { validate } from '../../utils/validate';
 
 const completedFields = {
     old_password: false,
@@ -56,7 +59,7 @@ const avatarProps: IAvatarProps =
     imgClassName: styles.figure__img
 };
 
-const avatar = avatarComponent(avatarProps);
+const avatar = new Avatar(avatarProps);
 
 let disabledInputs = false;
 
@@ -113,7 +116,7 @@ const newPasswordInputName = inputAndLabelComponent(newPasswordInputNameProps);
 const againNewPasswordInput = inputAndLabelComponent(againNewPasswordInputProps);
 
 
-const anchorToProfile = btnComponent(
+const anchorToProfile = new Anchor(
     {
         anchorPath: '/chat',
         msg: '',
@@ -122,7 +125,7 @@ const anchorToProfile = btnComponent(
 );
 
 
-const saveBtn = btnComponent(
+const saveBtn = new Btn(
     {
         btnType: 'submit',
         msg: 'Сохранить',

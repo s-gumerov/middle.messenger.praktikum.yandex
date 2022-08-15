@@ -36,19 +36,19 @@ export default class Component {
 
         this.registerEvents();
         this._eventBus.emit(Component.EVENTS.INIT);
-    }
+    };
 
     registerEvents() {
         this._eventBus.on(Component.EVENTS.INIT, this.init.bind(this));
         this._eventBus.on(Component.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
         this._eventBus.on(Component.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
         this._eventBus.on(Component.EVENTS.FLOW_RENDER, this._render.bind(this));
-    }
+    };
 
     init() {
         this._element = this.createDocumentElement(this._meta?.tag)
         this._eventBus.emit(Component.EVENTS.FLOW_RENDER);
-    }
+    };
 
     createDocumentElement(tag: string) {
         const element = document.createElement(tag);
@@ -57,7 +57,7 @@ export default class Component {
             element.setAttribute('data-id', this._id);
 
         return element;
-    }
+    };
 
     private _render(): void {
         const block = this.render();
@@ -67,7 +67,7 @@ export default class Component {
             this._element.appendChild(block);
         this.addEvents();
         this.addAttribute();
-    }
+    };
 
     render() { };
 
@@ -76,14 +76,14 @@ export default class Component {
         Object.keys(events).forEach(eventName => {
             this._element.addEventListener(eventName, events[eventName]);
         });
-    }
+    };
 
     removeEvents() {
         const { events = {} } = this._props;
         Object.keys(events).forEach(eventName => {
             this._element.removeEventListener(eventName, events[eventName]);
         });
-    }
+    };
 
     addAttribute() {
         const { attr = {} } = this._props;
@@ -91,7 +91,7 @@ export default class Component {
 
             this._element.setAttribute(key, value as string);
         });
-    }
+    };
 
     getChildren(propsAndChilds: TProps) {
         const children: IPropsAndChilds = {};
@@ -106,7 +106,7 @@ export default class Component {
         });
 
         return { children, props };
-    }
+    };
 
     compile(template: string, props?: TProps) {
         if (typeof (props) === 'undefined')
@@ -116,34 +116,29 @@ export default class Component {
 
         const fragment: HTMLElement = this.createDocumentElement('template');
 
-        Object.keys(propsAndStubs).forEach(key => {
-            //обработка массива с childs
+
+        const childs: TProps = [];
+        let containerId: TProps = [];
+
+        Object.entries(propsAndStubs).forEach(([key, list]) => {
             if (Array.isArray(propsAndStubs[key])) {
-                const childs: TProps = propsAndStubs[key];
+                containerId.push(propsAndStubs.__id)
 
-                Object.entries(childs).forEach(([i, child]) => {
+                propsAndStubs[key] = `<div data-id="${propsAndStubs.__id}"></div>`;
+
+                Object.entries(list).forEach(([i, child]) => {
                     //является ли child "сложным"
-                    if (child instanceof Component) {
-
-
-                    };
-
-
-
+                    if (child instanceof Component)
+                        childs.push(child.getContent());
                 });
+
             };
         });
-
-
 
         Object.entries(this._children).forEach(([key, child]) => {
             propsAndStubs[key] = `<div data-id="${child._id}"></div>`;
         });
 
-
-
-
-        // const fragment: HTMLElement = this.createDocumentElement('template');
         fragment.innerHTML = Handlebars.compile(template)(propsAndStubs);
 
         Object.values(this._children).forEach(child => {
@@ -152,38 +147,51 @@ export default class Component {
 
                 if (stub)
                     stub.replaceWith(child.getContent());
-            }
+            };
+        });
+
+        Object.entries(propsAndStubs).forEach(([key, child]) => {
+            if (containerId.includes(propsAndStubs[key])) {
+                if (fragment instanceof HTMLTemplateElement) {
+                    const stub = fragment.content.querySelector(`[data-id="${propsAndStubs[key]}"]`);
+                    if (stub) {
+                        for (let i in childs) {
+                            stub.appendChild(childs[i]);
+                        };
+                    };
+                };
+            };
         });
 
         if (fragment instanceof HTMLTemplateElement)
             return fragment.content;
-    }
+    };
 
 
     _componentDidMount() {
         this.componentDidMount();
         Object.values(this._children).forEach(child => { child.dispatchComponentDidMount() });
-    }
+    };
 
-    componentDidMount() { }
+    componentDidMount() { };
 
     dispatchComponentDidMount() {
         this._eventBus.emit(Component.EVENTS.FLOW_CDM);
         if (Object.keys(this._children).length)
             this._eventBus.emit(Component.EVENTS.FLOW_RENDER);
-    }
+    };
 
     _componentDidUpdate(oldProps: TProps, newProps: TProps) {
         const isReRender = this.componentDidUpdate(oldProps, newProps);
         if (isReRender)
             this._eventBus.emit(Component.EVENTS.FLOW_RENDER);
-    }
+    };
 
     componentDidUpdate(oldProps: TProps, newProps: TProps) {
         if (JSON.stringify(oldProps) === JSON.stringify(newProps))
             return true;
         else false
-    }
+    };
 
     setProps(newProps: TProps) {
 
@@ -198,7 +206,7 @@ export default class Component {
 
         if (Object.values(props).length)
             Object.assign(this._props, props);
-    }
+    };
 
 
     makePropsProxy(props: TProps) {
@@ -222,20 +230,20 @@ export default class Component {
             },
 
         });
-    }
+    };
 
     show() {
         this.getContent().style.display = "Component";
-    }
+    };
 
     hide() {
         this.getContent().style.display = "none";
-    }
+    };
 
     getContent() {
         return this._element;
-    }
-}
+    };
+};
     // _makePropsProxy(props) {
 
     //     return new Proxy(props, {

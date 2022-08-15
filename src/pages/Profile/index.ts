@@ -1,8 +1,8 @@
 import { v4 as makeUUID } from 'uuid';
 import { Profile } from './Profile';
-import { avatar as avatarComponent } from '../../components/avatar';
+import { Avatar } from '../../components/avatar/Avatar';
 import { IAvatarProps } from '../../components/avatar/interfaces';
-import { btn as btnComponent } from '../../components/btn';
+import { Anchor } from '../../components/anchor/Anchor';
 import { inputAndLabel as inputAndLabelComponent } from '../../components/inputAndLabel';
 import * as styles from './styles.module.sass';
 import { InputAndLabelProps } from '../../components/inputAndLabel/interfaces';
@@ -16,7 +16,7 @@ const avatarProps: IAvatarProps =
     imgClassName: styles.figure__img
 };
 
-const avatar = avatarComponent(avatarProps);
+const avatar = new Avatar(avatarProps);
 
 let disabledInputs = true;
 
@@ -107,7 +107,7 @@ const displayNameInput = inputAndLabelComponent(displayNameProps);
 const phoneInput = inputAndLabelComponent(phoneInputProps);
 
 
-const anchorToProfile = btnComponent(
+const anchorToProfile = new Anchor(
     {
         anchorPath: '/chat',
         msg: '',
@@ -115,7 +115,7 @@ const anchorToProfile = btnComponent(
     }
 );
 
-const editProfileAnchor = btnComponent(
+const editProfileAnchor = new Anchor(
     {
         anchorPath: '/profile/edit',
         msg: 'Изменить данные',
@@ -123,7 +123,7 @@ const editProfileAnchor = btnComponent(
     }
 );
 
-const changePasswordAnchor = btnComponent(
+const changePasswordAnchor = new Anchor(
     {
         anchorPath: '/profile/change-password',
         msg: 'Изменить пароль',
@@ -131,7 +131,7 @@ const changePasswordAnchor = btnComponent(
     }
 );
 
-const goToChatAnchor = btnComponent(
+const goToChatAnchor = new Anchor(
     {
         anchorPath: '/chat',
         msg: 'Выйти',
@@ -156,7 +156,5 @@ export const profile = new Profile(
         editProfileAnchor: editProfileAnchor,
         changePasswordAnchor: changePasswordAnchor,
         goToChatAnchor: goToChatAnchor
-        // events: {
-        //     "submit": submitHandler,
-        // }
+
     });

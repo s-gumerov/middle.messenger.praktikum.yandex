@@ -1,4 +1,4 @@
-import { Index as IndexLayout } from './layout/index';
+import { Layout } from './layout/index';
 import * as styles from './app.module.sass';
 import { signIn } from './pages/SignIn';
 import { signUp } from './pages/SignUp';
@@ -31,7 +31,7 @@ const pageLoader = (routes: { [index: string]: any }, location: string) => {
 
     return renderDom(
         'root',
-        new IndexLayout(
+        new Layout(
             "div", {
             attr: {
                 class: styles.app

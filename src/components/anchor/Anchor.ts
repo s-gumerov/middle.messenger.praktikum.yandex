@@ -1,21 +1,18 @@
 import Component from "../../services/Component";
 import { tpl } from "./tpl";
-import { IBtnProps } from "./interfaces";
+import { IAnchorProps } from "./interfaces";
 
-export class Btn extends Component {
+export class Anchor extends Component {
 
-    constructor({ btnType, msg, className, clickHandler, focusHandler, blurHandler, disabled }: IBtnProps) {
+    constructor({ anchorPath,  msg, className, clickHandler}: IAnchorProps) {
         super('div',
             {
-                btnType: btnType,
+                anchorPath: anchorPath,
                 msg: msg,
                 events: {
                     click: clickHandler,
-                    focus: focusHandler,
-                    blur: blurHandler
                 },
                 attr: {
-                    disabled: disabled,
                     class: className,
                 }
 
@@ -30,11 +27,12 @@ export class Btn extends Component {
     addAttribute() {
         const { attr = {} } = this._props;
 
-        this._element.querySelectorAll('button').forEach(button => {
+        this._element.querySelectorAll('a').forEach(a => {
             Object.entries(attr).forEach(([key, value]) => {
                 if (value !== undefined)
-                    button.setAttribute(key, value as string);
+                    a.setAttribute(key, value as string);
             });
         })
+
     }
-}
+};

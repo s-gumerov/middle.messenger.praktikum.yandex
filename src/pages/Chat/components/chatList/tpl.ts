@@ -1,1 +1,1 @@
-export const tpl = `{{{content}}}`;
+export const tpl = `{{{list}}}`;

@@ -1,9 +1,9 @@
 import { Chat } from './Chat';
 import { chatList as chatListComponent } from './components/chatList';
-import { avatar as avatarComponent } from '../../components/avatar';
+import { Avatar } from '../../components/avatar/Avatar';
 import { IAvatarProps } from '../../components/avatar/interfaces';
-import { btn as btnComponent } from '../../components/btn';
-import { input as inputComponent } from '../../components/input';
+import { Anchor } from '../../components/anchor/Anchor';
+import { Input } from '../../components/input/Input';
 import { IInputProps } from '../../components/input/interfaces';
 import * as styles from './styles.module.sass';
 import { IChatListItemProps } from './components/chatListItem/interfaces';
@@ -18,9 +18,9 @@ const avatarProps: IAvatarProps =
     imgClassName: styles.figure__img
 };
 
-const avatar = avatarComponent(avatarProps);
+const avatar = new Avatar(avatarProps);
 
-const anchorToProfile = btnComponent(
+const anchorToProfile = new Anchor(
     {
         anchorPath: '/profile',
         msg: 'Профиль',
@@ -39,7 +39,7 @@ const searchInputProps: IInputProps =
     className: styles.chatSearch__input
 };
 
-const searchInput = inputComponent(searchInputProps);
+const searchInput = new Input(searchInputProps);
 
 const chatListProps: IChatListItemProps[] =
     [
@@ -113,8 +113,5 @@ export const chat = new Chat(
         searchInput: searchInput,
         chatList: chatList,
         anchorToProfile: anchorToProfile,
-        // events: {
-        //     "submit": submitHandler,
-        // }
     });
 ;

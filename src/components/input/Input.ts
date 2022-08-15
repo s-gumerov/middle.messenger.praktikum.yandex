@@ -1,7 +1,34 @@
 import Component from "../../services/Component";
 import { tpl } from "./tpl";
+import { IInputProps } from "./interfaces";
 
 export class Input extends Component {
+
+    constructor({ pattern, title, required, id, name, type, className, placeholder, disabled, value, inputHandler, focusHandler, blurHandler }: IInputProps) {
+        super('div',
+            {
+                id: id,
+                name: name,
+                type: type ?? 'text',
+                className: className ?? '',
+                placeholder: placeholder ?? '',
+                disabled: disabled,
+                pattern: pattern,
+                title: title,
+                value: value ?? '',
+                events: {
+                    focus: focusHandler,
+                    blur: blurHandler,
+                    input: inputHandler,
+                },
+                attr: {
+                    pattern: pattern,
+                    title: title ?? '',
+                    required: required
+                }
+            }
+        );
+    }
 
     render() {
         return this.compile(tpl)
