@@ -15,7 +15,7 @@ export const validate = (name: string, value: string): boolean => {
         return value.match(FIRST_NAME_AND_SECOND_NAME_REGEXP) !== null;
 
     if (name === 'display_name')
-        return value.match(FIRST_NAME_AND_SECOND_NAME_REGEXP) !== null;
+        return value.length > 1;
 
     if (name === 'phone')
         return value.match(PHONE_REGEXP) !== null;
@@ -26,12 +26,15 @@ export const validate = (name: string, value: string): boolean => {
     if (name === 'old_password')
         return value.match(PASSWORD_REGEXP) !== null;
 
+
     if (name === 'new_password')
         return value.match(PASSWORD_REGEXP) !== null;
 
     if (name === 'again_password')
         return value.match(PASSWORD_REGEXP) !== null;
 
+    if (name === 'message')
+        return value.length > 1;
 
     return false;
 };

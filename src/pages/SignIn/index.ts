@@ -7,29 +7,35 @@ import * as styles from './styles.module.sass';
 import { InputAndLabelProps } from '../../components/inputAndLabel/interfaces';
 import { loginInputTitle, passwordInputTitle } from '../../utils/inputTitleMsg';
 import { setSubmitBtnDisabled } from '../../utils/setSubmitBtnDisabled';
-import { checkingAllFields } from '../../utils/checkingAllFields';
-import { validateAndsetComletedFields } from '../../utils/validateAndsetComletedFields';
+import { validate } from '../../utils/validate';
+import { setCompletedFieldsState } from '../../utils/setCompletedFieldsState';
+import { inputCheckToForm } from '../../utils/inputCheckToForm';
 
 const completedFields = {
     login: false,
     password: false
 };
 
-
 const focusHandler = (e: Event) => {
-    validateAndsetComletedFields(e.target as HTMLInputElement, completedFields);
+    const { value, name } = e.target as HTMLInputElement;
+    const fieldCompleted = validate(name, value);
+    setCompletedFieldsState(completedFields, name, fieldCompleted);
+    inputCheckToForm(styles.form, completedFields);
 };
 
 const inputHandler = (e: Event) => {
-    validateAndsetComletedFields(e.target as HTMLInputElement, completedFields);
-
-    //проверяем все поля на форме и записываем результат boolean в state, чтобы передать его в disabled кнопки
-    const state = checkingAllFields(completedFields);
-    setSubmitBtnDisabled(styles.btns__btn, state);
+    const { value, name } = e.target as HTMLInputElement;
+    const fieldCompleted = validate(name, value);
+    setCompletedFieldsState(completedFields, name, fieldCompleted);
+    console.log(completedFields);
+    //проверяем все поля на форме для контроля disabled кнопки
+    setSubmitBtnDisabled(styles.btns__btn, completedFields);
 };
 
 const blurHandler = (e: Event) => {
-    validateAndsetComletedFields(e.target as HTMLInputElement, completedFields);
+    const { value, name } = e.target as HTMLInputElement;
+    const fieldCompleted = validate(name, value);
+    setCompletedFieldsState(completedFields, name, fieldCompleted);
 };
 
 const submitHandler = (e: Event) => {
@@ -47,7 +53,7 @@ const loginInputProps: InputAndLabelProps = {
     type: 'text',
     placeholder: 'Логин',
     disabled: false,
-    value: '',
+    value: 'ivanivanov',
     title: loginInputTitle,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
@@ -62,7 +68,7 @@ const passwordInputProps: InputAndLabelProps = {
     type: 'password',
     placeholder: 'Пароль',
     disabled: false,
-    value: '',
+    value: 'ivanivanov1P',
     title: passwordInputTitle,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
@@ -80,7 +86,7 @@ const loginBtn = new Btn(
         btnType: 'submit',
         msg: 'Авторизоваться',
         className: styles.btns__btn,
-        disabled: true
+        disabled: false
     }
 );
 

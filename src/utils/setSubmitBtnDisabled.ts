@@ -1,6 +1,14 @@
-export const setSubmitBtnDisabled = (btnClass: string, disabledState: boolean) => {
+import { checkingAllFields } from "./checkingAllFields";
+import { setCompletedFieldsState } from "./setCompletedFieldsState";
+
+export const setSubmitBtnDisabled = (btnClass: string, completedFields: object) => {
+    const state = checkingAllFields(completedFields);
+
+    if (state === true)
+        setCompletedFieldsState(completedFields, 'all', true)
+
     const btn = document.querySelector(`.${btnClass}`);
 
     if (btn)
-        disabledState ? btn.removeAttribute('disabled') : btn.setAttribute('disabled', 'true');
+        state ? btn.removeAttribute('disabled') : btn.setAttribute('disabled', 'true');
 };

@@ -8,9 +8,9 @@ import { inputAndLabel as inputAndLabelComponent } from '../../components/inputA
 import * as styles from './styles.module.sass';
 import { InputAndLabelProps } from '../../components/inputAndLabel/interfaces';
 import { setSubmitBtnDisabled } from '../../utils/setSubmitBtnDisabled';
-import { checkingAllFields } from '../../utils/checkingAllFields';
-import { setComletedFieldsState } from '../../utils/setComletedFieldsState';
+import { setCompletedFieldsState } from '../../utils/setCompletedFieldsState';
 import { validate } from '../../utils/validate';
+import { inputCheckToForm } from '../../utils/inputCheckToForm';
 
 const completedFields = {
     email: false,
@@ -24,23 +24,23 @@ const completedFields = {
 const focusHandler = (e: Event) => {
     const { value, name } = e.target as HTMLInputElement;
     const fieldCompleted = validate(name, value);
-    setComletedFieldsState(completedFields, name, fieldCompleted);
+    setCompletedFieldsState(completedFields, name, fieldCompleted);
+    inputCheckToForm(styles.container, completedFields);
 };
 
 const inputHandler = (e: Event) => {
     const { value, name } = e.target as HTMLInputElement;
     const fieldCompleted = validate(name, value);
-    setComletedFieldsState(completedFields, name, fieldCompleted);
+    setCompletedFieldsState(completedFields, name, fieldCompleted);
 
-    //проверяем все поля на форме и записываем результат boolean в state, чтобы передать его в disabled кнопки
-    const state = checkingAllFields(completedFields);
-    setSubmitBtnDisabled(styles.form__btn, state);
+    //проверяем все поля на форме для контроля disabled кнопки
+    setSubmitBtnDisabled(styles.form__btn, completedFields);
 };
 
 const blurHandler = (e: Event) => {
     const { value, name } = e.target as HTMLInputElement;
     const fieldCompleted = validate(name, value);
-    setComletedFieldsState(completedFields, name, fieldCompleted);
+    setCompletedFieldsState(completedFields, name, fieldCompleted);
 };
 
 const submitHandler = (e: Event) => {
@@ -158,7 +158,7 @@ const phoneInputProps: InputAndLabelProps = {
     type: 'text',
     placeholder: 'Телефон',
     disabled: disabledInputs,
-    value: '+7(909)9673030',
+    value: '+79099673030',
     containerClass: styles.inputs__item,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
@@ -194,7 +194,7 @@ const saveBtn = new Btn(
         btnType: 'submit',
         msg: 'Сохранить',
         className: styles.form__btn,
-        disabled: true
+        disabled: false
     }
 );
 

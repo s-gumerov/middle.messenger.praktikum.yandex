@@ -7,8 +7,9 @@ import * as styles from './styles.module.sass';
 import { InputAndLabelProps } from '../../components/inputAndLabel/interfaces';
 import { firstNameAndSecondName, emailInputTitle, loginInputTitle, passwordInputTitle, phoneInputTitle } from '../../utils/inputTitleMsg';
 import { setSubmitBtnDisabled } from '../../utils/setSubmitBtnDisabled';
-import { checkingAllFields } from '../../utils/checkingAllFields';
-import { validateAndsetComletedFields } from '../../utils/validateAndsetComletedFields';
+import { validate } from '../../utils/validate';
+import { setCompletedFieldsState } from '../../utils/setCompletedFieldsState';
+import { inputCheckToForm } from '../../utils/inputCheckToForm';
 
 const completedFields = {
     email: false,
@@ -22,19 +23,25 @@ const completedFields = {
 
 
 const focusHandler = (e: Event) => {
-    validateAndsetComletedFields(e.target as HTMLInputElement, completedFields);
+    const { value, name } = e.target as HTMLInputElement;
+    const fieldCompleted = validate(name, value);
+    setCompletedFieldsState(completedFields, name, fieldCompleted);
+    inputCheckToForm(styles.form, completedFields);
 };
 
 const inputHandler = (e: Event) => {
-    validateAndsetComletedFields(e.target as HTMLInputElement, completedFields);
+    const { value, name } = e.target as HTMLInputElement;
+    const fieldCompleted = validate(name, value);
+    setCompletedFieldsState(completedFields, name, fieldCompleted);
 
-    //проверяем все поля на форме и записываем результат boolean в state, чтобы передать его в disabled кнопки
-    const state = checkingAllFields(completedFields);
-    setSubmitBtnDisabled(styles.btns__btn, state);
+    //проверяем все поля на форме для контроля disabled кнопки
+    setSubmitBtnDisabled(styles.btns__btn, completedFields);
 };
 
 const blurHandler = (e: Event) => {
-    validateAndsetComletedFields(e.target as HTMLInputElement, completedFields);
+    const { value, name } = e.target as HTMLInputElement;
+    const fieldCompleted = validate(name, value);
+    setCompletedFieldsState(completedFields, name, fieldCompleted);
 };
 
 const submitHandler = (e: Event) => {
@@ -67,7 +74,7 @@ const emailInputProps: InputAndLabelProps = {
     type: 'email',
     placeholder: 'Почта',
     disabled: false,
-    value: '',
+    value: 'pochta@yandex.ru',
     title: emailInputTitle,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
@@ -82,7 +89,7 @@ const loginInputProps: InputAndLabelProps = {
     type: 'text',
     placeholder: 'Логин',
     disabled: false,
-    value: '',
+    value: 'IvanovII',
     title: loginInputTitle,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
@@ -97,7 +104,7 @@ const firstNameInputProps: InputAndLabelProps = {
     type: 'text',
     placeholder: 'Имя',
     disabled: false,
-    value: '',
+    value: 'Иванов',
     title: firstNameAndSecondName,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
@@ -112,7 +119,7 @@ const secondNameInputProps: InputAndLabelProps = {
     type: 'text',
     placeholder: 'Фамилия',
     disabled: false,
-    value: '',
+    value: 'Иванов',
     title: firstNameAndSecondName,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
@@ -127,7 +134,7 @@ const phoneInputProps: InputAndLabelProps = {
     type: 'text',
     placeholder: 'Телефон',
     disabled: false,
-    value: '',
+    value: '89095555555',
     title: phoneInputTitle,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
@@ -142,7 +149,7 @@ const passwordInputProps: InputAndLabelProps = {
     type: 'password',
     placeholder: 'Пароль',
     disabled: false,
-    value: '',
+    value: 'ivanivanov1P',
     title: passwordInputTitle,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
@@ -157,7 +164,7 @@ const againPasswordInputProps: InputAndLabelProps = {
     type: 'password',
     placeholder: 'Пароль',
     disabled: false,
-    value: '',
+    value: 'ivanivanov1P',
     title: passwordInputTitle,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
@@ -185,7 +192,7 @@ const signUpBtn = new Btn(
         btnType: 'submit',
         msg: 'Зарегистрироваться',
         className: styles.btns__btn,
-        disabled: true
+        disabled: false
     }
 );
 
