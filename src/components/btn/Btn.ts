@@ -1,6 +1,7 @@
 import Component from "../../services/Component";
 import { tpl } from "./tpl";
 import { IBtnProps } from "./interfaces";
+import { addAttribute } from "../../utils/addAttribute";
 
 export class Btn extends Component {
 
@@ -29,12 +30,8 @@ export class Btn extends Component {
 
     addAttribute() {
         const { attr = {} } = this._props;
+        console.log();
 
-        this._element.querySelectorAll('button').forEach(button => {
-            Object.entries(attr).forEach(([key, value]) => {
-                if (value !== undefined)
-                    button.setAttribute(key, value as string);
-            });
-        })
+        addAttribute(attr, 'button', this._element);
     }
 }

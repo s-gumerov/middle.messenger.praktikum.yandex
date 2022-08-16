@@ -25,7 +25,7 @@ export const chatListItem = ({ avatarImg, chatName, lastMsg, lastMsgTime, msgCou
     );
 
     return new ChatListItem(
-        'article',
+        'div',
         {
             attr: {
                 class: styles.chatListItem
@@ -35,5 +35,6 @@ export const chatListItem = ({ avatarImg, chatName, lastMsg, lastMsgTime, msgCou
             lastMsg: lastMsg,
             lastMsgTime: lastMsgTime,
             msgCountBtn: msgCountBtn
-        });
+        }
+    );
 }; 

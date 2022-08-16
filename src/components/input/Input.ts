@@ -1,6 +1,7 @@
 import Component from "../../services/Component";
 import { tpl } from "./tpl";
 import { IInputProps } from "./interfaces";
+import { addAttribute } from "../../utils/addAttribute";
 
 export class Input extends Component {
 
@@ -44,12 +45,6 @@ export class Input extends Component {
 
     addAttribute() {
         const { attr = {} } = this._props;
-        this._element.querySelectorAll('input').forEach(input => {
-            Object.entries(attr).forEach(([key, value]) => {
-                if (value !== undefined)
-                    input.setAttribute(key, value as string);
-            });
-        })
-
+        addAttribute(attr, 'input', this._element);
     }
 };

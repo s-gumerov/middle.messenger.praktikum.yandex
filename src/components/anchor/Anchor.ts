@@ -1,10 +1,12 @@
 import Component from "../../services/Component";
 import { tpl } from "./tpl";
 import { IAnchorProps } from "./interfaces";
+import { addAttribute } from "../../utils/addAttribute";
+
 
 export class Anchor extends Component {
 
-    constructor({ anchorPath,  msg, className, clickHandler}: IAnchorProps) {
+    constructor({ anchorPath, msg, className, clickHandler }: IAnchorProps) {
         super('div',
             {
                 anchorPath: anchorPath,
@@ -26,13 +28,6 @@ export class Anchor extends Component {
 
     addAttribute() {
         const { attr = {} } = this._props;
-
-        this._element.querySelectorAll('a').forEach(a => {
-            Object.entries(attr).forEach(([key, value]) => {
-                if (value !== undefined)
-                    a.setAttribute(key, value as string);
-            });
-        })
-
+        addAttribute(attr, 'a', this._element);
     }
 };
