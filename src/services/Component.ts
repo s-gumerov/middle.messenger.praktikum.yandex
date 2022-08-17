@@ -69,14 +69,14 @@ export default class Component {
 
     public render() { };
 
-    private addEvents() {
+    public addEvents() {
         const { events = {} } = this._props;
         Object.keys(events).forEach(eventName => {
             this._element.addEventListener(eventName, events[eventName]);
         });
     };
 
-    private removeEvents() {
+    public removeEvents() {
         const { events = {} } = this._props;
         Object.keys(events).forEach(eventName => {
             this._element.removeEventListener(eventName, events[eventName]);

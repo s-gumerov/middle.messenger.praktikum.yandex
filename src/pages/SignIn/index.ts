@@ -5,7 +5,8 @@ import { Anchor } from '../../components/anchor/Anchor';
 import { inputAndLabel as inputAndLabelComponent } from '../../components/inputAndLabel';
 import * as styles from './styles.module.sass';
 import { InputAndLabelProps } from '../../components/inputAndLabel/interfaces';
-import { loginInputTitle, passwordInputTitle } from '../../utils/inputTitleMsg';
+import { LOGIN_INPUT_TITLE, PASSWORD_INPUT_TITLE } from '../../utils/inputTitleMsg';
+import { LOGIN_REGEXP, PASSWORD_REGEXP } from '../../utils/regularExpressions';
 import { setSubmitBtnDisabled } from '../../utils/setSubmitBtnDisabled';
 import { validate } from '../../utils/validate';
 import { setCompletedFieldsState } from '../../utils/setCompletedFieldsState';
@@ -16,7 +17,7 @@ const completedFields = {
     password: false
 };
 
-const focusHandler = (e: Event) => {
+const focusHandler = (e: Event) => {   
     const { value, name } = e.target as HTMLInputElement;
     const fieldCompleted = validate(name, value);
     setCompletedFieldsState(completedFields, name, fieldCompleted);
@@ -27,7 +28,7 @@ const inputHandler = (e: Event) => {
     const { value, name } = e.target as HTMLInputElement;
     const fieldCompleted = validate(name, value);
     setCompletedFieldsState(completedFields, name, fieldCompleted);
-    console.log(completedFields);
+    
     //проверяем все поля на форме для контроля disabled кнопки
     setSubmitBtnDisabled(styles.btns__btn, completedFields);
 };
@@ -54,7 +55,9 @@ const loginInputProps: InputAndLabelProps = {
     placeholder: 'Логин',
     disabled: false,
     value: 'ivanivanov',
-    title: loginInputTitle,
+    title: LOGIN_INPUT_TITLE,
+    pattern:`${LOGIN_REGEXP}`,
+    required:true,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
     focusHandler: focusHandler,
@@ -69,7 +72,9 @@ const passwordInputProps: InputAndLabelProps = {
     placeholder: 'Пароль',
     disabled: false,
     value: 'ivanivanov1P',
-    title: passwordInputTitle,
+    title: PASSWORD_INPUT_TITLE,
+    pattern:`${PASSWORD_REGEXP}`,
+    required:true,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
     focusHandler: focusHandler,

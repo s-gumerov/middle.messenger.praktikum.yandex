@@ -7,6 +7,8 @@ import { Anchor } from '../../components/anchor/Anchor';
 import { inputAndLabel as inputAndLabelComponent } from '../../components/inputAndLabel';
 import * as styles from './styles.module.sass';
 import { InputAndLabelProps } from '../../components/inputAndLabel/interfaces';
+import { PASSWORD_INPUT_TITLE } from '../../utils/inputTitleMsg';
+import {PASSWORD_REGEXP} from '../../utils/regularExpressions';
 import { setSubmitBtnDisabled } from '../../utils/setSubmitBtnDisabled';
 import { setCompletedFieldsState } from '../../utils/setCompletedFieldsState';
 import { validate } from '../../utils/validate';
@@ -67,9 +69,12 @@ const oldPasswordInputProps: InputAndLabelProps = {
     id: makeUUID() as string,
     name: 'old_password',
     type: 'password',
-    placeholder: 'Старый пароль',
+    placeholder: 'Старый_пароль',
     disabled: disabledInputs,
     value: 'ivanovII123',
+    title:PASSWORD_INPUT_TITLE,
+    pattern:`${PASSWORD_REGEXP}`,
+    required:true,
     containerClass: styles.inputs__item,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
@@ -82,9 +87,12 @@ const newPasswordInputNameProps: InputAndLabelProps = {
     id: makeUUID() as string,
     name: 'new_password',
     type: 'password',
-    placeholder: 'Новый пароль',
+    placeholder: 'Новый_пароль',
     disabled: disabledInputs,
     value: 'ivanovII123',
+    title:PASSWORD_INPUT_TITLE,
+    pattern:`${PASSWORD_REGEXP}`,
+    required:true,
     containerClass: styles.inputs__item,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
@@ -97,9 +105,12 @@ const againNewPasswordInputProps: InputAndLabelProps = {
     id: makeUUID() as string,
     name: 'again_password',
     type: 'password',
-    placeholder: 'Повторите новый пароль',
+    placeholder: 'Повторите_новый_пароль',
     disabled: disabledInputs,
     value: 'ivanovII123',
+    title:PASSWORD_INPUT_TITLE,
+    pattern:`${PASSWORD_REGEXP}`,
+    required:true,
     containerClass: styles.inputs__item,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,

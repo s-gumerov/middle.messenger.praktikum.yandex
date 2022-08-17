@@ -7,6 +7,9 @@ import { Anchor } from '../../components/anchor/Anchor';
 import { inputAndLabel as inputAndLabelComponent } from '../../components/inputAndLabel';
 import * as styles from './styles.module.sass';
 import { InputAndLabelProps } from '../../components/inputAndLabel/interfaces';
+import { FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE, EMAIL_INPUT_TITLE, LOGIN_INPUT_TITLE,  DISPLAY_NAME_INPUT_TITLE, PHONE_INPUT_TITLE } from '../../utils/inputTitleMsg';
+import {FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE_REGEXP, EMAIL_REGEXP, LOGIN_REGEXP, DISPLAY_NAME_REGEXP, PHONE_REGEXP} from '../../utils/regularExpressions';
+
 import { setSubmitBtnDisabled } from '../../utils/setSubmitBtnDisabled';
 import { setCompletedFieldsState } from '../../utils/setCompletedFieldsState';
 import { validate } from '../../utils/validate';
@@ -84,6 +87,9 @@ const emailInputProps: InputAndLabelProps = {
     placeholder: 'Почта',
     disabled: disabledInputs,
     value: 'pochta@yandex.ru',
+    title:EMAIL_INPUT_TITLE,
+    pattern:`${EMAIL_REGEXP}`,
+    required:true,
     containerClass: styles.inputs__item,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
@@ -99,6 +105,9 @@ const loginInputProps: InputAndLabelProps = {
     placeholder: 'Логин',
     disabled: disabledInputs,
     value: 'ivanivanov',
+    title:LOGIN_INPUT_TITLE,
+    pattern:`${LOGIN_REGEXP}`,
+    required:true,
     containerClass: styles.inputs__item,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
@@ -114,6 +123,9 @@ const firstNameInputProps: InputAndLabelProps = {
     placeholder: 'Имя',
     disabled: disabledInputs,
     value: 'Иван',
+    title:FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE,
+    pattern:`${FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE_REGEXP}`,
+    required:true,
     containerClass: styles.inputs__item,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
@@ -129,6 +141,9 @@ const secondNameInputProps: InputAndLabelProps = {
     placeholder: 'Фамилия',
     disabled: disabledInputs,
     value: 'Иванов',
+    title:FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE,
+    pattern:`${FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE_REGEXP}`,
+    required:true,
     containerClass: styles.inputs__item,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
@@ -144,6 +159,9 @@ const displayNameProps: InputAndLabelProps = {
     placeholder: 'Имя в чате',
     disabled: disabledInputs,
     value: 'Иван',
+    title:DISPLAY_NAME_INPUT_TITLE,
+    pattern:`${DISPLAY_NAME_REGEXP}`,
+    required:true,
     containerClass: styles.inputs__item,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
@@ -159,6 +177,9 @@ const phoneInputProps: InputAndLabelProps = {
     placeholder: 'Телефон',
     disabled: disabledInputs,
     value: '+79099673030',
+    title:PHONE_INPUT_TITLE,
+    pattern:`${PHONE_REGEXP}`,
+    required:true,
     containerClass: styles.inputs__item,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,

@@ -1,4 +1,4 @@
-import { EMAIL_REGEXP, LOGIN_REGEXP, FIRST_NAME_AND_SECOND_NAME_REGEXP, PHONE_REGEXP, PASSWORD_REGEXP } from './regularExpressions';
+import { EMAIL_REGEXP, LOGIN_REGEXP, FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE_REGEXP, PHONE_REGEXP, PASSWORD_REGEXP } from './regularExpressions';
 
 export const validate = (name: string, value: string): boolean => {
 
@@ -9,10 +9,10 @@ export const validate = (name: string, value: string): boolean => {
         return value.match(LOGIN_REGEXP) !== null;
 
     if (name === 'first_name')
-        return value.match(FIRST_NAME_AND_SECOND_NAME_REGEXP) !== null;
+        return value.match(FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE_REGEXP) !== null;
 
     if (name === 'second_name')
-        return value.match(FIRST_NAME_AND_SECOND_NAME_REGEXP) !== null;
+        return value.match(FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE_REGEXP) !== null;
 
     if (name === 'display_name')
         return value.length > 1;

@@ -5,7 +5,8 @@ import { Anchor } from '../../components/anchor/Anchor';
 import { inputAndLabel as inputAndLabelComponent } from '../../components/inputAndLabel';
 import * as styles from './styles.module.sass';
 import { InputAndLabelProps } from '../../components/inputAndLabel/interfaces';
-import { firstNameAndSecondName, emailInputTitle, loginInputTitle, passwordInputTitle, phoneInputTitle } from '../../utils/inputTitleMsg';
+import { FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE, EMAIL_INPUT_TITLE, LOGIN_INPUT_TITLE, PASSWORD_INPUT_TITLE, PHONE_INPUT_TITLE } from '../../utils/inputTitleMsg';
+import {FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE_REGEXP, EMAIL_REGEXP, LOGIN_REGEXP, PASSWORD_REGEXP, PHONE_REGEXP} from '../../utils/regularExpressions';
 import { setSubmitBtnDisabled } from '../../utils/setSubmitBtnDisabled';
 import { validate } from '../../utils/validate';
 import { setCompletedFieldsState } from '../../utils/setCompletedFieldsState';
@@ -75,7 +76,9 @@ const emailInputProps: InputAndLabelProps = {
     placeholder: 'Почта',
     disabled: false,
     value: 'pochta@yandex.ru',
-    title: emailInputTitle,
+    title: EMAIL_INPUT_TITLE,
+    pattern:`${EMAIL_REGEXP}`,
+    required:true,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
     focusHandler: focusHandler,
@@ -90,7 +93,9 @@ const loginInputProps: InputAndLabelProps = {
     placeholder: 'Логин',
     disabled: false,
     value: 'IvanovII',
-    title: loginInputTitle,
+    title: LOGIN_INPUT_TITLE,
+    pattern:`${LOGIN_REGEXP}`,
+    required:true,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
     focusHandler: focusHandler,
@@ -105,7 +110,9 @@ const firstNameInputProps: InputAndLabelProps = {
     placeholder: 'Имя',
     disabled: false,
     value: 'Иванов',
-    title: firstNameAndSecondName,
+    title: FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE,
+    pattern:`${FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE_REGEXP}`,
+    required:true,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
     focusHandler: focusHandler,
@@ -120,7 +127,9 @@ const secondNameInputProps: InputAndLabelProps = {
     placeholder: 'Фамилия',
     disabled: false,
     value: 'Иванов',
-    title: firstNameAndSecondName,
+    title: FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE,
+    pattern:`${FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE_REGEXP}`,
+    required:true,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
     focusHandler: focusHandler,
@@ -135,7 +144,9 @@ const phoneInputProps: InputAndLabelProps = {
     placeholder: 'Телефон',
     disabled: false,
     value: '89095555555',
-    title: phoneInputTitle,
+    title: PHONE_INPUT_TITLE,
+    pattern:`${PHONE_REGEXP}`,
+    required:true,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
     focusHandler: focusHandler,
@@ -150,7 +161,9 @@ const passwordInputProps: InputAndLabelProps = {
     placeholder: 'Пароль',
     disabled: false,
     value: 'ivanivanov1P',
-    title: passwordInputTitle,
+    title: PASSWORD_INPUT_TITLE,
+    pattern:`${PASSWORD_REGEXP}`,
+    required:true,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
     focusHandler: focusHandler,
@@ -165,7 +178,9 @@ const againPasswordInputProps: InputAndLabelProps = {
     placeholder: 'Пароль',
     disabled: false,
     value: 'ivanivanov1P',
-    title: passwordInputTitle,
+    title: PASSWORD_INPUT_TITLE,
+    pattern:`${PASSWORD_REGEXP}`,
+    required:true,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
     focusHandler: focusHandler,

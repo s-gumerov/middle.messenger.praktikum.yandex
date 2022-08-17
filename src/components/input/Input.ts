@@ -6,6 +6,7 @@ import { addAttribute } from "../../utils/addAttribute";
 export class Input extends Component {
 
     constructor({ pattern, title, required, id, name, type, className, placeholder, disabled, value, inputHandler, focusHandler, blurHandler }: IInputProps) {
+        
         super('div',
             {
                 id: id,
@@ -23,7 +24,7 @@ export class Input extends Component {
                     input: inputHandler,
                 },
                 attr: {
-                    pattern: pattern,
+                    pattern: pattern?pattern.replace(/^.|.$/g,""):'',
                     title: title ?? '',
                     required: required
                 }

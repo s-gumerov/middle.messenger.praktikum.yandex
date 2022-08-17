@@ -7,7 +7,7 @@ export interface InputAndLabelProps {
     value: string,
     pattern?: string,
     title?: string,
-    required?: true,
+    required?: boolean,
     containerClass?: string,
     inputClassName: string,
     labelClassName: string,
