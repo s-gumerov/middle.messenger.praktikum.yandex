@@ -30,8 +30,6 @@ export class Btn extends Component {
 
     addAttribute() {
         const { attr = {} } = this._props;
-        console.log();
-
         addAttribute(attr, 'button', this._element);
     }
 }

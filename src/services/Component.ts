@@ -115,7 +115,7 @@ export default class Component {
         const fragment: HTMLElement = this.createDocumentElement('template');
 
 
-        const childs: TProps = [];
+        const childs: HTMLElement[] = [];
         let containerId: TProps = [];
 
         Object.entries(propsAndStubs).forEach(([key, list]) => {
@@ -153,9 +153,7 @@ export default class Component {
                 if (fragment instanceof HTMLTemplateElement) {
                     const stub = fragment.content.querySelector(`[data-id="${propsAndStubs[key]}"]`);
                     if (stub) {
-                        for (let i in childs) {
-                            stub.appendChild(childs[i]);
-                        };
+                        childs.forEach(child => stub.appendChild(child));
                     };
                 };
             };
@@ -168,7 +166,7 @@ export default class Component {
 
     private _componentDidMount() {
         this.componentDidMount();
-        Object.values(this._children).forEach(child => { child.dispatchComponentDidMount() });
+        Object.values(this._children).forEach(child => child.dispatchComponentDidMount());
     };
 
     private componentDidMount() { };
