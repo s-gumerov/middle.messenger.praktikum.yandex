@@ -1,15 +1,8 @@
 @import '../../styles/colors'
 @import '../../styles/mixins'
 
-.container
-    display: flex
-    flex-flow: row nowrap
-    justify-content: center
-    align-items: center
-    width: 100%
-    height: 100%
-
 .form
+    margin: auto auto
     padding: 50px 0px 30px 0px
     display: flex
     flex-flow: column nowrap
@@ -18,7 +11,7 @@
     gap: 20px
     min-height: 465px
     width: 340px
-    background: #FFFFFF
+    background: $white-standard
     box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14)
     border-radius: 12px
     position: relative
@@ -63,6 +56,18 @@
         outline: none
         caret-color: $blue
         @include hover-shadow($color: $blue)
+    &:required
+        border-radius: 5px
+        outline: none
+        caret-color: $blue
+        @include hover-shadow($color: $blue)
+    &:valid
+        border-top: none
+        border-left: none
+        border-right: none
+        border-bottom: 1px $blue solid
+        border-radius: 0px
+        box-shadow: none
 
 .form__btns
     display: flex
@@ -74,6 +79,7 @@
     bottom: 20px
 
 .btns__btn
+    cursor: pointer
     display: flex
     justify-content: center
     align-items: center
@@ -85,8 +91,12 @@
     border-radius: 8px
     color: $white
     &:hover
-        cursor: pointer
         @include hover-shadow($color: $blue)
+    &:disabled
+        background: $white
+        color: $blue
+        box-shadow: none
+        cursor: not-allowed
 
 .btns__anchor
     color: $blue

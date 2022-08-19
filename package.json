@@ -4,18 +4,26 @@
   "description": "---",
   "dependencies": {
     "handlebars": "4.7.7",
-    "parcel": "2.6.2"
+    "parcel": "2.6.2",
+    "stylelint-scss": "4.3.0",
+    "uuid": "8.3.2"
   },
   "devDependencies": {
     "@parcel/transformer-sass": "2.6.2",
+    "@typescript-eslint/eslint-plugin": "5.31.0",
+    "@typescript-eslint/parser": "5.31.0",
+    "eslint": "8.20.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-jsx-a11y": "6.6.1",
     "express": "4.18.1",
     "parcel-transformer-hbs": "1.0.4",
+    "stylelint": "14.9.1",
     "typescript": "4.7.4"
   },
   "scripts": {
-    "start": "parcel ./public/index.html --no-source-maps --target default --dist-dir ./dist --port 3000 --open",
-    "dev": "parcel ./public/index.html --no-source-maps --target default --dist-dir ./dist --port 3000 --open",
-    "build": "parcel build ./public/index.html  --no-source-maps --target default --dist-dir ./dist "
+    "start": "parcel build ./public/index.html  --no-source-maps --target default --dist-dir ./dist && node ./src/server",
+    "dev": "parcel ./public/index.html --target default --dist-dir ./dist --port 3000",
+    "build": "parcel build ./public/index.html  --no-source-maps --target default --dist-dir ./dist"
   },
   "targets": {
     "default": {

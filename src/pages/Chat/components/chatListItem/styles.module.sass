@@ -1,0 +1,89 @@
+@import '../../../../styles/colors'
+@import '../../../../styles/mixins'
+
+.chatListItem
+    width: 290px
+    height: 70px
+    display: flex
+    flex-flow: row nowrap
+    justify-content: flex-start
+    align-items: center
+    gap: 10px
+    &:hover
+        background: #E4EDFD
+
+.figure
+    margin: 0
+    border: none
+    max-width: 48px
+    max-height: 52px
+    border-radius: 50%
+    cursor: pointer
+
+.figure__img
+    width: 48px
+    height: 48px
+    border-radius: 50%
+
+.chatListItem__content
+    display: flex
+    flex-flow: column nowrap
+    align-items: flex-start
+    width: 190px
+
+.content__span
+    height: 13px
+    font-style: normal
+    font-weight: 600
+    font-size: 13px
+    line-height: 13px
+    color: $black
+
+.content__lastMsg
+    width: 190px
+    height: 30px
+    font-style: normal
+    font-weight: 500
+    font-size: 12px
+    line-height: 15px
+    color: $gray
+    white-space: wrap
+    text-overflow: ellipsis
+    display: -webkit-box
+    -webkit-line-clamp: 2
+    -webkit-box-orient: vertical
+    overflow: hidden
+
+.content__msgInfo
+    width: 48px
+    display: flex
+    flex-flow: column nowrap
+    justify-content: space-between
+    align-items: center
+    gap: 10px
+
+.msgInfo__time
+    width: 24px
+    height: 13px
+    font-style: normal
+    font-weight: 500
+    font-size: 9px
+    line-height: 13px
+    text-align: right
+    color: $gray
+
+.msgInfo__msgCountBtn
+    border: none
+    border-radius: 50%
+    width: 20px
+    height: 20px
+    background: $blue
+    color: $white-standard
+    font-size: 11px
+    line-height: 12px
+
+.sidebar__line
+    width: 290px
+    height: 1px
+    background: $pale-white
+    align-self: center
