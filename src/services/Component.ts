@@ -3,6 +3,7 @@ import Handlebars from 'handlebars';
 import EventBus from './EventBus';
 
 export type TProps = Record<string, any>;
+
 interface IPropsAndChilds {
     [unit: string]: string
 };
