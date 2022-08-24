@@ -5,8 +5,6 @@ import { IAvatarProps } from '../../components/avatar/interfaces';
 import { Btn } from '../../components/btn/Btn';
 import { Anchor } from '../../components/anchor/Anchor';
 import { inputAndLabel as inputAndLabelComponent } from '../../components/inputAndLabel';
-import { Input } from '../../components/input/Input';
-import { IInputProps } from '../../components/input/interfaces';
 import * as styles from './styles.module.sass';
 import { InputAndLabelProps } from '../../components/inputAndLabel/interfaces';
 import { FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE, EMAIL_INPUT_TITLE, LOGIN_INPUT_TITLE, DISPLAY_NAME_INPUT_TITLE, PHONE_INPUT_TITLE } from '../../utils/inputTitleMsg';
@@ -15,6 +13,7 @@ import { setSubmitBtnDisabled } from '../../utils/setSubmitBtnDisabled';
 import { setCompletedFieldsState } from '../../utils/setCompletedFieldsState';
 import { validate } from '../../utils/validate';
 import { inputCheckToForm } from '../../utils/inputCheckToForm';
+import { setImgSrc } from '../../utils/setImgSrc';
 
 const completedFields = {
     email: false,
@@ -47,10 +46,7 @@ const blurHandler = (e: Event) => {
     setCompletedFieldsState(completedFields, name, fieldCompleted);
 };
 
-const setImgSrc = (img: HTMLImageElement, file: File) => {
-    const previewUrl = URL.createObjectURL(file);
-    img.src = previewUrl;
-}
+
 
 const changeAvatar = (e: Event) => {
     const img = document.querySelector(`.${styles.figure__img}`) as HTMLImageElement;
