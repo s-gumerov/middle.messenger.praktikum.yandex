@@ -6,6 +6,9 @@ export const tpl = `
     </aside>
     <section class=${styles.form}>
         {{{avatar}}}
+        <div class=${styles.avatar__menu}>
+        <span class=${styles.menu__msg}>Поменять аватар</span>
+        </div>
             <section class=${styles.form__inputs}>
                 {{{emailInput}}}
                 <div class=${styles.line}></div>

@@ -14,10 +14,10 @@ const routes = {
     '/': signIn,
     '/sign-in': signIn,
     '/sign-up': signUp,
-    '/chat': chat,
-    '/profile': profile,
+    '/messenger': chat,
+    '/settings': profile,
     '/profile/edit': profileEdit,
-    '/profile/change-password': changePassword,
+    '/settings/change-password': changePassword,
     '/404': notFoundPage,
     '/500': serverErrorPage,
 };
