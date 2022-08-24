@@ -16,7 +16,7 @@ const routes = {
     '/sign-up': signUp,
     '/messenger': chat,
     '/settings': profile,
-    '/profile/edit': profileEdit,
+    '/settings/edit': profileEdit,
     '/settings/change-password': changePassword,
     '/404': notFoundPage,
     '/500': serverErrorPage,

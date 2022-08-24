@@ -8,7 +8,7 @@ import { inputAndLabel as inputAndLabelComponent } from '../../components/inputA
 import * as styles from './styles.module.sass';
 import { InputAndLabelProps } from '../../components/inputAndLabel/interfaces';
 import { PASSWORD_INPUT_TITLE } from '../../utils/inputTitleMsg';
-import {PASSWORD_REGEXP} from '../../utils/regularExpressions';
+import { PASSWORD_REGEXP } from '../../utils/regularExpressions';
 import { setSubmitBtnDisabled } from '../../utils/setSubmitBtnDisabled';
 import { setCompletedFieldsState } from '../../utils/setCompletedFieldsState';
 import { validate } from '../../utils/validate';
@@ -72,9 +72,9 @@ const oldPasswordInputProps: InputAndLabelProps = {
     placeholder: 'Старый_пароль',
     disabled: disabledInputs,
     value: 'ivanovII123',
-    title:PASSWORD_INPUT_TITLE,
-    pattern:`${PASSWORD_REGEXP}`,
-    required:true,
+    title: PASSWORD_INPUT_TITLE,
+    pattern: `${PASSWORD_REGEXP}`,
+    required: true,
     containerClass: styles.inputs__item,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
@@ -90,9 +90,9 @@ const newPasswordInputNameProps: InputAndLabelProps = {
     placeholder: 'Новый_пароль',
     disabled: disabledInputs,
     value: 'ivanovII123',
-    title:PASSWORD_INPUT_TITLE,
-    pattern:`${PASSWORD_REGEXP}`,
-    required:true,
+    title: PASSWORD_INPUT_TITLE,
+    pattern: `${PASSWORD_REGEXP}`,
+    required: true,
     containerClass: styles.inputs__item,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
@@ -108,9 +108,9 @@ const againNewPasswordInputProps: InputAndLabelProps = {
     placeholder: 'Повторите_новый_пароль',
     disabled: disabledInputs,
     value: 'ivanovII123',
-    title:PASSWORD_INPUT_TITLE,
-    pattern:`${PASSWORD_REGEXP}`,
-    required:true,
+    title: PASSWORD_INPUT_TITLE,
+    pattern: `${PASSWORD_REGEXP}`,
+    required: true,
     containerClass: styles.inputs__item,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
@@ -129,7 +129,7 @@ const againNewPasswordInput = inputAndLabelComponent(againNewPasswordInputProps)
 
 const anchorToProfile = new Anchor(
     {
-        anchorPath: '/chat',
+        anchorPath: '/messenger',
         msg: '',
         className: styles.anchorToProfile
     }

@@ -109,7 +109,7 @@ const phoneInput = inputAndLabelComponent(phoneInputProps);
 
 const anchorToProfile = new Anchor(
     {
-        anchorPath: '/chat',
+        anchorPath: '/messenger',
         msg: '',
         className: styles.anchorToProfile
     }
@@ -117,7 +117,7 @@ const anchorToProfile = new Anchor(
 
 const editProfileAnchor = new Anchor(
     {
-        anchorPath: '/profile/edit',
+        anchorPath: '/settings/edit',
         msg: 'Изменить данные',
         className: styles.btns__anchor
     }
@@ -125,7 +125,7 @@ const editProfileAnchor = new Anchor(
 
 const changePasswordAnchor = new Anchor(
     {
-        anchorPath: '/profile/change-password',
+        anchorPath: '/settings/change-password',
         msg: 'Изменить пароль',
         className: styles.btns__anchor
     }
@@ -133,7 +133,7 @@ const changePasswordAnchor = new Anchor(
 
 const goToChatAnchor = new Anchor(
     {
-        anchorPath: '/chat',
+        anchorPath: '/messenger',
         msg: 'Выйти',
         className: styles.btns__anchor_red
     }

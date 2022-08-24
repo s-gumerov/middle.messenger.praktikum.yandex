@@ -5,10 +5,12 @@ import { IAvatarProps } from '../../components/avatar/interfaces';
 import { Btn } from '../../components/btn/Btn';
 import { Anchor } from '../../components/anchor/Anchor';
 import { inputAndLabel as inputAndLabelComponent } from '../../components/inputAndLabel';
+import { Input } from '../../components/input/Input';
+import { IInputProps } from '../../components/input/interfaces';
 import * as styles from './styles.module.sass';
 import { InputAndLabelProps } from '../../components/inputAndLabel/interfaces';
-import { FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE, EMAIL_INPUT_TITLE, LOGIN_INPUT_TITLE,  DISPLAY_NAME_INPUT_TITLE, PHONE_INPUT_TITLE } from '../../utils/inputTitleMsg';
-import {FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE_REGEXP, EMAIL_REGEXP, LOGIN_REGEXP, DISPLAY_NAME_REGEXP, PHONE_REGEXP} from '../../utils/regularExpressions';
+import { FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE, EMAIL_INPUT_TITLE, LOGIN_INPUT_TITLE, DISPLAY_NAME_INPUT_TITLE, PHONE_INPUT_TITLE } from '../../utils/inputTitleMsg';
+import { FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE_REGEXP, EMAIL_REGEXP, LOGIN_REGEXP, DISPLAY_NAME_REGEXP, PHONE_REGEXP } from '../../utils/regularExpressions';
 import { setSubmitBtnDisabled } from '../../utils/setSubmitBtnDisabled';
 import { setCompletedFieldsState } from '../../utils/setCompletedFieldsState';
 import { validate } from '../../utils/validate';
@@ -45,6 +47,23 @@ const blurHandler = (e: Event) => {
     setCompletedFieldsState(completedFields, name, fieldCompleted);
 };
 
+const setImgSrc = (img: HTMLImageElement, file: File) => {
+    const previewUrl = URL.createObjectURL(file);
+    img.src = previewUrl;
+}
+
+const changeAvatar = (e: Event) => {
+    const img = document.querySelector(`.${styles.figure__img}`) as HTMLImageElement;
+    const input = e.target as HTMLInputElement;
+    const file = input.files?.item(0);
+
+    if (file) {
+        setImgSrc(img, file);
+    }
+
+};
+
+
 const submitHandler = (e: Event) => {
     e.preventDefault();
     const
@@ -67,12 +86,31 @@ const submitHandler = (e: Event) => {
     })
 };
 
+const avatarUploadProps: InputAndLabelProps = {
+    id: makeUUID() as string,
+    name: 'avatarUpload',
+    type: 'file',
+    placeholder: 'Поменять аватар',
+    disabled: false,
+    value: '',
+    accept: ".jpg, .jpeg, .png",
+    multiple: false,
+    containerClass: styles.avatar,
+    inputClassName: styles.avatar__uploadInput,
+    labelClassName: styles.avatar__uploadIabel,
+    changeHandler: changeAvatar
+
+};
+
+
+const avatarUpload = inputAndLabelComponent(avatarUploadProps)
+
 const avatarProps: IAvatarProps =
 {
     alt: 'автар',
     src: 'https://www.meme-arsenal.com/memes/8fad74f2d563151e2be1fbc3b3aea87e.jpg',
     figureClassName: styles.figure,
-    imgClassName: styles.figure__img
+    imgClassName: styles.figure__img,
 };
 
 const avatar = new Avatar(avatarProps);
@@ -86,9 +124,9 @@ const emailInputProps: InputAndLabelProps = {
     placeholder: 'Почта',
     disabled: disabledInputs,
     value: 'pochta@yandex.ru',
-    title:EMAIL_INPUT_TITLE,
-    pattern:`${EMAIL_REGEXP}`,
-    required:true,
+    title: EMAIL_INPUT_TITLE,
+    pattern: `${EMAIL_REGEXP}`,
+    required: true,
     containerClass: styles.inputs__item,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
@@ -104,9 +142,9 @@ const loginInputProps: InputAndLabelProps = {
     placeholder: 'Логин',
     disabled: disabledInputs,
     value: 'ivanivanov',
-    title:LOGIN_INPUT_TITLE,
-    pattern:`${LOGIN_REGEXP}`,
-    required:true,
+    title: LOGIN_INPUT_TITLE,
+    pattern: `${LOGIN_REGEXP}`,
+    required: true,
     containerClass: styles.inputs__item,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
@@ -122,9 +160,9 @@ const firstNameInputProps: InputAndLabelProps = {
     placeholder: 'Имя',
     disabled: disabledInputs,
     value: 'Иван',
-    title:FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE,
-    pattern:`${FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE_REGEXP}`,
-    required:true,
+    title: FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE,
+    pattern: `${FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE_REGEXP}`,
+    required: true,
     containerClass: styles.inputs__item,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
@@ -140,9 +178,9 @@ const secondNameInputProps: InputAndLabelProps = {
     placeholder: 'Фамилия',
     disabled: disabledInputs,
     value: 'Иванов',
-    title:FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE,
-    pattern:`${FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE_REGEXP}`,
-    required:true,
+    title: FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE,
+    pattern: `${FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE_REGEXP}`,
+    required: true,
     containerClass: styles.inputs__item,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
@@ -158,9 +196,9 @@ const displayNameProps: InputAndLabelProps = {
     placeholder: 'Имя в чате',
     disabled: disabledInputs,
     value: 'Иван',
-    title:DISPLAY_NAME_INPUT_TITLE,
-    pattern:`${DISPLAY_NAME_REGEXP}`,
-    required:true,
+    title: DISPLAY_NAME_INPUT_TITLE,
+    pattern: `${DISPLAY_NAME_REGEXP}`,
+    required: true,
     containerClass: styles.inputs__item,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
@@ -176,9 +214,9 @@ const phoneInputProps: InputAndLabelProps = {
     placeholder: 'Телефон',
     disabled: disabledInputs,
     value: '+79099673030',
-    title:PHONE_INPUT_TITLE,
-    pattern:`${PHONE_REGEXP}`,
-    required:true,
+    title: PHONE_INPUT_TITLE,
+    pattern: `${PHONE_REGEXP}`,
+    required: true,
     containerClass: styles.inputs__item,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
@@ -203,7 +241,7 @@ const phoneInput = inputAndLabelComponent(phoneInputProps);
 
 const anchorToProfile = new Anchor(
     {
-        anchorPath: '/chat',
+        anchorPath: '/messenger',
         msg: '',
         className: styles.anchorToProfile
     }
@@ -225,6 +263,7 @@ export const profileEdit = new ProfileEdit(
             class: styles.container
         },
         avatar: avatar,
+        avatarUpload: avatarUpload,
         emailInput: emailInput,
         loginInput: loginInput,
         firstNameInput: firstNameInput,

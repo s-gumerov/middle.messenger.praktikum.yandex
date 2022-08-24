@@ -111,24 +111,34 @@
     background-color: $grayAvatarBackground
     border-radius: 50%
     cursor: pointer
+    margin: 0
 
 .figure__img
-    position: relative
     width: 130px
     height: 130px
     border-radius: 50%
 
-
-.avatar__menu
+.avatar
+    top: 60px
+    display: flex
+    flex-flow: row nowrap
+    justify-content: center
+    align-items: center
     position: absolute
     background-color: $avatarMenu
-    opacity: 0.5
     height: 130px
-    margin:0
-    padding: 0
+    width: 130px
+    border-radius: 50%
+    opacity: 0
+    &:hover
+        opacity: 0.5
 
-.menu__msg
+.avatar__uploadInput
+    display: none
+
+.avatar__uploadIabel
     color: $white
+    cursor: pointer
 
 .anchorToProfile
     height: 28px

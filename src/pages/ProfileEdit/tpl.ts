@@ -5,9 +5,11 @@ export const tpl = `
         {{{anchorToProfile}}}
     </aside>
     <section class=${styles.form}>
+    <div>
         {{{avatar}}}
-        <div class=${styles.avatar__menu}>
-        <span class=${styles.menu__msg}>Поменять аватар</span>
+        {{{avatarUpload}}}
+    </div>
+
         </div>
             <section class=${styles.form__inputs}>
                 {{{emailInput}}}

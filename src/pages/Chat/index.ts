@@ -22,7 +22,7 @@ const avatar = new Avatar(avatarProps);
 
 const anchorToProfile = new Anchor(
     {
-        anchorPath: '/profile',
+        anchorPath: '/settings',
         msg: 'Профиль',
         className: styles.nav__anchorToProfile
     }
