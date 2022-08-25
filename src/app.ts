@@ -1,46 +1,22 @@
-import { Layout } from './layout/index';
-import * as styles from './app.module.sass';
-import { signIn } from './pages/SignIn';
-import { signUp } from './pages/SignUp';
-import { chat } from './pages/Chat';
-import { profile } from './pages/Profile';
-import { profileEdit } from './pages/ProfileEdit';
-import { changePassword } from './pages/ChangePassword';
-import { notFoundPage } from './pages/404';
-import { serverErrorPage } from './pages/500';
-import { render as renderDom } from './utils/render';
 
-const routes = {
-    '/': signIn,
-    '/sign-in': signIn,
-    '/sign-up': signUp,
-    '/messenger': chat,
-    '/settings': profile,
-    '/settings/edit': profileEdit,
-    '/settings/change-password': changePassword,
-    '/404': notFoundPage,
-    '/500': serverErrorPage,
-};
+import { SignIn } from './pages/SignIn/SignIn';
+import { SignUp } from './pages/SignUp/SignUp';
+import { Chat } from './pages/Chat/Chat';
+import { Profile } from './pages/Profile/Profile';
+import { ProfileEdit } from './pages/ProfileEdit/ProfileEdit';
+import { ChangePassword } from './pages/ChangePassword/ChangePassword';
+import { NotFoundPage } from './pages/404/NotFoundPage';
+import { ServerErrorPage } from './pages/500/ServerErrorPage';
+import { router } from './utils/router';
 
-const pageLoader = (routes: { [index: string]: any }, location: string) => {
-    let loadPage = routes['/404'];
+router
+    .use("/sign-in", SignIn)
+    .use("/sign-up", SignUp)
+    .use('/settings', Profile)
+    .use('/settings/edit', ProfileEdit)
+    .use('/settings/change-password', ChangePassword)
+    .use('/messenger', Chat)
+    .use("/500", ServerErrorPage)
+    .use("/404", NotFoundPage)
+    .start();
 
-    for (let [page] of Object.entries(routes))
-        if (page === location)
-            loadPage = routes[page];
-
-    return renderDom(
-        'root',
-        new Layout(
-            "div", {
-            attr: {
-                class: styles.app
-            },
-            page: loadPage
-        }
-        ));
-};
-
-const location = window.location.pathname;
-
-pageLoader(routes, location);

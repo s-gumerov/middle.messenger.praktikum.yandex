@@ -1,6 +1,10 @@
 import Component, { TProps } from "./Component";
 import { render } from "../utils/render";
-import { isEqual } from "../utils/isEqual";
+
+
+function isEqual(lhs: string, rhs: string) {
+    return lhs === rhs;
+}
 
 export class Route {
 

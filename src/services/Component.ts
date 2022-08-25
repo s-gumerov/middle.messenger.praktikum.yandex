@@ -230,7 +230,7 @@ export default class Component {
     };
 
     show() {
-        this.getContent().style.display = "Component";
+        this.getContent().style.display = "flex";
     };
 
     hide() {

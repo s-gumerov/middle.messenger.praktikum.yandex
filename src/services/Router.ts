@@ -1,8 +1,6 @@
 
 import { Route } from "./Route";
 import Component from "./Component";
-import { signIn } from "../pages/SignIn";
-import { profile } from "../pages/Profile";
 
 export class Router {
 
@@ -10,9 +8,6 @@ export class Router {
     public history!: History;
     private _currentRoute!: Route | null;
     private _rootQuery!: string;
-    // private _pathnames: string[];
-    // private _onRouteCallback: () => void;
-    // private _unprotectedPaths: `/${string}`[];
     static __instance: Router;
 
     constructor(rootQuery: string) {
@@ -55,9 +50,7 @@ export class Router {
         }
 
         this._currentRoute = route;
-        // route.render(route, pathname);
         route.render();
-
     }
 
     public go(pathname: string) {
@@ -78,28 +71,3 @@ export class Router {
     }
 }
 
-// Необходимо оставить в силу особенностей тренажёра
-history.pushState({}, '', '/');
-
-const router = new Router(".app");
-
-// Можно обновиться на /user и получить сразу пользователя
-router
-    // .use("/", signIn)
-    // .use("/users", profile)
-    .start();
-
-// Через секунду контент изменится сам, достаточно дёрнуть переход
-setTimeout(() => {
-    router.go("/users");
-}, 1000);
-
-// А можно и назад
-setTimeout(() => {
-    router.back();
-}, 3000);
-
-// И снова вперёд
-setTimeout(() => {
-    router.forward();
-}, 5000);
