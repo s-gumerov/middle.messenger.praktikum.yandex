@@ -17,25 +17,26 @@ type TRequestOptions = {
     data?: unknown
 };
 
-export default class HTTPTransport {
+export class HTTPTransport {
+
     public get = (url: string, options = {}) =>
-        this.request(url, { ...options, method: Methods.GET });
+        this.request(url, { ...options, method: Methods.GET }) as Promise<XMLHttpRequest>;
 
 
     public post = (url: string, options = {}) =>
-        this.request(url, { ...options, method: Methods.POST });
+        this.request(url, { ...options, method: Methods.POST }) as Promise<XMLHttpRequest>;
 
 
     public put = (url: string, options = {}) =>
-        this.request(url, { ...options, method: Methods.PUT });
+        this.request(url, { ...options, method: Methods.PUT }) as Promise<XMLHttpRequest>;
 
 
     public patch = (url: string, options = {}) =>
-        this.request(url, { ...options, method: Methods.PATCH });
+        this.request(url, { ...options, method: Methods.PATCH }) as Promise<XMLHttpRequest>;
 
 
     public delete = (url: string, options = {}) =>
-        this.request(url, { ...options, method: Methods.DELETE });
+        this.request(url, { ...options, method: Methods.DELETE }) as Promise<XMLHttpRequest>;
 
 
     request = (url: string, options: TRequestOptions) => {

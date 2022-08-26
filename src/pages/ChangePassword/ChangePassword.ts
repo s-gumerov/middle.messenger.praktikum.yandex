@@ -58,7 +58,7 @@ const submitHandler = (e: Event) => {
 const avatarProps: IAvatarProps =
 {
     alt: 'автар',
-    src: 'https://www.meme-arsenal.com/memes/8fad74f2d563151e2be1fbc3b3aea87e.jpg',
+    src: 'https://images.unsplash.com/photo-1506891536236-3e07892564b7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80',
     figureClassName: styles.figure,
     imgClassName: styles.figure__img
 };

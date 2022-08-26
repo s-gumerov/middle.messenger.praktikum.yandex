@@ -26,7 +26,7 @@ const anchorToProfile = new Anchor(
     {
         anchorPath: '/settings',
         msg: 'Профиль',
-        className: styles.nav__anchorToProfile,
+        className: styles.goToProfile__anchor,
         clickHandler: (e: Event) => {
             e.preventDefault();
             router.go('/settings')

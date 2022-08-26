@@ -4,11 +4,9 @@ export const tpl = `
     <aside class=${styles.chat__sidebar}>
 
         <nav class=${styles.sidebar__nav}>
-            <div class=${styles.nav__anchorToProfile}></div>
+            <div class=${styles.nav__goToProfile}>
                 {{{anchorToProfile}}}
-                <div class=${styles.anchorToProfile__icon}>
-
-                </div>
+            <i class=${styles.goToProfile__icon}></i>
             </div>
         </nav>
 
@@ -25,4 +23,5 @@ export const tpl = `
         <span class=${styles.content__selectChatMsg}>
             Выберите чат чтобы отправить сообщение
         </span>
+    </main>
 `;

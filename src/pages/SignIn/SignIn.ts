@@ -99,12 +99,12 @@ const loginBtn = new Btn(
 
 const signUpAnchor = new Anchor(
     {
-        anchorPath: '/sign-up',
+        anchorPath: '/auth/signup',
         msg: 'Нет аккаунта?',
         className: styles.btns__anchor,
         clickHandler: (e: Event) => {
             e.preventDefault();
-            router.go("/sign-up");
+            router.go("/auth/signup");
         }
     }
 );

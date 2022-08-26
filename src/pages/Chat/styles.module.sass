@@ -4,14 +4,14 @@
 .chat
     display: flex
     flex-flow: row nowrap
-    justify-content: flex-start
     align-items: flex-start
-    width: inherit
+    justify-content: flex-start
+    width: 100%
     height: inherit
 
 .chat__sidebar
     height: 100%
-    width: 310px
+    min-width: 310px
     display: flex
     flex-flow: column nowrap
     justify-content: flex-start
@@ -30,20 +30,24 @@
     justify-content: flex-end
     align-items: center
 
-.nav__anchorToProfile
+.nav__goToProfile
     display: flex
     flex-flow: row nowrap
-    gap: 8px
-    text-decoration: none
+    align-items: center
     height: 12px
+    gap: 8px
+    cursor: pointer
+
+.goToProfile__anchor
+    text-decoration: none
+    text-decoration: none
     font-style: normal
     font-weight: 500
     font-size: 12px
     line-height: 12px
     color: $gray
-    cursor: pointer
 
-.anchorToProfile__icon
+.goToProfile__icon
     margin-right: 10px
     content: url('../../styles/icons/rightArrow.svg')
 
@@ -75,10 +79,11 @@
     border-radius: 50%
 
 .chat__content
-    height: inherit
+    width: 800px
+    height: 100%
     display: flex
     flex-flow: row nowrap
-    margin: 0 auto
+    justify-content: center
     align-items: center
 
 .content__selectChatMsg

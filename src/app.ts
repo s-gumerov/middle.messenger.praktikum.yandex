@@ -10,8 +10,8 @@ import { ServerErrorPage } from './pages/500/ServerErrorPage';
 import { router } from './utils/router';
 
 router
-    .use("/sign-in", SignIn)
-    .use("/sign-up", SignUp)
+    .use("/auth/signin", SignIn)
+    .use("/auth/signup", SignUp)
     .use('/settings', Profile)
     .use('/settings/edit', ProfileEdit)
     .use('/settings/change-password', ChangePassword)

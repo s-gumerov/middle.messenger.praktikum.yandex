@@ -215,12 +215,12 @@ const signUpBtn = new Btn(
 
 const signInAnchor = new Anchor(
     {
-        anchorPath: '/sign-in',
+        anchorPath: '/auth/signin',
         msg: 'Войти',
         className: styles.btns__anchor,
         clickHandler: (e: Event) => {
             e.preventDefault();
-            router.go("/sign-in")
+            router.go("/auth/signin")
         }
     }
 );
