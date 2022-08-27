@@ -8,6 +8,7 @@ import { inputAndLabel as inputAndLabelComponent } from '../../components/inputA
 import * as styles from './styles.module.sass';
 import { InputAndLabelProps } from '../../components/inputAndLabel/interfaces';
 import { router } from '../../utils/router';
+import AuthController from '../../controllers/AuthController';
 
 const avatarProps: IAvatarProps =
 {
@@ -21,7 +22,8 @@ const avatar = new Avatar(avatarProps);
 
 let disabledInputs = true;
 
-const emailInputProps: InputAndLabelProps = {
+const emailInputProps: InputAndLabelProps =
+{
     id: makeUUID() as string,
     name: 'email',
     type: 'email',
@@ -33,7 +35,8 @@ const emailInputProps: InputAndLabelProps = {
     labelClassName: styles.item__label,
 };
 
-const loginInputProps: InputAndLabelProps = {
+const loginInputProps: InputAndLabelProps =
+{
     id: makeUUID() as string,
     name: 'login',
     type: 'text',
@@ -45,7 +48,8 @@ const loginInputProps: InputAndLabelProps = {
     labelClassName: styles.item__label,
 };
 
-const firstNameInputProps: InputAndLabelProps = {
+const firstNameInputProps: InputAndLabelProps =
+{
     id: makeUUID() as string,
     name: 'first_name',
     type: 'text',
@@ -57,7 +61,8 @@ const firstNameInputProps: InputAndLabelProps = {
     labelClassName: styles.item__label,
 };
 
-const secondNameInputProps: InputAndLabelProps = {
+const secondNameInputProps: InputAndLabelProps =
+{
     id: makeUUID() as string,
     name: 'second_name',
     type: 'text',
@@ -69,7 +74,8 @@ const secondNameInputProps: InputAndLabelProps = {
     labelClassName: styles.item__label,
 };
 
-const displayNameProps: InputAndLabelProps = {
+const displayNameProps: InputAndLabelProps =
+{
     id: makeUUID() as string,
     name: 'display_name',
     type: 'text',
@@ -81,7 +87,8 @@ const displayNameProps: InputAndLabelProps = {
     labelClassName: styles.item__label,
 };
 
-const phoneInputProps: InputAndLabelProps = {
+const phoneInputProps: InputAndLabelProps =
+{
     id: makeUUID() as string,
     name: 'phone',
     type: 'text',
@@ -146,12 +153,12 @@ const changePasswordAnchor = new Anchor(
 
 const goToChatAnchor = new Anchor(
     {
-        anchorPath: '/messenger',
+        anchorPath: '/auth/logout',
         msg: 'Выйти',
         className: styles.btns__anchor_red,
         clickHandler: (e: Event) => {
             e.preventDefault();
-            router.go('/messenger')
+            AuthController.signOut();
         }
     }
 );

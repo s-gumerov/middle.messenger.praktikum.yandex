@@ -14,7 +14,9 @@ import { setSubmitBtnDisabled } from '../../utils/setSubmitBtnDisabled';
 import { setCompletedFieldsState } from '../../utils/setCompletedFieldsState';
 import { validate } from '../../utils/validate';
 import { inputCheckToForm } from '../../utils/inputCheckToForm';
+import { IChangePassword } from './interfaces';
 import { router } from '../../utils/router';
+import UserProfileController from '../../controllers/UserProfileController';
 
 const completedFields = {
     old_password: false,
@@ -48,6 +50,14 @@ const blurHandler = (e: Event) => {
 const submitHandler = (e: Event) => {
     e.preventDefault();
     const { old_password, new_password, again_password } = e.target as HTMLFormElement;
+    const data: IChangePassword =
+    {
+        oldPassword: old_password.value,
+        newPassword: new_password.value,
+    };
+
+    UserProfileController.updatePassword(data);
+
     console.log({
         old_password: old_password.value,
         new_password: new_password.value,

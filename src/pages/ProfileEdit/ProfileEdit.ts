@@ -50,20 +50,21 @@ const blurHandler = (e: Event) => {
     setCompletedFieldsState(completedFields, name, fieldCompleted);
 };
 
-
-
 const changeAvatar = (e: Event) => {
     const img = document.querySelector(`.${styles.figure__img}`) as HTMLImageElement;
-    const { files } = e.target as HTMLInputElement;
-    if (files) {
-        const [file] = files;
-        setImgSrc(img, file);
-        const data = new FormData();
-        data.append('Avatar', file);
-        UserProfileController.updateAvatar(data);
-    }
-};
+    const input = e.target as HTMLInputElement;
+    const avatar = input.files?.item(0);
 
+    if (!avatar) {
+        return
+    };
+
+    setImgSrc(img, avatar);
+    const formData = new FormData();
+    formData.append('avatar', avatar);
+    UserProfileController.updateAvatar(formData);
+
+};
 
 const submitHandler = (e: Event) => {
     e.preventDefault();
@@ -86,12 +87,14 @@ const submitHandler = (e: Event) => {
         display_name: display_name.value,
         phone: phone.value,
     };
+
     UserProfileController.updateProfile(data);
 
     console.log(data);
 };
 
-const avatarUploadProps: InputAndLabelProps = {
+const avatarUploadProps: InputAndLabelProps =
+{
     id: makeUUID() as string,
     name: 'avatarUpload',
     type: 'file',
@@ -104,7 +107,6 @@ const avatarUploadProps: InputAndLabelProps = {
     inputClassName: styles.avatar__uploadInput,
     labelClassName: styles.avatar__uploadIabel,
     changeHandler: changeAvatar
-
 };
 
 
@@ -122,7 +124,8 @@ const avatar = new Avatar(avatarProps);
 
 let disabledInputs = false;
 
-const emailInputProps: InputAndLabelProps = {
+const emailInputProps: InputAndLabelProps =
+{
     id: makeUUID() as string,
     name: 'email',
     type: 'email',
@@ -140,7 +143,8 @@ const emailInputProps: InputAndLabelProps = {
     inputHandler: inputHandler
 };
 
-const loginInputProps: InputAndLabelProps = {
+const loginInputProps: InputAndLabelProps =
+{
     id: makeUUID() as string,
     name: 'login',
     type: 'text',
@@ -158,7 +162,8 @@ const loginInputProps: InputAndLabelProps = {
     inputHandler: inputHandler
 };
 
-const firstNameInputProps: InputAndLabelProps = {
+const firstNameInputProps: InputAndLabelProps =
+{
     id: makeUUID() as string,
     name: 'first_name',
     type: 'text',
@@ -176,7 +181,8 @@ const firstNameInputProps: InputAndLabelProps = {
     inputHandler: inputHandler
 };
 
-const secondNameInputProps: InputAndLabelProps = {
+const secondNameInputProps: InputAndLabelProps =
+{
     id: makeUUID() as string,
     name: 'second_name',
     type: 'text',
@@ -194,7 +200,8 @@ const secondNameInputProps: InputAndLabelProps = {
     inputHandler: inputHandler
 };
 
-const displayNameProps: InputAndLabelProps = {
+const displayNameProps: InputAndLabelProps =
+{
     id: makeUUID() as string,
     name: 'display_name',
     type: 'text',
@@ -212,7 +219,8 @@ const displayNameProps: InputAndLabelProps = {
     inputHandler: inputHandler
 };
 
-const phoneInputProps: InputAndLabelProps = {
+const phoneInputProps: InputAndLabelProps =
+{
     id: makeUUID() as string,
     name: 'phone',
     type: 'text',

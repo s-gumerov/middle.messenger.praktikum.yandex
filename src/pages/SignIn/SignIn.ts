@@ -13,8 +13,7 @@ import { validate } from '../../utils/validate';
 import { setCompletedFieldsState } from '../../utils/setCompletedFieldsState';
 import { inputCheckToForm } from '../../utils/inputCheckToForm';
 import { router } from '../../utils/router';
-import AuthSingInController from '../../controllers/Auth';
-// import AuthAPI from '../api/AuthApi';
+import AuthController from '../../controllers/AuthController';
 import { ISignIn } from './interfaces';
 
 const completedFields = {
@@ -51,7 +50,7 @@ const submitHandler = (e: Event) => {
         login: login.value,
         password: password.value
     }
-    AuthSingInController.signIn(data)
+    AuthController.signIn(data)
     console.log(data)
 };
 
@@ -61,7 +60,7 @@ const loginInputProps: InputAndLabelProps = {
     type: 'text',
     placeholder: 'Логин',
     disabled: false,
-    value: 'IvanovII',
+    value: 'qwertyuio',
     title: LOGIN_INPUT_TITLE,
     pattern: `${LOGIN_REGEXP}`,
     required: true,
@@ -78,7 +77,7 @@ const passwordInputProps: InputAndLabelProps = {
     type: 'password',
     placeholder: 'Пароль',
     disabled: false,
-    value: 'ivanivanov1P',
+    value: 'Qwe123',
     title: PASSWORD_INPUT_TITLE,
     pattern: `${PASSWORD_REGEXP}`,
     required: true,

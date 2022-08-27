@@ -15,6 +15,7 @@ type TRequestOptions = {
     headers?: Record<string, string>
     timeout?: number
     data?: unknown
+    withCredentials?: boolean
 };
 
 export class HTTPTransport {
@@ -29,9 +30,10 @@ export class HTTPTransport {
 
     }
 
-    public put = (url: string, options = {}) =>
-        this.request(url, { ...options, method: Methods.PUT }) as Promise<XMLHttpRequest>;
-
+    public put = (url: string, options = {}) => {
+        console.log(options)
+        return this.request(url, { ...options, method: Methods.PUT }) as Promise<XMLHttpRequest>;
+    }
 
     public patch = (url: string, options = {}) =>
         this.request(url, { ...options, method: Methods.PATCH }) as Promise<XMLHttpRequest>;
@@ -47,6 +49,7 @@ export class HTTPTransport {
             headers = {},
             data,
             timeout = 5000,
+            withCredentials = false,
         } = options;
         console.log(options)
 
@@ -57,15 +60,20 @@ export class HTTPTransport {
 
             xhr.open(method, url + query);
 
+            if (withCredentials) {
+                xhr.withCredentials = true;
+            }
+
             Object.entries(headers).forEach(([key, value]) =>
                 xhr.setRequestHeader(key, value)
             );
 
             xhr.onload = () => {
-                if (xhr.status >= 300)
+                if (xhr.status >= 300) {
                     reject(xhr);
-                else
+                } else {
                     resolve(xhr);
+                }
             };
 
             xhr.onabort = reject;
@@ -73,10 +81,23 @@ export class HTTPTransport {
             xhr.timeout = timeout;
             xhr.ontimeout = reject;
 
-            if (method === Methods.GET || !data)
+            if (method === Methods.GET || !data) {
                 xhr.send();
-            else
+            }
+            else if (data instanceof FormData) {
+                console.log('Formdata');
+                // xhr.setRequestHeader('Content-Type', 'multipart/form-data;');
+                console.log(data)
+
+                xhr.send(data);
+            }
+
+
+            else {
+
                 xhr.send(JSON.stringify(data));
+
+            }
 
         });
     };

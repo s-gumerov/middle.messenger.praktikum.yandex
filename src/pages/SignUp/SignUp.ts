@@ -14,7 +14,7 @@ import { setCompletedFieldsState } from '../../utils/setCompletedFieldsState';
 import { inputCheckToForm } from '../../utils/inputCheckToForm';
 import { router } from '../../utils/router';
 import { ISignUp } from './interfaces';
-import AuthSingInController from '../../controllers/Auth';
+import AuthController from '../../controllers/AuthController';
 
 
 const completedFields = {
@@ -70,7 +70,7 @@ const submitHandler = (e: Event) => {
         password: password.value,
         phone: phone.value,
     }
-    AuthSingInController.signUp(data)
+    AuthController.signUp(data)
 
     console.log(data);
 };

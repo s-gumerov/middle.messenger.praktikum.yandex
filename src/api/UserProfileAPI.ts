@@ -1,19 +1,18 @@
 import { BaseAPI } from './BaseApi';
 import { IProfile } from '../pages/ProfileEdit/interfaces';
-
-// import { IUserApiSearch, IUserApiUpdateProfile } from '../interfaces/IUserApi';
+import { IChangePassword } from '../pages/ChangePassword/interfaces';
 
 class UserProfileAPI extends BaseAPI {
     constructor() {
         super({ path: '/user' });
     }
 
-    //   public search(data: IUserApiSearch) {
-    //     return this.post('/search', {
-    //       withCredentials: true,
-    //       data: JSON.stringify(data),
-    //     });
-    //   }
+    public updatePassword(data: IChangePassword) {
+        return this.update('/password', {
+            withCredentials: true,
+            data: data,
+        });
+    }
 
     public updateProfile(data: IProfile) {
         return this.update('/profile', {
@@ -24,10 +23,7 @@ class UserProfileAPI extends BaseAPI {
 
     public updateAvatar(data: FormData) {
         return this.update('/profile/avatar', {
-            headers: {
-                "accept": "application/json",
-                "Content-Type": "multipart/form-data"
-            },
+            headers: {},
             withCredentials: true,
             data,
         });

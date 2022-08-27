@@ -8,7 +8,6 @@ class AuthAPI extends BaseAPI {
     }
 
     public signIn(data: ISignIn) {
-        console.log(data)
         return this.create('/signin',
             {
                 withCredentials: true,
