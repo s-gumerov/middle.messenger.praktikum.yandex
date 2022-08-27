@@ -5,14 +5,14 @@ interface IBaseApi {
     baseUrl?: string,
     path?: `/${string}`
     headers?: Record<string, string>
-}
+};
 
 
 const headers = {
     'Content-type': 'application/json; charset=UTF-8',
 };
 
-const HTTP = new HTTPTransport()
+const HTTP = new HTTPTransport();
 
 export class BaseAPI {
 
