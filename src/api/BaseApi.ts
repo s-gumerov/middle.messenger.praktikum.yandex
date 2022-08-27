@@ -72,6 +72,7 @@ export class BaseAPI {
     }
 
     async update(endpoint: `/${string}`, options?: {}) {
+        console.log(options)
         return this._http.put(this.getPath() + endpoint, this.handleOptions(options))
             .then(this.handleResponse);
     }

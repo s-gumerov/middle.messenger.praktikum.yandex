@@ -122,24 +122,24 @@ const anchorToProfile = new Anchor(
 
 const editProfileAnchor = new Anchor(
     {
-        anchorPath: '/settings/edit',
+        anchorPath: '/user/profile',
         msg: 'Изменить данные',
         className: styles.btns__anchor,
         clickHandler: (e: Event) => {
             e.preventDefault();
-            router.go('/settings/edit')
+            router.go('/user/profile')
         }
     }
 );
 
 const changePasswordAnchor = new Anchor(
     {
-        anchorPath: '/settings/change-password',
+        anchorPath: '/user/password',
         msg: 'Изменить пароль',
         className: styles.btns__anchor,
         clickHandler: (e: Event) => {
             e.preventDefault();
-            router.go('/settings/change-password')
+            router.go('/user/password')
         }
     }
 );

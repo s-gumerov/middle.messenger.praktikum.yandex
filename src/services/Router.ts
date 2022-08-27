@@ -23,8 +23,8 @@ export class Router {
         Router.__instance = this;
     }
 
-    public use(pathname: string, block: typeof Component) {
-        const route = new Route(pathname, block, { rootQuery: this._rootQuery });
+    public use(pathname: string, block: typeof Component, props = {}) {
+        const route = new Route(pathname, block, { ...props, rootQuery: this._rootQuery });
 
         this.routes.push(route);
 

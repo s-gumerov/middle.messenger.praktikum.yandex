@@ -24,12 +24,12 @@ const avatar = new Avatar(avatarProps);
 
 const anchorToProfile = new Anchor(
     {
-        anchorPath: '/settings',
+        anchorPath: '/user',
         msg: 'Профиль',
         className: styles.goToProfile__anchor,
         clickHandler: (e: Event) => {
             e.preventDefault();
-            router.go('/settings')
+            router.go('/user')
         }
     }
 );

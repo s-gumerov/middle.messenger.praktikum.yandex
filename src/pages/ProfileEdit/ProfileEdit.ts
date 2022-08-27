@@ -16,6 +16,8 @@ import { validate } from '../../utils/validate';
 import { inputCheckToForm } from '../../utils/inputCheckToForm';
 import { setImgSrc } from '../../utils/setImgSrc';
 import { router } from '../../utils/router';
+import UserProfileController from '../../controllers/UserProfileController';
+import { IProfile } from './interfaces';
 
 const completedFields = {
     email: false,
@@ -52,13 +54,14 @@ const blurHandler = (e: Event) => {
 
 const changeAvatar = (e: Event) => {
     const img = document.querySelector(`.${styles.figure__img}`) as HTMLImageElement;
-    const input = e.target as HTMLInputElement;
-    const file = input.files?.item(0);
-
-    if (file) {
+    const { files } = e.target as HTMLInputElement;
+    if (files) {
+        const [file] = files;
         setImgSrc(img, file);
+        const data = new FormData();
+        data.append('Avatar', file);
+        UserProfileController.updateAvatar(data);
     }
-
 };
 
 
@@ -74,14 +77,18 @@ const submitHandler = (e: Event) => {
             phone
         } = e.target as HTMLFormElement;
 
-    console.log({
+    const data: IProfile =
+    {
         email: email.value,
         login: login.value,
         first_name: first_name.value,
         second_name: second_name.value,
         display_name: display_name.value,
         phone: phone.value,
-    })
+    };
+    UserProfileController.updateProfile(data);
+
+    console.log(data);
 };
 
 const avatarUploadProps: InputAndLabelProps = {

@@ -13,6 +13,9 @@ import { validate } from '../../utils/validate';
 import { setCompletedFieldsState } from '../../utils/setCompletedFieldsState';
 import { inputCheckToForm } from '../../utils/inputCheckToForm';
 import { router } from '../../utils/router';
+import { ISignUp } from './interfaces';
+import AuthSingInController from '../../controllers/Auth';
+
 
 const completedFields = {
     email: false,
@@ -57,18 +60,19 @@ const submitHandler = (e: Event) => {
             second_name,
             phone,
             password,
-            again_password
         } = e.target as HTMLFormElement;
 
-    console.log({
-        email: email.value,
-        login: login.value,
+    const data: ISignUp = {
         first_name: first_name.value,
         second_name: second_name.value,
-        phone: phone.value,
+        login: login.value,
+        email: email.value,
         password: password.value,
-        again_password: again_password.value
-    })
+        phone: phone.value,
+    }
+    AuthSingInController.signUp(data)
+
+    console.log(data);
 };
 
 const emailInputProps: InputAndLabelProps = {

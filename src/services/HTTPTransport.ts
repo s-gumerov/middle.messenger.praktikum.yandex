@@ -19,13 +19,15 @@ type TRequestOptions = {
 
 export class HTTPTransport {
 
-    public get = (url: string, options = {}) =>
-        this.request(url, { ...options, method: Methods.GET }) as Promise<XMLHttpRequest>;
+    public get = (url: string, options = {}) => {
+        return this.request(url, { ...options, method: Methods.GET }) as Promise<XMLHttpRequest>;
+    }
 
 
-    public post = (url: string, options = {}) =>
-        this.request(url, { ...options, method: Methods.POST }) as Promise<XMLHttpRequest>;
+    public post = (url: string, options = {}) => {
+        return this.request(url, { ...options, method: Methods.POST }) as Promise<XMLHttpRequest>;
 
+    }
 
     public put = (url: string, options = {}) =>
         this.request(url, { ...options, method: Methods.PUT }) as Promise<XMLHttpRequest>;
@@ -46,6 +48,7 @@ export class HTTPTransport {
             data,
             timeout = 5000,
         } = options;
+        console.log(options)
 
         const query = method === Methods.GET ? queryStringify(data as TQueryStringify) : '';
 

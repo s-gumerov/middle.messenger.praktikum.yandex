@@ -13,6 +13,9 @@ import { validate } from '../../utils/validate';
 import { setCompletedFieldsState } from '../../utils/setCompletedFieldsState';
 import { inputCheckToForm } from '../../utils/inputCheckToForm';
 import { router } from '../../utils/router';
+import AuthSingInController from '../../controllers/Auth';
+// import AuthAPI from '../api/AuthApi';
+import { ISignIn } from './interfaces';
 
 const completedFields = {
     login: false,
@@ -44,10 +47,12 @@ const blurHandler = (e: Event) => {
 const submitHandler = (e: Event) => {
     e.preventDefault();
     const { login, password } = e.target as HTMLFormElement;
-    console.log({
+    const data: ISignIn = {
         login: login.value,
         password: password.value
-    })
+    }
+    AuthSingInController.signIn(data)
+    console.log(data)
 };
 
 const loginInputProps: InputAndLabelProps = {
@@ -56,7 +61,7 @@ const loginInputProps: InputAndLabelProps = {
     type: 'text',
     placeholder: 'Логин',
     disabled: false,
-    value: 'ivanivanov',
+    value: 'IvanovII',
     title: LOGIN_INPUT_TITLE,
     pattern: `${LOGIN_REGEXP}`,
     required: true,
