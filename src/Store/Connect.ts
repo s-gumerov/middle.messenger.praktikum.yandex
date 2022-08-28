@@ -1,7 +1,7 @@
 import Store from './Store';
 
 
-export default function connect<T>(Component: any, mapStateToProps: Function) {
+export default function connect(Component: any, mapStateToProps: Function) {
 
 	return class extends Component {
 		constructor(tag = 'div', props = {}) {

@@ -1,6 +1,7 @@
 import { v4 as makeUUID } from 'uuid';
 import Handlebars from 'handlebars';
 import EventBus from './EventBus';
+import { isEqual } from '../utils/isEqual';
 
 export type TProps = Record<string, any>;
 
@@ -185,9 +186,7 @@ export class Component {
     };
 
     public componentDidUpdate(oldProps: TProps, newProps: TProps) {
-        if (JSON.stringify(oldProps) === JSON.stringify(newProps))
-            return true;
-        else false
+        return isEqual(oldProps, newProps);
     };
 
     public setProps(newProps: TProps) {

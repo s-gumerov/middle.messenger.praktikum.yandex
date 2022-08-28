@@ -1,4 +1,5 @@
 import Store from './Store';
+import { IStore } from './interfaces';
 
 const store = new Store();
 

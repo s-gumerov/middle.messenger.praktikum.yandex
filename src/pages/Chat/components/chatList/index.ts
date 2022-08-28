@@ -1,6 +1,6 @@
 import { ChatList } from './ChatList';
-import { chatListItem } from '../chatListItem/';
-import { IChatListItemProps } from '../chatListItem/interfaces';
+import { chatListItem } from './components/chatListItem';
+import { IChatListItemProps } from './components/chatListItem/interfaces';
 import * as styles from './styles.module.sass';
 
 export const chatList = (chatList: IChatListItemProps[]) => {

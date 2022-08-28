@@ -1,10 +1,12 @@
 import { router } from "./router";
 
 export const errorHandler = (error: XMLHttpRequest) => {
-    // if (!error.response) {
-    //     return router.go('/500');
-    // }
     const { reason } = JSON.parse(error.response);
-    console.log('reason', error)
-    return Promise.reject(error);
+    if (reason === 'User already in system') {
+        router.go('/messenger')
+    } else {
+        alert(reason)
+        return Promise.reject(error);
+    }
+
 };

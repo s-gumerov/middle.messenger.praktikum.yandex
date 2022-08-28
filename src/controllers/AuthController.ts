@@ -3,14 +3,17 @@ import { router } from '../utils/router';
 import { errorHandler } from '../utils/errorHandler';
 import { ISignIn } from '../pages/SignIn/interfaces';
 import { ISignUp } from '../pages/SignUp/interfaces';
+import { Actions } from '../Store';
 
 // import { store } from '../store';
 
 class AuthController {
     public async signIn(user: ISignIn) {
         return AuthAPI.signIn(user)
-            .then(() => {
-                router.go('/user');
+            .then((response) => {
+                // Actions.addText(response);
+                console.log(response)
+                router.go('/messenger');
             })
             .catch(errorHandler);
     }
@@ -28,6 +31,13 @@ class AuthController {
             .then(() => {
                 router.go('/auth/signin');
             });
+    }
+
+    public async checkAuth() {
+        return AuthAPI.checkAuth()
+            .then((reponse) => {
+                console.log(reponse)
+            })
     }
 
 }

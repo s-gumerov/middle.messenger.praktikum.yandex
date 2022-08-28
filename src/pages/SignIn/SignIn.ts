@@ -22,6 +22,8 @@ const completedFields = {
 };
 
 const focusHandler = (e: Event) => {
+
+    AuthController.checkAuth
     const { value, name } = e.target as HTMLInputElement;
     const fieldCompleted = validate(name, value);
     setCompletedFieldsState(completedFields, name, fieldCompleted);
@@ -49,9 +51,9 @@ const submitHandler = (e: Event) => {
     const data: ISignIn = {
         login: login.value,
         password: password.value
-    }
-    AuthController.signIn(data)
-    console.log(data)
+    };
+    AuthController.signIn(data);
+    console.log(data);
 };
 
 const loginInputProps: InputAndLabelProps = {
@@ -60,7 +62,7 @@ const loginInputProps: InputAndLabelProps = {
     type: 'text',
     placeholder: 'Логин',
     disabled: false,
-    value: 'qwertyuio',
+    value: 'User',
     title: LOGIN_INPUT_TITLE,
     pattern: `${LOGIN_REGEXP}`,
     required: true,
@@ -77,7 +79,7 @@ const passwordInputProps: InputAndLabelProps = {
     type: 'password',
     placeholder: 'Пароль',
     disabled: false,
-    value: 'Qwe123',
+    value: 'ivanovII123',
     title: PASSWORD_INPUT_TITLE,
     pattern: `${PASSWORD_REGEXP}`,
     required: true,
@@ -131,6 +133,9 @@ export class SignIn extends Component {
             }
         )
     }
+
+
+
     render() {
         return this.compile(tpl);
     }

@@ -1,8 +1,8 @@
 import { ChatListItem } from './ChatListItem';
 import { IChatListItemProps } from './interfaces';
-import { Avatar } from '../../../../components/avatar/Avatar';
-import { IAvatarProps } from '../../../../components/avatar/interfaces';
-import { Btn } from '../../../../components/btn/Btn';
+import { Avatar } from '../../../../../../components/avatar/Avatar';
+import { IAvatarProps } from '../../../../../../components/avatar/interfaces';
+import { Btn } from '../../../../../../components/btn/Btn';
 import * as styles from './styles.module.sass';
 
 export const chatListItem = ({ avatarImg, chatName, lastMsg, lastMsgTime, msgCount }: IChatListItemProps) => {

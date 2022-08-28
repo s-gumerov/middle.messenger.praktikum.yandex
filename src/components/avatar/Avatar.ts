@@ -1,4 +1,4 @@
-import Component from "../../services/Component";
+import { Component } from "../../services/Component";
 import { tpl } from "./tpl";
 import { IAvatarProps } from "./interfaces";
 import * as styles from './styles.module.sass';

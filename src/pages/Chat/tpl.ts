@@ -19,9 +19,7 @@ export const tpl = `
             {{{chatList}}}
 
     </aside>
-    <main class=${styles.chat__content}>
-        <span class=${styles.content__selectChatMsg}>
-            Выберите чат чтобы отправить сообщение
-        </span>
-    </main>
+
+        {{{itemChat}}}
+
 `;

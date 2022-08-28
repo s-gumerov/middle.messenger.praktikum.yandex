@@ -1,4 +1,4 @@
-import Component from "../../services/Component";
+import { Component } from "../../services/Component";
 import { tpl } from "./tpl";
 import { IBtnProps } from "./interfaces";
 import { addAttribute } from "../../utils/addAttribute";

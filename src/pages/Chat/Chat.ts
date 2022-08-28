@@ -7,8 +7,10 @@ import { Anchor } from '../../components/anchor/Anchor';
 import { Input } from '../../components/input/Input';
 import { IInputProps } from '../../components/input/interfaces';
 import * as styles from './styles.module.sass';
-import { IChatListItemProps } from './components/chatListItem/interfaces';
+import { IChatListItemProps } from './components/chatList/components/chatListItem/interfaces';
 import { router } from '../../utils/router';
+import { itemChat } from './components/itemChat';
+import { IItemChat } from './components/itemChat/interfaces';
 
 
 
@@ -109,6 +111,23 @@ const chatListProps: IChatListItemProps[] =
 
 const chatList = chatListComponent(chatListProps);
 
+
+const itemChatProps: IItemChat =
+{
+    chatID: '123',
+    userName: 'Иван',
+    userAvatar: "https://images.unsplash.com/photo-1601013692862-800b51078700?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+    messages:
+        [
+            {
+                text: "message1",
+                date: "29.08.2022",
+            }
+        ],
+};
+
+
+
 export class Chat extends Component {
     constructor() {
         super(
@@ -121,6 +140,7 @@ export class Chat extends Component {
                 searchInput: searchInput,
                 chatList: chatList,
                 anchorToProfile: anchorToProfile,
+                itemChat: itemChat(itemChatProps)
             }
         )
     }

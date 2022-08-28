@@ -1,0 +1,115 @@
+@import '../../../../styles/colors'
+@import '../../../../styles/mixins'
+
+.itemChat
+    display: flex
+    flex-flow: column nowrap
+    justify-content: flex-start
+    align-items: flex-start
+    width: 100%
+    height: 100%
+
+.itemChat__header
+    margin: 10px 0px
+    width: 100%
+    display: flex
+    flex-flow: row nowrap
+    justify-content: space-between
+
+.header__userData
+    display: flex
+    flex-flow: row nowrap
+    align-items: center
+    gap: 10px
+
+.userData__figure
+    margin: 0
+    border: none
+    max-width: 34px
+    max-height: 34px
+    border-radius: 50%
+    cursor: pointer
+
+.figure__img
+    width: 34px
+    height: 34px
+    border-radius: 50%
+
+.userData__name
+    height: 13px
+    font-style: normal
+    font-weight: 600
+    font-size: 13px
+    line-height: 13px
+    color: $black
+
+.header__userToolsBtn
+    margin-right: 10px
+    height: 28px
+    width: 28px
+    content: url('../../../../styles/icons/userToolsBtn.svg')
+
+.itemChat__line
+    width: 100%
+    height: 1px
+    background: $pale-white
+    align-self: center
+
+.userTools__list
+    display: flex
+    flex-flow: column nowrap
+    position: absolute
+    width: 180px
+    height: 80px
+    right: 10
+    top: 65px
+    background: #FFFFFF
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14)
+    border-radius: 12px
+    padding: 15px
+    gap: 15px
+
+.list__item
+    display: flex
+    flex-flow: row nowrap
+    align-items: center
+    gap: 15px
+
+.list__text
+    width: 143px
+    height: 14px
+    font-family: 'Inter'
+    font-style: normal
+    font-weight: 500
+    font-size: 12px
+    line-height: 14px
+    color: #1E1E1E
+
+.item__addUserBtn
+    height: 28px
+    width: 28px
+    // border-radius: 50%
+    content: url('../../../../styles/icons/addUserBtn.svg')
+
+.item__deleteUserBtn
+    height: 28px
+    width: 28px
+    // border-radius: 50%
+    content: url('../../../../styles/icons/deleteUserBtn.svg')
+
+.itemChat__newMsg
+    width: 48px
+    display: flex
+    flex-flow: column nowrap
+    justify-content: space-between
+    align-items: center
+    gap: 10px
+
+.newMsg__inputMsg
+    width: 849px
+    height: 32px
+    background: #EFEFEF
+    border-radius: 30px
+
+.newMsg__sendMsgBtn
+    content: url('../../../../styles/icons/backBtn.svg')
