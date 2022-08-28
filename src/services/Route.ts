@@ -1,4 +1,4 @@
-import Component, { TProps } from "./Component";
+import { Component, TProps } from "./Component";
 import { render } from "../utils/render";
 
 

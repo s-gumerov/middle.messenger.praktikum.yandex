@@ -1,4 +1,4 @@
-import Component from '../../services/Component';
+import { Component } from '../../services/Component';
 import { tpl } from './tpl';
 import { router } from '../../utils/router';
 import * as styles from './styles.module.sass';

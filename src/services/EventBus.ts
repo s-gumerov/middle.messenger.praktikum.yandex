@@ -3,10 +3,6 @@ type TListeners = Record<string, Function[]>;
 export default class EventBus {
     private listeners: TListeners = {};
 
-    // constructor() {
-    //     this.listeners = {};
-    // }
-
     public on(event: string, callback: Function) {
         if (!this.listeners[event])
             this.listeners[event] = [];

@@ -8,7 +8,7 @@ interface IPropsAndChilds {
     [unit: string]: string
 };
 
-export default class Component {
+export class Component {
     static EVENTS = {
         INIT: "init",
         FLOW_CDM: "flow:component-did-mount",

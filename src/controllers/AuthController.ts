@@ -1,4 +1,4 @@
-import AuthAPI from '../api/AuthApi';
+import AuthAPI from '../api/AuthAPI';
 import { router } from '../utils/router';
 import { errorHandler } from '../utils/errorHandler';
 import { ISignIn } from '../pages/SignIn/interfaces';

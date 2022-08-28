@@ -1,4 +1,4 @@
-import Component from '../../services/Component';
+import { Component } from '../../services/Component';
 import { tpl } from './tpl';
 import { chatList as chatListComponent } from './components/chatList';
 import { Avatar } from '../../components/avatar/Avatar';

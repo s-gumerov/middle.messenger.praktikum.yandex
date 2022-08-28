@@ -1,4 +1,4 @@
-import Component from '../../services/Component';
+import { Component } from '../../services/Component';
 import { tpl } from './tpl';
 import { v4 as makeUUID } from 'uuid';
 import { Btn } from '../../components/btn/Btn';
