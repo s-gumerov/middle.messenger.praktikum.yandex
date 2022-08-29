@@ -73,6 +73,7 @@
     border-radius: 12px
     padding: 15px
     gap: 15px
+    z-index: 1
 
 .userTools__list_hidden
     visibility: hidden
@@ -91,7 +92,7 @@
     font-weight: 500
     font-size: 12px
     line-height: 14px
-    color: #1E1E1E
+    color: $black
 
 .item__addUserBtn
     height: 22px
@@ -108,12 +109,14 @@
     cursor: pointer
 
 .itemChat_mesages
+    overflow: auto
     grid-area: main
     display: flex
     flex-flow: column nowrap
     height: 100%
     border-top: 1px solid $pale-white
     border-bottom: 1px solid $pale-white
+    padding: 0px 10px 0px 10px
 
 .itemChat__newMsg
     grid-area: foot

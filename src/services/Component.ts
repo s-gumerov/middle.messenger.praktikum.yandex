@@ -18,11 +18,11 @@ export class Component {
     };
 
     public _props: TProps;
-    private _children;
-    private _id;
+    public _children;
+    public _id;
     public _element!: HTMLElement;
-    private _meta;
-    private _eventBus;
+    public _meta;
+    public _eventBus;
 
     constructor(tag = "div", propsAndChilds: TProps = {}) {
 
@@ -50,7 +50,7 @@ export class Component {
         this._eventBus.emit(Component.EVENTS.FLOW_RENDER);
     };
 
-    private createDocumentElement(tag: string) {
+    public createDocumentElement(tag: string) {
         const element = document.createElement(tag);
 
         if (this._props.settings?.withInternalID)
@@ -93,7 +93,7 @@ export class Component {
         });
     };
 
-    private getChildren(propsAndChilds: TProps) {
+    public getChildren(propsAndChilds: TProps) {
         const children: IPropsAndChilds = {};
         const props: IPropsAndChilds = {};
 

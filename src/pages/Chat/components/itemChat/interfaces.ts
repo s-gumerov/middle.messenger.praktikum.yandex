@@ -1,13 +1,9 @@
-interface IMessage {
-    text?: string,
-    date?: string,
-    imgSrc?: string
-}
+import { IMessageProps } from "./components/message/interfaces";
 
 export interface IItemChat {
     chatID: string,
     userName: string,
     userAvatar: string,
-    messages: IMessage[],
+    messages: IMessageProps[],
     clickHandler?: (e: Event) => void,
 }

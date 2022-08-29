@@ -27,9 +27,6 @@ export const chatListItem = ({ avatarImg, chatName, lastMsg, lastMsgTime, msgCou
     return new ChatListItem(
         'div',
         {
-            attr: {
-                class: styles.chatListItem
-            },
             avatar: avatar,
             chatName: chatName,
             lastMsg: lastMsg,

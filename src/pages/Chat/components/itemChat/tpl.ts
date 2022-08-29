@@ -32,11 +32,9 @@ export const tpl = `
 
 
 
-<div class=${styles.itemChat_mesages}>
 
     {{{messages}}}
 
-</div>
 
 
 <div class=${styles.itemChat__newMsg}>

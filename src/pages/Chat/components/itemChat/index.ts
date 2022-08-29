@@ -4,11 +4,12 @@ import { Avatar } from '../../../../components/avatar/Avatar';
 import { IAvatarProps } from '../../../../components/avatar/interfaces';
 import { Btn } from '../../../../components/btn/Btn';
 import { Input } from '../../../../components/input/Input';
+import { Message } from './components/message/Message';
 import * as styles from './styles.module.sass';
 import { router } from '../../../../utils/router';
 import { IInputProps } from '../../../../components/input/interfaces';
 
-export const itemChat = ({ chatID, userName, userAvatar, messages, clickHandler }: IItemChat) => {
+export const itemChat = ({ chatID, userName, userAvatar, clickHandler, messages }: IItemChat) => {
 
     const avatarProps: IAvatarProps =
     {
@@ -69,6 +70,11 @@ export const itemChat = ({ chatID, userName, userAvatar, messages, clickHandler 
 
     const inputMsg = new Input(inputMsgProps);
 
+
+    const itemChatMesseges = messages.map(msg => {
+        return new Message(msg)
+    });
+
     return new ItemChat(
         'main',
         {
@@ -81,7 +87,7 @@ export const itemChat = ({ chatID, userName, userAvatar, messages, clickHandler 
             chatID: chatID,
             addUserBtn: addUserBtn,
             deleteUserBtn: deleteUserBtn,
-            messages: messages,
+            messages: itemChatMesseges,
             inputMsg: inputMsg,
             sendMsgBtn: sendMsgBtn,
         }
