@@ -30,11 +30,14 @@ export const tpl = `
 
 </div>
 
-<div class=${styles.itemChat__line}></div>
 
-{{{messages}}}
 
-<div class=${styles.itemChat__line}></div>
+<div class=${styles.itemChat_mesages}>
+
+    {{{messages}}}
+
+</div>
+
 
 <div class=${styles.itemChat__newMsg}>
 

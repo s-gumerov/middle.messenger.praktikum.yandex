@@ -2,21 +2,28 @@
 @import '../../../../styles/mixins'
 
 .itemChat
-    display: flex
     flex-flow: column nowrap
     justify-content: space-between
     align-items: flex-start
     width: 100%
     height: 100%
     margin: 0
+    display: grid
+    grid-template-areas: "head" "main" "foot"
+    grid-template-columns: 100%
+    grid-template-rows: 0.8fr 10fr 1fr
 
 .itemChat__header
+    height: 100%
+    grid-area: head
     width: 100%
     display: flex
     flex-flow: row nowrap
     justify-content: space-between
+    align-items: center
 
 .header__userData
+    margin-left: 10px
     display: flex
     flex-flow: row nowrap
     align-items: center
@@ -44,6 +51,7 @@
     color: $black
 
 .header__userToolsBtn
+    margin-right: 10px
     height: 25px
     width: 25px
     background: url("../../../../styles/icons/userToolsBtn.svg") no-repeat center
@@ -51,12 +59,6 @@
     background-color: $userToolsBtn
     border-radius: 50%
     cursor: pointer
-
-.itemChat__line
-    width: 100%
-    height: 1px
-    background: $pale-white
-    align-self: center
 
 .userTools__list
     display: flex
@@ -105,30 +107,41 @@
     border: none
     cursor: pointer
 
-.itemChat__newMsg
-    margin: 0
-    width: 100%
+.itemChat_mesages
+    grid-area: main
     display: flex
+    flex-flow: column nowrap
+    height: 100%
+    border-top: 1px solid $pale-white
+    border-bottom: 1px solid $pale-white
+
+.itemChat__newMsg
+    grid-area: foot
+    width: 100%
+    height: 100%
     flex-flow: row nowrap
-    justify-content: space-between
-    align-items: center
-    gap: 10px
+    align-content: center
+    display: grid
+    grid-template-areas: "inputMsg" "sendMsgBtn"
+    grid-template-columns: 100%
+    grid-template-columns: 10fr 1fr
 
 .newMsg__inputMsg
-    width: 589px
+    grid-area: inputMsg
+    width: 100%
     height: 32px
     background: $smoky-white
     border: none
     border-radius: 30px
     text-align: center
-    margin-bottom: 10px
     &:focus
         outline: none
         @include hover-shadow($color: currentColor)
 
 .newMsg__sendMsgBtn
+    grid-area: sendMsgBtn
     height: 28px
-    width: 28px
+    width: 100%
     background: url('../../../../styles/icons/backBtn.svg') no-repeat center
     border: none
     cursor: pointer
