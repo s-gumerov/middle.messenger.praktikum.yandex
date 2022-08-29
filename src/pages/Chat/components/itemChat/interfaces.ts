@@ -1,13 +1,13 @@
 interface IMessage {
-    text?:string,
-    date?:string,
-    imgSrc?:string
+    text?: string,
+    date?: string,
+    imgSrc?: string
 }
 
 export interface IItemChat {
     chatID: string,
-    userName:string,
+    userName: string,
     userAvatar: string,
-    messages: [IMessage],
+    messages: IMessage[],
     clickHandler?: (e: Event) => void,
 }

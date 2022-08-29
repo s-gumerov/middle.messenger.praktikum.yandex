@@ -4,13 +4,13 @@
 .itemChat
     display: flex
     flex-flow: column nowrap
-    justify-content: flex-start
+    justify-content: space-between
     align-items: flex-start
     width: 100%
     height: 100%
+    margin: 0
 
 .itemChat__header
-    margin: 10px 0px
     width: 100%
     display: flex
     flex-flow: row nowrap
@@ -44,10 +44,13 @@
     color: $black
 
 .header__userToolsBtn
-    margin-right: 10px
-    height: 28px
-    width: 28px
-    content: url('../../../../styles/icons/userToolsBtn.svg')
+    height: 25px
+    width: 25px
+    background: url("../../../../styles/icons/userToolsBtn.svg") no-repeat center
+    border: none
+    background-color: $userToolsBtn
+    border-radius: 50%
+    cursor: pointer
 
 .itemChat__line
     width: 100%
@@ -63,11 +66,14 @@
     height: 80px
     right: 10
     top: 65px
-    background: #FFFFFF
+    background: $white-standard
     box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14)
     border-radius: 12px
     padding: 15px
     gap: 15px
+
+.userTools__list_hidden
+    visibility: hidden
 
 .list__item
     display: flex
@@ -86,30 +92,47 @@
     color: #1E1E1E
 
 .item__addUserBtn
-    height: 28px
-    width: 28px
-    // border-radius: 50%
-    content: url('../../../../styles/icons/addUserBtn.svg')
+    height: 22px
+    width: 22px
+    background: url('../../../../styles/icons/addUserBtn.svg') no-repeat center
+    border: none
+    cursor: pointer
 
 .item__deleteUserBtn
-    height: 28px
-    width: 28px
-    // border-radius: 50%
-    content: url('../../../../styles/icons/deleteUserBtn.svg')
+    height: 22px
+    width: 22px
+    background: url('../../../../styles/icons/deleteUserBtn.svg') no-repeat center
+    border: none
+    cursor: pointer
 
 .itemChat__newMsg
-    width: 48px
+    margin: 0
+    width: 100%
     display: flex
-    flex-flow: column nowrap
+    flex-flow: row nowrap
     justify-content: space-between
     align-items: center
     gap: 10px
 
 .newMsg__inputMsg
-    width: 849px
+    width: 589px
     height: 32px
-    background: #EFEFEF
+    background: $smoky-white
+    border: none
     border-radius: 30px
+    text-align: center
+    margin-bottom: 10px
+    &:focus
+        outline: none
+        @include hover-shadow($color: currentColor)
 
 .newMsg__sendMsgBtn
-    content: url('../../../../styles/icons/backBtn.svg')
+    height: 28px
+    width: 28px
+    background: url('../../../../styles/icons/backBtn.svg') no-repeat center
+    border: none
+    cursor: pointer
+    -moz-transform: scaleX(-1)
+    -o-transform: scaleX(-1)
+    -webkit-transform: scaleX(-1)
+    transform: scaleX(-1)

@@ -115,14 +115,26 @@ const chatList = chatListComponent(chatListProps);
 const itemChatProps: IItemChat =
 {
     chatID: '123',
-    userName: 'Иван',
+    userName: 'Юлия',
     userAvatar: "https://images.unsplash.com/photo-1601013692862-800b51078700?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
     messages:
         [
             {
                 text: "message1",
                 date: "29.08.2022",
-            }
+            },
+            {
+                text: "message2",
+                date: "29.08.2022",
+            },
+            {
+                text: "message3",
+                date: "29.08.2022",
+            },
+            {
+                text: "message4",
+                date: "29.08.2022",
+            },
         ],
 };
 
