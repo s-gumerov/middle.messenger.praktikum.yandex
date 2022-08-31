@@ -1,4 +1,4 @@
-import { BaseAPI } from './BaseApi';
+import { BaseAPI } from "./BaseApi";
 
 interface IChatApiCreate {
     title: string
@@ -9,7 +9,9 @@ interface IChatApiAddUser {
     chatId: number
 }
 
-class ChatApi extends BaseAPI {
+
+
+export class ChatApi extends BaseAPI {
     constructor() {
         super({ path: '/chats' });
     }
@@ -17,7 +19,7 @@ class ChatApi extends BaseAPI {
     public createChat(data: IChatApiCreate) {
         return this.create('/', {
             withCredentials: true,
-            data: JSON.stringify(data),
+            data: data,
         });
     }
 
@@ -61,33 +63,4 @@ class ChatApi extends BaseAPI {
     }
 }
 
-export default new ChatApi();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const chatAPIInstance = new HTTPTransport();
-
-// export class ChatAPI extends BaseAPI {
-//     create() {
-//         // Здесь уже не нужно писать полный путь /api/v1/chats/
-//         return chatAPIInstance.post('/', { title: 'string' });
-//     }
-
-//     request() {
-//         // Здесь уже не нужно писать полный путь /api/v1/chats/
-//         return chatAPIInstance.get('/full');
-//     }
-// }
+export default new ChatApi()

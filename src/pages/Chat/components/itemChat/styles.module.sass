@@ -56,9 +56,11 @@
     width: 25px
     background: url("../../../../styles/icons/userToolsBtn.svg") no-repeat center
     border: none
-    background-color: $userToolsBtn
     border-radius: 50%
     cursor: pointer
+
+.header__userToolsBtn_active
+    background-color: $userToolsBtn
 
 .userTools__list
     display: flex
@@ -83,6 +85,9 @@
     flex-flow: row nowrap
     align-items: center
     gap: 15px
+    cursor: pointer
+    &:hover
+        background-color: $lavender
 
 .list__text
     width: 143px

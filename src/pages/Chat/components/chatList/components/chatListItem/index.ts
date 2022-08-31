@@ -5,21 +5,21 @@ import { IAvatarProps } from '../../../../../../components/avatar/interfaces';
 import { Btn } from '../../../../../../components/btn/Btn';
 import * as styles from './styles.module.sass';
 
-export const chatListItem = ({ avatarImg, chatName, lastMsg, lastMsgTime, msgCount }: IChatListItemProps) => {
+export const chatListItem = ({ id, title, avatar, created_by, unread_count, last_message }: IChatListItemProps) => {
 
     const avatarProps: IAvatarProps =
     {
         alt: 'user-avatar',
-        src: avatarImg ?? 'https://www.meme-arsenal.com/memes/8fad74f2d563151e2be1fbc3b3aea87e.jpg',
+        src: avatar ?? 'https://www.meme-arsenal.com/memes/8fad74f2d563151e2be1fbc3b3aea87e.jpg',
         figureClassName: styles.figure,
         imgClassName: styles.figure__img
     };
 
-    const avatar = new Avatar(avatarProps);
+    const chatAvatar = new Avatar(avatarProps);
 
     const msgCountBtn = new Btn(
         {
-            msg: msgCount,
+            msg: `${unread_count}`,
             className: styles.msgInfo__msgCountBtn
         }
     );
@@ -27,10 +27,10 @@ export const chatListItem = ({ avatarImg, chatName, lastMsg, lastMsgTime, msgCou
     return new ChatListItem(
         'div',
         {
-            avatar: avatar,
-            chatName: chatName,
-            lastMsg: lastMsg,
-            lastMsgTime: lastMsgTime,
+            avatar: chatAvatar,
+            chatName: title,
+            lastMsg: last_message,
+            lastMsgTime: created_by,
             msgCountBtn: msgCountBtn
         }
     );

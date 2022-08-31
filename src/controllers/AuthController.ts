@@ -3,7 +3,7 @@ import { router } from '../utils/router';
 import { errorHandler } from '../utils/errorHandler';
 import { ISignIn } from '../pages/SignIn/interfaces';
 import { ISignUp } from '../pages/SignUp/interfaces';
-import { Actions } from '../Store';
+// import { Actions } from '../Store';
 
 // import { store } from '../store';
 

@@ -21,6 +21,7 @@ type TRequestOptions = {
 export class HTTPTransport {
 
     public get = (url: string, options = {}) => {
+
         return this.request(url, { ...options, method: Methods.GET }) as Promise<XMLHttpRequest>;
     }
 
@@ -51,9 +52,9 @@ export class HTTPTransport {
             timeout = 5000,
             withCredentials = false,
         } = options;
-        console.log(options)
+        console.log(data)
 
-        const query = method === Methods.GET ? queryStringify(data as TQueryStringify) : '';
+        const query = method === Methods.GET && data ? queryStringify(data as TQueryStringify) : '';
 
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
@@ -94,6 +95,7 @@ export class HTTPTransport {
 
 
             else {
+                console.log(options);
 
                 xhr.send(JSON.stringify(data));
 

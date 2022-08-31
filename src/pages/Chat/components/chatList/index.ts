@@ -4,6 +4,8 @@ import { IChatListItemProps } from './components/chatListItem/interfaces';
 import * as styles from './styles.module.sass';
 
 export const chatList = (chatList: IChatListItemProps[]) => {
+    console.log(chatList);
+
 
     const content = chatList.map(chat => chatListItem(chat));
 

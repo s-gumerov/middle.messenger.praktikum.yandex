@@ -28,10 +28,20 @@ export const itemChat = ({ chatID, userName, userAvatar, clickHandler, messages 
             className: styles.header__userToolsBtn,
             clickHandler: () => {
                 const userTools = document.querySelector(`.${styles.userTools__list}`);
+                const userToolsBtn = document.querySelector(`.${styles.header__userToolsBtn}`);
+
+                const setUserToolsActive = () => {
+                    userTools?.classList.remove(styles.userTools__list_hidden);
+                    userToolsBtn?.classList.add(styles.header__userToolsBtn_active);
+                };
+
+                const setUserToolsNotActive = () => {
+                    userTools?.classList.add(styles.userTools__list_hidden);
+                    userToolsBtn?.classList.remove(styles.header__userToolsBtn_active);
+                };
 
                 userTools?.classList.contains(styles.userTools__list_hidden) ?
-                    userTools?.classList.remove(styles.userTools__list_hidden) :
-                    userTools?.classList.add(styles.userTools__list_hidden);
+                    setUserToolsActive() : setUserToolsNotActive();
             }
         }
     );

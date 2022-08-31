@@ -1,7 +1,8 @@
-import ChatAPI from '../api/ChatAPI ';
 import { errorHandler } from '../utils/errorHandler';
 // import { store } from '../store';
 import { router } from '../utils/router';
+import ChatAPI from '../api/ChatAPI';
+
 
 
 interface IChatApiCreate {
@@ -16,10 +17,10 @@ interface IChatApiAddUser {
 
 class ChatController {
 
-    public async create(data: IChatApiCreate) {
+    public async createChat(data: IChatApiCreate) {
         return ChatAPI.createChat(data)
             .then((chat) => {
-                alert('Чат создан');
+                alert(`Чат создан, id - ${chat.id}`);
                 return chat.id;
             })
             .catch(errorHandler)
@@ -39,7 +40,7 @@ class ChatController {
                 return chats;
             })
             .catch((error) => {
-                router.go('/sign-in');
+                // router.go('/sign-in');
                 errorHandler(error);
             })
     }
