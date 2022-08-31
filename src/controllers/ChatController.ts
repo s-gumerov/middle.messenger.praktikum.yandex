@@ -40,17 +40,22 @@ class ChatController {
                 return chats;
             })
             .catch((error) => {
-                // router.go('/sign-in');
+                router.go('/auth/signin');
                 errorHandler(error);
             })
     }
 
     public async removeChat() {
-        // return ChatAPI.removeChat(store.state.chatId)
-        //     .then(() => {
-        //         this.request();
-        //         alert('Чат удалён');
-        //     });
+        const chatId = localStorage.getItem('activeChat');
+        if (!chatId) {
+            return;
+        };
+
+        return ChatAPI.removeChat(JSON.parse(chatId))
+            .then(() => {
+                this.request();
+                alert('Чат удалён');
+            });
     }
 
     public async addUserChat(data: IChatApiAddUser) {

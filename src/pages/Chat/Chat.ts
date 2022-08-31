@@ -20,28 +20,6 @@ import ChatController from '../../controllers/ChatController';
 import { CHAT_NAME_REGEXP } from '../../utils/regularExpressions';
 
 
-/*
-email: "qwe123@yandex.ru"
-first_name: "User"
-login: "User"
-password: "ivanovII123"
-phone: "855555555"
-second_name: "User"
-avatar: "/fb69e115-e6dc-40cd-adad-afff81c7cd11/10cb2588-3082-4b8a-b071-93ba9b642869_avatar.jpeg"
-display_name: null
-email: "qwe123@yandex.ru"
-first_name: "User"
-id: 103609
-login: "User"
-phone: "855555555"
-second_name: "User"
-status: null
-}
-
-*/
-
-
-
 const addChatBtnProps: IBtnProps =
 {
     msg: '',
@@ -89,16 +67,12 @@ const searchInputProps: IInputProps =
 const searchInput = new Input(searchInputProps);
 
 const getChats = () => {
-    ChatController.request().then(res => localStorage.setItem('chats', JSON.stringify(res)));
     const chats = localStorage.getItem("chats");
-
-    if (chats) {
-        console.log(JSON.parse(chats));
-
-        return JSON.parse(chats) as IChatListItemProps[]
-
-    }
-
+    if (!chats) {
+        return;
+    };
+    console.log(JSON.parse(chats));
+    return JSON.parse(chats) as IChatListItemProps[];
 };
 
 const chatList = getChats();
@@ -116,9 +90,6 @@ const modalInputProps: InputAndLabelProps = {
     required: true,
     inputClassName: styles.box__input,
     labelClassName: styles.box__label,
-    // focusHandler: focusHandler,
-    // blurHandler: blurHandler,
-    // inputHandler: inputHandler
 };
 
 const submitModalBtnProps: IBtnProps =
@@ -126,6 +97,12 @@ const submitModalBtnProps: IBtnProps =
     btnType: 'submit',
     msg: 'Создать',
     className: styles.box__btn,
+    clickHandler: () => closeModal()
+};
+
+const closeModal = () => {
+    const modal = document.querySelector(`.${styles.modal}`);
+    modal?.classList.remove(`${styles.modal_active}`)
 };
 
 const closeModalBtnProps: IBtnProps =
@@ -135,9 +112,7 @@ const closeModalBtnProps: IBtnProps =
     className: styles.modal__closeBtn,
     clickHandler: (e: Event) => {
         e.preventDefault();
-
-        const modal = document.querySelector(`.${styles.modal}`);
-        modal?.classList.remove(`${styles.modal_active}`)
+        closeModal();
     }
 };
 
@@ -229,7 +204,7 @@ export class Chat extends Component {
                 avatar: avatar,
                 addChatBtn: new Btn(addChatBtnProps),
                 searchInput: searchInput,
-                chatList: chatList !== undefined && chatListComponent(chatList),
+                chatList: chatList && chatListComponent(chatList),
                 anchorToProfile: anchorToProfile,
                 itemChat: itemChat(itemChatProps),
                 modalInput: inputAndLabel(modalInputProps),

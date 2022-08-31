@@ -24,6 +24,11 @@ export const chatListItem = ({ id, title, avatar, created_by, unread_count, last
         }
     );
 
+    const setActiveChat = (e: Event) => {
+        const chat = e.currentTarget as HTMLDivElement;
+        localStorage.setItem('activeChat', JSON.stringify(chat.id));
+    }
+
     return new ChatListItem(
         'div',
         {
@@ -31,7 +36,14 @@ export const chatListItem = ({ id, title, avatar, created_by, unread_count, last
             chatName: title,
             lastMsg: last_message,
             lastMsgTime: created_by,
-            msgCountBtn: msgCountBtn
+            msgCountBtn: msgCountBtn,
+            attr: {
+                id: id
+            },
+            events: {
+                click: setActiveChat
+            }
+
         }
     );
 }; 

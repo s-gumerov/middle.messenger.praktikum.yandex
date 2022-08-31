@@ -8,8 +8,29 @@ import { Message } from './components/message/Message';
 import * as styles from './styles.module.sass';
 import { router } from '../../../../utils/router';
 import { IInputProps } from '../../../../components/input/interfaces';
+import ChatController from '../../../../controllers/ChatController';
 
-export const itemChat = ({ chatID, userName, userAvatar, clickHandler, messages }: IItemChat) => {
+export const itemChat = ({ chatID, userName, userAvatar, messages }: IItemChat) => {
+
+    const tools = () => document.querySelector(`.${styles.userTools__list}`) as HTMLElement;
+    const btn = () => document.querySelector(`.${styles.header__userToolsBtn}`) as HTMLButtonElement;
+
+    const setToolsNotActive = (tools: HTMLElement, btn: HTMLButtonElement) => {
+        tools?.classList.add(styles.userTools__list_hidden);
+        btn?.classList.remove(styles.header__userToolsBtn_active);
+    };
+
+    const setToolsActive = (tools: HTMLElement, btn: HTMLButtonElement) => {
+        tools?.classList.remove(styles.userTools__list_hidden);
+        btn?.classList.add(styles.header__userToolsBtn_active);
+    };
+
+    const toggleToolsState = () => {
+        tools()?.classList.contains(styles.userTools__list_hidden) ?
+            setToolsActive(tools(), btn()) : setToolsNotActive(tools(), btn());
+    }
+
+
 
     const avatarProps: IAvatarProps =
     {
@@ -22,29 +43,14 @@ export const itemChat = ({ chatID, userName, userAvatar, clickHandler, messages 
 
     const avatar = new Avatar(avatarProps);
 
-    const userToolsBtn = new Btn(
+    const toolsBtn = new Btn(
         {
             msg: '',
             className: styles.header__userToolsBtn,
-            clickHandler: () => {
-                const userTools = document.querySelector(`.${styles.userTools__list}`);
-                const userToolsBtn = document.querySelector(`.${styles.header__userToolsBtn}`);
-
-                const setUserToolsActive = () => {
-                    userTools?.classList.remove(styles.userTools__list_hidden);
-                    userToolsBtn?.classList.add(styles.header__userToolsBtn_active);
-                };
-
-                const setUserToolsNotActive = () => {
-                    userTools?.classList.add(styles.userTools__list_hidden);
-                    userToolsBtn?.classList.remove(styles.header__userToolsBtn_active);
-                };
-
-                userTools?.classList.contains(styles.userTools__list_hidden) ?
-                    setUserToolsActive() : setUserToolsNotActive();
-            }
+            clickHandler: () => toggleToolsState()
         }
     );
+
 
     const addUserBtn = new Btn(
         {
@@ -57,6 +63,18 @@ export const itemChat = ({ chatID, userName, userAvatar, clickHandler, messages 
         {
             msg: '',
             className: styles.item__deleteUserBtn
+        }
+    );
+
+    const deleteChatBtn = new Btn(
+        {
+            msg: '',
+            className: styles.item__deleteChatBtn,
+            clickHandler: () => {
+                ChatController.removeChat();
+                setToolsNotActive(tools(), btn())
+            }
+
         }
     );
 
@@ -92,14 +110,20 @@ export const itemChat = ({ chatID, userName, userAvatar, clickHandler, messages 
                 class: styles.itemChat
             },
             avatar: avatar,
-            userToolsBtn: userToolsBtn,
+            toolsBtn: toolsBtn,
             userName: userName,
             chatID: chatID,
             addUserBtn: addUserBtn,
             deleteUserBtn: deleteUserBtn,
+            deleteChatBtn: deleteChatBtn,
             messages: itemChatMesseges,
             inputMsg: inputMsg,
             sendMsgBtn: sendMsgBtn,
+            events: {
+                click: () => {
+
+                }
+            }
         }
     );
 }; 

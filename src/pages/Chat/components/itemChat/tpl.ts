@@ -11,7 +11,7 @@ export const tpl = `
         </span>
     </div>
 
-    {{{userToolsBtn}}}
+    {{{toolsBtn}}}
 
     
     <div class='${styles.userTools__list} ${styles.userTools__list_hidden}'>
@@ -26,6 +26,11 @@ export const tpl = `
             <span class=${styles.list__text}>Удалить пользователя</span>
         </div>
 
+        <div class=${styles.list__item}>
+            {{{deleteChatBtn}}}
+            <span class=${styles.list__text}>Удалить чат</span>
+        </div>
+        
     </div>
 
 </div>

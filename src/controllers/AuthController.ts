@@ -1,4 +1,5 @@
 import AuthAPI from '../api/AuthAPI';
+import ChatController from './ChatController';
 import { router } from '../utils/router';
 import { errorHandler } from '../utils/errorHandler';
 import { ISignIn } from '../pages/SignIn/interfaces';
@@ -12,7 +13,9 @@ class AuthController {
         return AuthAPI.signIn(user)
             .then((response) => {
                 // Actions.addText(response);
-                console.log(response)
+                ChatController.request().then(res => localStorage.setItem('chats', JSON.stringify(res)));
+
+                // console.log(response)
                 router.go('/messenger');
             })
             .catch(errorHandler);
@@ -27,6 +30,7 @@ class AuthController {
     }
 
     public async signOut() {
+        localStorage.clear();
         return AuthAPI.signOut()
             .then(() => {
                 router.go('/auth/signin');
