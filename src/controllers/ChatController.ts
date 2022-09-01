@@ -17,14 +17,6 @@ interface IChatApiAddUser {
 
 class ChatController {
 
-    public async createChat(data: IChatApiCreate) {
-        return ChatAPI.createChat(data)
-            .then((chat) => {
-                alert(`Чат создан, id - ${chat.id}`);
-                return chat.id;
-            })
-            .catch(errorHandler)
-    }
 
     public async request() {
         return ChatAPI.getChat()
@@ -37,13 +29,31 @@ class ChatController {
                 //         chatId: chats[0]?.id || null,
                 //     });
                 // }
-                return chats;
+                if(chats){
+                    localStorage.setItem('chats', JSON.stringify(chats));
+                    return chats;
+                };
+
             })
             .catch((error) => {
                 router.go('/auth/signin');
                 errorHandler(error);
             })
     }
+
+    public async createChat(data: IChatApiCreate) {
+        return ChatAPI.createChat(data)
+            .then((chat) => {
+                this.request()
+                // .then(res => localStorage.setItem('chats', JSON.stringify(res)));
+                alert(`Чат создан, id - ${chat.id}`);
+                // return chat.id;
+                location.reload();
+            })
+            .catch(errorHandler)
+    }
+
+
 
     public async removeChat() {
         const chatId = localStorage.getItem('activeChat');
@@ -53,8 +63,11 @@ class ChatController {
 
         return ChatAPI.removeChat(JSON.parse(chatId))
             .then(() => {
-                this.request();
-                alert('Чат удалён');
+                this.request()
+                // .then(res => localStorage.setItem('chats', JSON.stringify(res)));
+                alert('Чат удалён')
+                location.reload();
+                
             });
     }
 

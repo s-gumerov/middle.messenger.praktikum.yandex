@@ -25,6 +25,7 @@ const addChatBtnProps: IBtnProps =
     msg: '',
     className: styles.addChat__btn,
     clickHandler: () => {
+        ChatController.request().then(res => localStorage.setItem('chats', JSON.stringify(res)));
         const modal = document.querySelector(`.${styles.modal}`);
         modal?.classList.add(`${styles.modal_active}`);
     }
@@ -96,8 +97,7 @@ const submitModalBtnProps: IBtnProps =
 {
     btnType: 'submit',
     msg: 'Создать',
-    className: styles.box__btn,
-    clickHandler: () => closeModal()
+    className: styles.box__btn
 };
 
 const closeModal = () => {
@@ -189,6 +189,7 @@ const submitHandler = (e: Event) => {
 
     const response = ChatController.createChat(data);
     response.then(res => console.log(res));
+    closeModal();
 
 };
 

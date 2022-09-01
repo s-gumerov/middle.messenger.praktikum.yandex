@@ -1,6 +1,17 @@
 
 import { Route } from "./Route";
-import Component from "./Component";
+import { Component } from "./Component";
+import AuthController from "../controllers/AuthController";
+import { SignIn } from "../pages/SignIn/SignIn";
+
+const getAuth=(page: typeof Component)=>{
+    AuthController.checkAuth();
+    const authState= localStorage.getItem('auth');
+    if(!authState){
+        return SignIn
+    };
+    return page;
+    };
 
 export class Router {
 
@@ -24,7 +35,10 @@ export class Router {
     }
 
     public use(pathname: string, block: typeof Component, props = {}) {
-        const route = new Route(pathname, block, { ...props, rootQuery: this._rootQuery });
+        
+        const page=getAuth(block)
+            
+        const route = new Route(pathname, page, { ...props, rootQuery: this._rootQuery });
 
         this.routes.push(route);
 
