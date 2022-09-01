@@ -25,7 +25,8 @@ const addChatBtnProps: IBtnProps =
     msg: '',
     className: styles.addChat__btn,
     clickHandler: () => {
-        ChatController.request().then(res => localStorage.setItem('chats', JSON.stringify(res)));
+        ChatController.request()
+        // .then(res => localStorage.setItem('chats', JSON.stringify(res)));
         const modal = document.querySelector(`.${styles.modal}`);
         modal?.classList.add(`${styles.modal_active}`);
     }

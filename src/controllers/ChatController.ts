@@ -58,11 +58,12 @@ class ChatController {
     public async removeChat() {
         const chatId = localStorage.getItem('activeChat');
         if (!chatId) {
-            return;
+                return alert('Выберите чат, кликните и повторите удаление')
         };
 
         return ChatAPI.removeChat(JSON.parse(chatId))
             .then(() => {
+                localStorage.removeItem('activeChat')
                 this.request()
                 // .then(res => localStorage.setItem('chats', JSON.stringify(res)));
                 alert('Чат удалён')
