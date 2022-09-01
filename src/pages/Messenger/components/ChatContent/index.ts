@@ -1,4 +1,4 @@
-import { ItemChat } from './ItemChat';
+import { ChatContent } from './ChatContent';
 import { IItemChat } from './interfaces';
 import { Avatar } from '../../../../components/avatar/Avatar';
 import { IAvatarProps } from '../../../../components/avatar/interfaces';
@@ -9,6 +9,8 @@ import * as styles from './styles.module.sass';
 import { router } from '../../../../utils/router';
 import { IInputProps } from '../../../../components/input/interfaces';
 import ChatController from '../../../../controllers/ChatController';
+
+
 
 export const itemChat = ({ chatID, userName, userAvatar, messages }: IItemChat) => {
 
@@ -103,7 +105,7 @@ export const itemChat = ({ chatID, userName, userAvatar, messages }: IItemChat) 
         return new Message(msg)
     });
 
-    return new ItemChat(
+    return new ChatContent(
         'main',
         {
             attr: {

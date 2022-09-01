@@ -52,7 +52,6 @@ export class HTTPTransport {
             timeout = 5000,
             withCredentials = false,
         } = options;
-        console.log(data)
 
         const query = method === Methods.GET && data ? queryStringify(data as TQueryStringify) : '';
 
@@ -92,10 +91,16 @@ export class HTTPTransport {
 
                 xhr.send(data);
             }
+            // else if (typeof data === 'object' && data.hasOwnProperty('avatar') && data.hasOwnProperty('chatId')) {
+
+            //     console.log(data)
+
+            //     xhr.send(data.avatar, da);
+            // }
 
 
             else {
-                console.log(options);
+                console.log(typeof data);
 
                 xhr.send(JSON.stringify(data));
 

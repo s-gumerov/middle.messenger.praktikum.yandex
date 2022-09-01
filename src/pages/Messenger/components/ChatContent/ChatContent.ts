@@ -3,7 +3,7 @@ import Handlebars from 'handlebars';
 import { tpl } from './tpl';
 import * as styles from './styles.module.sass';
 
-export class ItemChat extends Component {
+export class ChatContent extends Component {
 
     render() {
         return this.compile(tpl);

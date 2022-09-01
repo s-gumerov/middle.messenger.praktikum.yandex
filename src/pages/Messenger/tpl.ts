@@ -1,7 +1,7 @@
 import * as styles from './styles.module.sass';
 
 export const tpl = `
-    <aside class=${styles.chat__sidebar}>
+    <aside class=${styles.messenger__sidebar}>
         <nav class=${styles.sidebar__nav}>
             <div class=${styles.nav__goToProfile}>
                 {{{anchorToProfile}}}

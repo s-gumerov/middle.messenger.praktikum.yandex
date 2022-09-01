@@ -9,11 +9,15 @@
 //     blurHandler?: (e: Event) => void
 // }
 
-export interface IChatListItemProps {
+export interface IChatProps {
     id: number,
     title: string,
     avatar: null | string,
     created_by: number,
     unread_count: number,
-    last_message: null | string,
+    last_message: {
+        id: number,
+        content: string,
+        time: string
+    },
 }

@@ -1,7 +1,8 @@
-@import '../../../../../../styles/colors'
-@import '../../../../../../styles/mixins'
+@import '../../../../styles/colors'
+@import '../../../../styles/mixins'
 
 .chatListItem
+    position: relative
     width: 290px
     height: 70px
     display: flex
@@ -10,7 +11,10 @@
     align-items: center
     gap: 10px
     &:hover
-        background: #E4EDFD
+        background: $lavender
+
+.chatListItem_active
+    background-color: $gray-header
 
 .figure
     margin: 0
@@ -63,13 +67,13 @@
     gap: 10px
 
 .msgInfo__time
-    width: 24px
-    height: 13px
+    width: 30px
+    height: 12px
     font-style: normal
     font-weight: 500
-    font-size: 9px
-    line-height: 13px
-    text-align: right
+    font-size: 8px
+    line-height: 10px
+    text-align: left
     color: $gray
 
 .msgInfo__msgCountBtn
@@ -87,3 +91,26 @@
     height: 1px
     background: $pale-white
     align-self: center
+
+.avatar
+    top: 11px
+    display: flex
+    flex-flow: row nowrap
+    justify-content: center
+    align-items: center
+    position: absolute
+    background-color: $avatarMenu
+    width: 48px
+    height: 48px
+    border-radius: 50%
+    opacity: 0
+    &:hover
+        opacity: 0.5
+
+.avatar__uploadInput
+    display: none
+
+.avatar__uploadIabel
+    color: $white
+    cursor: pointer
+    font-size: 10px

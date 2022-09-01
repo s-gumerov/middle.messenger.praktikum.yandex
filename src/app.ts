@@ -1,6 +1,6 @@
 import { SignIn } from './pages/SignIn/SignIn';
 import { SignUp } from './pages/SignUp/SignUp';
-import { Chat } from './pages/Chat/Chat';
+import { Messenger } from './pages/Messenger/Messenger';
 import { Profile } from './pages/Profile/Profile';
 import { ProfileEdit } from './pages/ProfileEdit/ProfileEdit';
 import { ChangePassword } from './pages/ChangePassword/ChangePassword';
@@ -14,7 +14,7 @@ router
     .use('/user', Profile)
     .use('/user/profile', ProfileEdit)
     .use('/user/password', ChangePassword)
-    .use('/messenger', Chat)
+    .use('/messenger', Messenger)
     .use("/500", ServerErrorPage)
     .use("/404", NotFoundPage)
     .start();

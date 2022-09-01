@@ -5,6 +5,7 @@ import ChatAPI from '../api/ChatAPI';
 
 
 
+
 interface IChatApiCreate {
     title: string
 }
@@ -29,7 +30,7 @@ class ChatController {
                 //         chatId: chats[0]?.id || null,
                 //     });
                 // }
-                if(chats){
+                if (chats) {
                     localStorage.setItem('chats', JSON.stringify(chats));
                     return chats;
                 };
@@ -58,7 +59,7 @@ class ChatController {
     public async removeChat() {
         const chatId = localStorage.getItem('activeChat');
         if (!chatId) {
-                return alert('Выберите чат, кликните и повторите удаление')
+            return alert('Выберите чат, кликните и повторите удаление')
         };
 
         return ChatAPI.removeChat(JSON.parse(chatId))
@@ -68,7 +69,7 @@ class ChatController {
                 // .then(res => localStorage.setItem('chats', JSON.stringify(res)));
                 alert('Чат удалён')
                 location.reload();
-                
+
             });
     }
 
@@ -103,6 +104,22 @@ class ChatController {
             })
             .catch(errorHandler);
     }
+
+    public async updateAvatar(data: FormData) {
+        return ChatAPI.updateAvatar(data)
+            .then((chat) => {
+                this.request()
+                alert('Аватар обновлен')
+                console.log(chat)
+                location.reload();
+                // store.setState({
+                //     currentUser: user,
+                // });
+                return chat;
+            })
+            .catch(errorHandler)
+    }
+
 }
 
 export default new ChatController();

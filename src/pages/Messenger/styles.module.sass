@@ -1,7 +1,7 @@
 @import '../../styles/colors'
 @import '../../styles/mixins'
 
-.chat
+.messenger
     display: flex
     flex-flow: row nowrap
     align-items: flex-start
@@ -9,7 +9,7 @@
     width: 100%
     height: inherit
 
-.chat__sidebar
+.messenger__sidebar
     height: 100%
     min-width: 310px
     display: flex
@@ -77,7 +77,7 @@
     height: 34px
     border-radius: 50%
 
-.chat__content
+.messenger__content
     width: 800px
     height: 100%
     display: flex
@@ -238,3 +238,9 @@
 
 .modal_active
     visibility: visible
+
+.sidebar__chatList
+    display: flex
+    flex-flow: column nowrap
+    justify-content: flex-start
+    align-items: center

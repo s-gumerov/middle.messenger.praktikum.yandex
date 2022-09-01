@@ -11,6 +11,7 @@ interface IChatApiAddUser {
 
 
 
+
 export class ChatApi extends BaseAPI {
     constructor() {
         super({ path: '/chats' });
@@ -61,6 +62,20 @@ export class ChatApi extends BaseAPI {
             withCredentials: true,
         });
     }
+
+    // chatId: string, data: FormData
+    public updateAvatar(data: FormData) {
+        return this.update('/avatar', {
+            headers: {},
+            withCredentials: true,
+            data,
+        });
+    }
 }
+
+
+
+
+
 
 export default new ChatApi()
