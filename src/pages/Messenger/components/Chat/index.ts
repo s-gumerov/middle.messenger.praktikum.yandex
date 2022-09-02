@@ -12,7 +12,7 @@ import { Btn } from '../../../../components/btn/Btn';
 import * as styles from './styles.module.sass';
 import env from '../../../../utils/env'
 
-export const chat = ({ id, title, avatar, created_by, unread_count, last_message }: IChatProps) => {
+export const chat = ({ id, title, avatar, created_by, unread_count, last_message, setActiveChat }: IChatProps) => {
 
     const avatarProps: IAvatarProps =
     {
@@ -31,11 +31,7 @@ export const chat = ({ id, title, avatar, created_by, unread_count, last_message
         }
     );
 
-    const setActiveChat = (e: Event) => {
-        const chat = e.currentTarget as HTMLDivElement;
-        chat.classList.add(styles.chat_active)
-        localStorage.setItem('activeChat', JSON.stringify(chat.id));
-    }
+
 
     const changeAvatar = (e: Event) => {
         const input = e.target as HTMLInputElement;

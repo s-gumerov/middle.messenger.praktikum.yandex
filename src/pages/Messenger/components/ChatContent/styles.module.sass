@@ -66,7 +66,7 @@
     display: flex
     flex-flow: column nowrap
     position: absolute
-    width: 180px
+    width: 200px
     height: 120px
     right: 10
     top: 65px
@@ -80,45 +80,22 @@
 .userTools__list_hidden
     visibility: hidden
 
-.list__item
+.list__img
+    width: 20px
+    height: 20px
+
+.item__btn
     display: flex
     flex-flow: row nowrap
+    justify-content: flex-start
     align-items: center
-    gap: 15px
+    background: none
+    width: 100%
+    border: none
     cursor: pointer
+    gap: 10px
     &:hover
-        background-color: $lavender
-
-.list__text
-    width: 143px
-    height: 14px
-    font-family: 'Inter'
-    font-style: normal
-    font-weight: 500
-    font-size: 12px
-    line-height: 14px
-    color: $black
-
-.item__addUserBtn
-    height: 22px
-    width: 22px
-    background: url('../../../../styles/icons/addUserBtn.svg') no-repeat center
-    border: none
-    cursor: pointer
-
-.item__deleteUserBtn
-    height: 22px
-    width: 22px
-    background: url('../../../../styles/icons/deleteUserBtn.svg') no-repeat center
-    border: none
-    cursor: pointer
-
-.item__deleteChatBtn
-    height: 22px
-    width: 22px
-    background: url('../../../../styles/icons/delete.svg') no-repeat center
-    border: none
-    cursor: pointer
+        background: $lavender
 
 .itemChat_mesages
     overflow: auto

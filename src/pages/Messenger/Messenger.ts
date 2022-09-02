@@ -22,21 +22,21 @@ import { getChats } from '../../utils/getChats';
 import env from '../../utils/env';
 
 
-const getActiveChatData =()=>{
+const getActiveChatData = () => {
     const activeChat = localStorage.getItem('activeChat');
 
-    if(!getChats || !activeChat){
+    if (!getChats || !activeChat) {
         return;
     };
 
-    const allchats=getChats()
-    ?.filter(chat=>`${chat.id}`===JSON.parse(activeChat));
+    const allchats = getChats()
+        ?.filter(chat => `${chat.id}` === JSON.parse(activeChat));
 
-    if(!allchats ){
+    if (!allchats) {
         return;
     }
     console.log(allchats[0])
-         return allchats[0];
+    return allchats[0];
 
 };
 
@@ -87,8 +87,16 @@ const searchInputProps: IInputProps =
 
 const searchInput = new Input(searchInputProps);
 
+const setActiveChat = (e: Event) => {
+    const chat = e.currentTarget as HTMLDivElement;
+    console.log(chat)
+    chat.classList.add(styles.chat_active)
+    localStorage.setItem('activeChat', JSON.stringify(chat.id));
+    location.reload()
+}
+
 const chatList = getChats()
-    ?.map(props => chat(props));
+    ?.map(props => chat({ ...props, ... { setActiveChat: setActiveChat } }));
 
 
 const modalInputProps: InputAndLabelProps = {
@@ -129,13 +137,11 @@ const closeModalBtnProps: IBtnProps =
     }
 };
 
-
-
 const itemChatProps: IItemChat =
 {
-    chatID: `${getActiveChatData()?.id}`??'',
-    chatName: getActiveChatData()?.title??'',
-    chatAvatar: getActiveChatData()?.avatar ?`${env.HOST_RESOURCES}${getActiveChatData()?.avatar}`: "https://images.unsplash.com/photo-1506891536236-3e07892564b7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80",
+    chatID: `${getActiveChatData()?.id}` ?? '',
+    chatName: getActiveChatData()?.title ?? '',
+    chatAvatar: getActiveChatData()?.avatar ? `${env.HOST_RESOURCES}${getActiveChatData()?.avatar}` : "https://www.meme-arsenal.com/memes/8fad74f2d563151e2be1fbc3b3aea87e.jpg",
 };
 
 
@@ -149,7 +155,6 @@ const submitHandler = (e: Event) => {
     const response = ChatController.createChat(data);
     response.then(res => console.log(res));
     closeModal();
-
 };
 
 

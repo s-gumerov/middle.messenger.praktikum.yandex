@@ -1,14 +1,3 @@
-// export interface IChatListItemProps {
-//     avatarImg: string,
-//     chatName: string,
-//     lastMsg: string,
-//     lastMsgTime: string,
-//     msgCount: string,
-//     clickHandler?: (e: Event) => void,
-//     focusHandler?: (e: Event) => void,
-//     blurHandler?: (e: Event) => void
-// }
-
 export interface IChatProps {
     id: number,
     title: string,
@@ -20,4 +9,5 @@ export interface IChatProps {
         content: string,
         time: string
     },
+    setActiveChat: (e: Event) => void
 }
