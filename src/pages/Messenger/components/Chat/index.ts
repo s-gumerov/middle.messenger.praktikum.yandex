@@ -76,7 +76,7 @@ export const chat = ({ id, title, avatar, created_by, unread_count, last_message
         return str.replaceAll('.', '').substring(0, 7).replace(regEx, (match, p1, p2, p3) => {
             return `${(p1) ? p1 + '.' : ''}${(p2) ? p2 + '.' : ''}${(p3) ? p3 : ''}`;
         })
-    }
+    };
 
     return new Chat(
         'div',

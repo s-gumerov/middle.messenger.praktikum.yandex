@@ -1,7 +1,6 @@
 import { v4 as makeUUID } from 'uuid';
 import { Component, TProps } from '../../services/Component';
 import { tpl } from './tpl';
-// import { chatList as chatListComponent } from './components/chatList';
 import { Avatar } from '../../components/avatar/Avatar';
 import { Btn } from '../../components/btn/Btn';
 import { IBtnProps } from '../../components/btn/interfaces';
@@ -11,7 +10,6 @@ import { Input } from '../../components/input/Input';
 import { IInputProps } from '../../components/input/interfaces';
 import { InputAndLabelProps } from '../../components/inputAndLabel/interfaces';
 import * as styles from './styles.module.sass';
-import { IChatProps } from './components/Chat/interfaces';
 import { router } from '../../utils/router';
 import { itemChat } from './components/ChatContent';
 import { IItemChat } from './components/ChatContent/interfaces';
@@ -20,9 +18,27 @@ import ChatController from '../../controllers/ChatController';
 import { CHAT_NAME_REGEXP } from '../../utils/regularExpressions';
 import { chat } from './components/Chat';
 import Handlebars from 'handlebars';
+import { getChats } from '../../utils/getChats';
+import env from '../../utils/env';
 
 
+const getActiveChatData =()=>{
+    const activeChat = localStorage.getItem('activeChat');
 
+    if(!getChats || !activeChat){
+        return;
+    };
+
+    const allchats=getChats()
+    ?.filter(chat=>`${chat.id}`===JSON.parse(activeChat));
+
+    if(!allchats ){
+        return;
+    }
+    console.log(allchats[0])
+         return allchats[0];
+
+};
 
 const addChatBtnProps: IBtnProps =
 {
@@ -71,14 +87,6 @@ const searchInputProps: IInputProps =
 
 const searchInput = new Input(searchInputProps);
 
-const getChats = () => {
-    const chats = localStorage.getItem("chats");
-    if (!chats) {
-        return;
-    };
-    return JSON.parse(chats) as IChatProps[];
-};
-
 const chatList = getChats()
     ?.map(props => chat(props));
 
@@ -125,63 +133,9 @@ const closeModalBtnProps: IBtnProps =
 
 const itemChatProps: IItemChat =
 {
-    chatID: '123',
-    userName: 'Супер пользователь',
-    userAvatar: "https://images.unsplash.com/photo-1506891536236-3e07892564b7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80",
-    messages:
-        [
-            {
-                message: "Привет",
-                time: "11:56",
-                className: styles.message__out
-            },
-            {
-                message: "Как дела?",
-                time: "11:56",
-                className: styles.message__in
-            },
-            {
-                message: `Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой.
-
-                Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так никогда и не попали. Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро.`,
-                time: "11:56",
-                className: styles.message__out
-            },
-            {
-                message: "Привет",
-                time: "11:56",
-                className: styles.message__in
-            },
-            {
-                message: "Как дела?",
-                time: "11:56",
-                className: styles.message__out
-            },
-            {
-                message: `Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой.
-
-                Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так никогда и не попали. Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро.`,
-                time: "11:56",
-                className: styles.message__in
-            },
-            {
-                message: "Привет ",
-                time: "11:56",
-                className: styles.message__out
-            },
-            {
-                message: "Как дела?",
-                time: "11:56",
-                className: styles.message__in
-            },
-            {
-                message: `Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой.
-
-                Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так никогда и не попали. Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро.`,
-                time: "11:56",
-                className: styles.message__out
-            },
-        ],
+    chatID: `${getActiveChatData()?.id}`??'',
+    chatName: getActiveChatData()?.title??'',
+    chatAvatar: getActiveChatData()?.avatar ?`${env.HOST_RESOURCES}${getActiveChatData()?.avatar}`: "https://images.unsplash.com/photo-1506891536236-3e07892564b7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80",
 };
 
 

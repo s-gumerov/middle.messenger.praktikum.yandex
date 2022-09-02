@@ -4,10 +4,10 @@ export const tpl = `
 <div class=${styles.itemChat__header}>
     <div class=${styles.header__userData}>
         
-        {{{avatar}}}
+        {{{chatAvatar}}}
         
         <span class=${styles.userData__name}>
-            {{userName}}
+            {{chatName}}
         </span>
     </div>
 

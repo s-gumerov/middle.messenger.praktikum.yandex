@@ -12,7 +12,7 @@ import ChatController from '../../../../controllers/ChatController';
 
 
 
-export const itemChat = ({ chatID, userName, userAvatar, messages }: IItemChat) => {
+export const itemChat = ({ chatID, chatName, chatAvatar }: IItemChat) => {
 
     const tools = () => document.querySelector(`.${styles.userTools__list}`) as HTMLElement;
     const btn = () => document.querySelector(`.${styles.header__userToolsBtn}`) as HTMLButtonElement;
@@ -36,8 +36,8 @@ export const itemChat = ({ chatID, userName, userAvatar, messages }: IItemChat) 
 
     const avatarProps: IAvatarProps =
     {
-        alt: `${userName}-avatar`,
-        src: userAvatar ?? 'https://www.meme-arsenal.com/memes/8fad74f2d563151e2be1fbc3b3aea87e.jpg',
+        alt: `${chatName}-avatar`,
+        src: chatAvatar,
         figureClassName: styles.userData__figure,
         imgClassName: styles.figure__img,
         clickHandler: () => router.go('/user')
@@ -99,7 +99,60 @@ export const itemChat = ({ chatID, userName, userAvatar, messages }: IItemChat) 
     };
 
     const inputMsg = new Input(inputMsgProps);
+const   messages=
+    [
+        {
+            message: "Привет",
+            time: "11:56",
+            className: styles.message__out
+        },
+        {
+            message: "Как дела?",
+            time: "11:56",
+            className: styles.message__in
+        },
+        {
+            message: `Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой.
 
+            Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так никогда и не попали. Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро.`,
+            time: "11:56",
+            className: styles.message__out
+        },
+        {
+            message: "Привет",
+            time: "11:56",
+            className: styles.message__in
+        },
+        {
+            message: "Как дела?",
+            time: "11:56",
+            className: styles.message__out
+        },
+        {
+            message: `Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой.
+
+            Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так никогда и не попали. Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро.`,
+            time: "11:56",
+            className: styles.message__in
+        },
+        {
+            message: "Привет ",
+            time: "11:56",
+            className: styles.message__out
+        },
+        {
+            message: "Как дела?",
+            time: "11:56",
+            className: styles.message__in
+        },
+        {
+            message: `Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой.
+
+            Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так никогда и не попали. Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро.`,
+            time: "11:56",
+            className: styles.message__out
+        },
+    ]
 
     const itemChatMesseges = messages.map(msg => {
         return new Message(msg)
@@ -111,10 +164,9 @@ export const itemChat = ({ chatID, userName, userAvatar, messages }: IItemChat) 
             attr: {
                 class: styles.itemChat
             },
-            avatar: avatar,
+            chatAvatar: avatar,
             toolsBtn: toolsBtn,
-            userName: userName,
-            chatID: chatID,
+            chatName: chatName,
             addUserBtn: addUserBtn,
             deleteUserBtn: deleteUserBtn,
             deleteChatBtn: deleteChatBtn,
