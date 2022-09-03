@@ -1,4 +1,5 @@
 export interface IBtnProps {
+    id?: string,
     btnType?: string,
     msg: string,
     className: string,

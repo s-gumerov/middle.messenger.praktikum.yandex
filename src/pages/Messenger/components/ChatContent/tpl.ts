@@ -1,15 +1,20 @@
 import * as styles from './styles.module.sass';
+// ${styles.chatMembersList_hidden}
 
 export const tpl = `
+
 <div class=${styles.itemChat__header}>
-    <div class=${styles.header__userData}>
+    <div class=${styles.header__chatData}>
         
         {{{chatAvatar}}}
+        {{{avatarUpload}}}
         
-        <span class=${styles.userData__name}>
+        <span class=${styles.chatData__name}>
             {{chatName}}
         </span>
+        {{{showMembersBtn}}}
     </div>
+
 
     {{{toolsBtn}}}
 
@@ -26,12 +31,7 @@ export const tpl = `
 
 </div>
 
-
-
-
     {{{messages}}}
-
-
 
 <div class=${styles.itemChat__newMsg}>
 
@@ -40,4 +40,9 @@ export const tpl = `
     {{{sendMsgBtn}}}
 
 </div>
+<div class='${styles.chatMembersList} ${styles.chatMembersList_hidden}'>
+{{{usersList}}}
+</div>
 `;
+
+

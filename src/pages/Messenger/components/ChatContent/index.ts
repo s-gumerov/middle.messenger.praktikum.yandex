@@ -1,5 +1,9 @@
+import { v4 as makeUUID } from 'uuid'
+import { inputAndLabel as inputAndLabelComponent } from '../../../../components/inputAndLabel';
+import { InputAndLabelProps } from '../../../../components/inputAndLabel/interfaces';
 import { ChatContent } from './ChatContent';
-import { IItemChat } from './interfaces';
+import { UserList } from './components/userList/UserList';
+import { IItemChat, IActiveChatUsers, IChatUsers } from './interfaces';
 import { Avatar } from '../../../../components/avatar/Avatar';
 import { IAvatarProps } from '../../../../components/avatar/interfaces';
 import { Btn } from '../../../../components/btn/Btn';
@@ -12,15 +16,20 @@ import ChatController from '../../../../controllers/ChatController';
 import addUserBtnSvg from '../../../../styles/icons/addUserBtn.svg';
 import deleteUserBtnSvf from '../../../../styles/icons/deleteUserBtn.svg';
 import deleteSvg from '../../../../styles/icons/delete.svg';
+import { getActiveChatUsers } from '../../../../utils/getActiveChatUsers';
+import env from '../../../../utils/env';
 
 
 
-export const itemChat = ({ chatID, chatName, chatAvatar }: IItemChat) => {
+export const itemChat = ({ chatName, chatAvatar, deleteUser }: IItemChat) => {
 
     const tools = () => document.querySelector(`.${styles.userTools__list}`) as HTMLElement;
     const btn = () => document.querySelector(`.${styles.header__userToolsBtn}`) as HTMLButtonElement;
 
-    const setToolsNotActive = (tools: HTMLElement, btn: HTMLButtonElement) => {
+    const chatMembersList = () => document.querySelector(`.${styles.chatMembersList}`) as HTMLElement;
+
+
+    const setToolsNotActive = (tools: HTMLElement, btn?: HTMLButtonElement) => {
         tools?.classList.add(styles.userTools__list_hidden);
         btn?.classList.remove(styles.header__userToolsBtn_active);
     };
@@ -31,6 +40,7 @@ export const itemChat = ({ chatID, chatName, chatAvatar }: IItemChat) => {
     };
 
     const toggleToolsState = () => {
+
         tools()?.classList.contains(styles.userTools__list_hidden) ?
             setToolsActive(tools(), btn()) : setToolsNotActive(tools(), btn());
     }
@@ -41,12 +51,46 @@ export const itemChat = ({ chatID, chatName, chatAvatar }: IItemChat) => {
     {
         alt: `${chatName}-avatar`,
         src: chatAvatar,
-        figureClassName: styles.userData__figure,
+        figureClassName: styles.chatData__figure,
         imgClassName: styles.figure__img,
         clickHandler: () => router.go('/user')
     };
 
     const avatar = new Avatar(avatarProps);
+
+    const changeAvatar = (e: Event) => {
+        e.preventDefault()
+        const input = e.target as HTMLInputElement;
+        const avatar = input.files?.item(0);
+        const chatId = localStorage.getItem('activeChat');
+        if (!avatar || !chatId) {
+            return;
+        };
+
+        const formData = new FormData();
+        formData.append('avatar', avatar);
+        formData.append('chatId', JSON.parse(chatId));
+        ChatController.updateAvatar(formData);
+    };
+
+    const avatarUploadProps: InputAndLabelProps =
+    {
+        id: makeUUID() as string,
+        name: 'avatarUpload',
+        type: 'file',
+        placeholder: 'Изменить',
+        disabled: false,
+        value: '',
+        accept: ".jpg, .jpeg, .png",
+        multiple: false,
+        containerClass: styles.avatar,
+        inputClassName: styles.avatar__uploadInput,
+        labelClassName: styles.avatar__uploadIabel,
+        changeHandler: changeAvatar
+    };
+
+
+    const avatarUpload = inputAndLabelComponent(avatarUploadProps);
 
     const toolsBtn = new Btn(
         {
@@ -55,36 +99,23 @@ export const itemChat = ({ chatID, chatName, chatAvatar }: IItemChat) => {
             clickHandler: () => toggleToolsState()
         }
     );
-    const addUserBtnImg =
-        `
-        <img class=${styles.list__img} src=${addUserBtnSvg} >
-    `;
 
     const addUserBtn = new Btn(
         {
             msg: 'Добавить пользователя',
             className: styles.item__btn,
-            child: addUserBtnImg
+            child: `<img class=${styles.list__img} src=${addUserBtnSvg} >`
         }
     );
-    const deleteUserBtnImg =
-        `
-        <img class=${styles.list__img} src=${deleteUserBtnSvf} >
-    `;
 
     const deleteUserBtn = new Btn(
         {
             msg: 'Удалить пользователя',
             className: styles.item__btn,
-            child: deleteUserBtnImg
+            child: `<img class=${styles.list__img} src=${deleteUserBtnSvf} >`
 
         }
     );
-
-    const deleteChatBtnImg =
-        `
-    <img class=${styles.list__img} src=${deleteSvg} >
-`;
 
     const deleteChatBtn = new Btn(
         {
@@ -94,7 +125,7 @@ export const itemChat = ({ chatID, chatName, chatAvatar }: IItemChat) => {
                 ChatController.removeChat();
                 setToolsNotActive(tools(), btn())
             },
-            child: deleteChatBtnImg
+            child: `<img class=${styles.list__img} src=${deleteSvg} >`
         }
     );
 
@@ -176,6 +207,84 @@ export const itemChat = ({ chatID, chatName, chatAvatar }: IItemChat) => {
         return new Message(msg)
     });
 
+    const chatMembersCount = 5;
+
+    const showMembersBtn = new Btn(
+        {
+            msg: `участников`,
+            className: styles.chatData__showMembersBtn,
+            clickHandler: () => {
+                // ChatController.removeChat();
+                // console.log(chatMembersList())
+                // setToolsNotActive(tools(), btn())
+
+                chatMembersList()?.classList.contains(styles.chatMembersList_hidden) ?
+                    chatMembersList()?.classList.remove(styles.chatMembersList_hidden) : chatMembersList()?.classList.add(styles.chatMembersList_hidden);
+
+            },
+            child: `<span class=${styles.showMembersBtn__msg}> ${chatMembersCount}</span>`
+        }
+    );
+
+
+
+    // const listProps = () => {
+    //     const props = getActiveChatUsers();
+    //     if (!props) {
+    //         return;
+    //     };
+    //     return new UserList({ ...props, ...{ deleteUser: deleteUser } })
+    // };
+
+
+    const userList = getActiveChatUsers();
+
+    const testData: IChatUsers[] =
+        [
+            {
+                id: 1,
+                first_name: '',
+                second_name: 'Иван',
+                display_name: 'display_name',
+                login: 'Иван',
+                email: '',
+                phone: '',
+                avatar: 'https://images.unsplash.com/photo-1506891536236-3e07892564b7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80',
+                role: ''
+            },
+            {
+                id: 2,
+                first_name: '',
+                second_name: 'Иван',
+                display_name: 'display_name',
+                login: 'Иван',
+                email: '',
+                phone: '',
+                avatar: 'https://images.unsplash.com/photo-1506891536236-3e07892564b7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80',
+                role: ''
+            },
+            {
+                id: 3,
+                first_name: '',
+                second_name: 'Иван',
+                display_name: 'display_name',
+                login: 'Иван',
+                email: '',
+                phone: '',
+                avatar: 'https://images.unsplash.com/photo-1506891536236-3e07892564b7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80',
+                role: ''
+            }
+
+        ]
+
+    const testProps = {
+        id: 123,
+        users: testData,
+        deleteUser: deleteUser
+    }
+
+    const testList = new UserList(testProps)
+
     return new ChatContent(
         'main',
         {
@@ -183,11 +292,14 @@ export const itemChat = ({ chatID, chatName, chatAvatar }: IItemChat) => {
                 class: styles.itemChat
             },
             chatAvatar: avatar,
+            avatarUpload: avatarUpload,
             toolsBtn: toolsBtn,
             chatName: chatName,
+            showMembersBtn: showMembersBtn,
             addUserBtn: addUserBtn,
             deleteUserBtn: deleteUserBtn,
             deleteChatBtn: deleteChatBtn,
+            usersList: testList,
             messages: itemChatMesseges,
             inputMsg: inputMsg,
             sendMsgBtn: sendMsgBtn,

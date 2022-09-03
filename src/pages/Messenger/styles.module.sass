@@ -29,6 +29,7 @@
     flex-flow: row nowrap
     justify-content: flex-end
     align-items: center
+    gap: 20px
 
 .nav__goToProfile
     display: flex
@@ -38,17 +39,27 @@
     gap: 8px
     cursor: pointer
 
-.goToProfile__anchor
-    text-decoration: none
+.goToProfileBtn
+    display: flex
+    flex-flow: row nowrap
+    justify-content: flex-start
+    align-items: center
+    height: 22px
+    border: none
+    cursor: pointer
+    gap: 10px
+    background: none
     font-style: normal
     font-weight: 500
     font-size: 12px
     line-height: 12px
     color: $gray
+    &:hover
+        opacity: 0.8
 
-.goToProfile__icon
-    margin-right: 10px
-    content: url('../../styles/icons/rightArrow.svg')
+.goToProfileBtn__img
+    height: 22px
+    width: 22px
 
 .sidebar__chatSearch
     display: flex
@@ -109,27 +120,27 @@
     padding: 10px
     border-radius: 5px
 
-.sidebar__addChat
-    margin-right: 10px
+.addChat__btn
     display: flex
     flex-flow: row nowrap
-    justify-content: flex-end
+    justify-content: flex-start
     align-items: center
-    gap: 10px
-
-.addChat__btn
     height: 22px
-    width: 22px
-    background: url('../../styles/icons/addUserBtn.svg') no-repeat center
     border: none
     cursor: pointer
-
-.addChat__span
+    gap: 10px
+    background: none
     font-style: normal
     font-weight: 500
     font-size: 12px
     line-height: 12px
     color: $gray
+    &:hover
+        opacity: 0.8
+
+.btn__img
+    height: 22px
+    width: 22px
 
 .modal
     display: flex
@@ -161,6 +172,7 @@
     flex-flow: row nowrap
     justify-content: center
     align-items: center
+    width: 100%
 
 .header__msg
     width: 178px
@@ -230,11 +242,13 @@
         cursor: not-allowed
 
 .modal__closeBtn
-    height: 22px
-    width: 22px
-    background: url('../../styles/icons/closeModalBtn.svg') no-repeat center
     border: none
     cursor: pointer
+    background: none
+
+.closeBtn__img
+    height: 22px
+    width: 22px
 
 .modal_active
     visibility: visible

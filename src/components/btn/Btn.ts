@@ -5,7 +5,7 @@ import { addAttribute } from "../../utils/addAttribute";
 
 export class Btn extends Component {
 
-    constructor({ btnType, msg, child, className, clickHandler, focusHandler, blurHandler, disabled }: IBtnProps) {
+    constructor({ id, btnType, msg, child, className, clickHandler, focusHandler, blurHandler, disabled }: IBtnProps) {
         super('div',
             {
                 btnType: btnType,
@@ -19,6 +19,7 @@ export class Btn extends Component {
                 attr: {
                     disabled: disabled,
                     class: className,
+                    id: id
                 }
 
             }

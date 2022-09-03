@@ -3,15 +3,9 @@ import * as styles from './styles.module.sass';
 export const tpl = `
     <aside class=${styles.messenger__sidebar}>
         <nav class=${styles.sidebar__nav}>
-            <div class=${styles.nav__goToProfile}>
-                {{{anchorToProfile}}}
-            <i class=${styles.goToProfile__icon}></i>
-            </div>
-        </nav>
-        <div class=${styles.sidebar__addChat}>
-            <span class=${styles.addChat__span}>Добавить чат</span>
             {{{addChatBtn}}}
-        </div>
+            {{{anchorToProfile}}}
+        </nav>
 
         <div class=${styles.sidebar__chatSearch}>
             {{{searchInput}}}

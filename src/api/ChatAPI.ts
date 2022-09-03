@@ -57,7 +57,7 @@ export class ChatApi extends BaseAPI {
         });
     }
 
-    public getChatUsers(chatId: number) {
+    public getChatUsers(chatId: number | string) {
         return this.request(`/${chatId}/users`, {
             withCredentials: true,
         });

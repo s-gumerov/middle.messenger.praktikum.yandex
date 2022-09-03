@@ -5,7 +5,6 @@ import { Avatar } from '../../components/avatar/Avatar';
 import { Btn } from '../../components/btn/Btn';
 import { IBtnProps } from '../../components/btn/interfaces';
 import { IAvatarProps } from '../../components/avatar/interfaces';
-import { Anchor } from '../../components/anchor/Anchor';
 import { Input } from '../../components/input/Input';
 import { IInputProps } from '../../components/input/interfaces';
 import { InputAndLabelProps } from '../../components/inputAndLabel/interfaces';
@@ -19,6 +18,9 @@ import { CHAT_NAME_REGEXP } from '../../utils/regularExpressions';
 import { chat } from './components/Chat';
 import Handlebars from 'handlebars';
 import { getChats } from '../../utils/getChats';
+import addChatSvg from '../../styles/icons/chat.svg';
+import profileSvg from '../../styles/icons/settings.svg';
+import closeModalBtnSvg from '../../styles/icons/closeModalBtn.svg';
 import env from '../../utils/env';
 
 
@@ -35,20 +37,19 @@ const getActiveChatData = () => {
     if (!allchats) {
         return;
     }
-    console.log(allchats[0])
     return allchats[0];
-
 };
 
 const addChatBtnProps: IBtnProps =
 {
-    msg: '',
+    msg: 'Новый чат',
     className: styles.addChat__btn,
     clickHandler: () => {
         ChatController.request()
         const modal = document.querySelector(`.${styles.modal}`);
         modal?.classList.add(`${styles.modal_active}`);
-    }
+    },
+    child: `<img src=${addChatSvg} class=${styles.btn__img}>`
 };
 
 
@@ -62,15 +63,15 @@ const avatarProps: IAvatarProps =
 
 const avatar = new Avatar(avatarProps);
 
-const anchorToProfile = new Anchor(
+const anchorToProfile = new Btn(
     {
-        anchorPath: '/user',
         msg: 'Профиль',
-        className: styles.goToProfile__anchor,
+        className: styles.goToProfileBtn,
         clickHandler: (e: Event) => {
             e.preventDefault();
             router.go('/user')
-        }
+        },
+        child: `<img src=${profileSvg} class=${styles.goToProfileBtn__img}>`
     }
 );
 
@@ -87,12 +88,14 @@ const searchInputProps: IInputProps =
 
 const searchInput = new Input(searchInputProps);
 
-const setActiveChat = (e: Event) => {
+const setActiveChat = async (e: Event) => {
     const chat = e.currentTarget as HTMLDivElement;
     console.log(chat)
     chat.classList.add(styles.chat_active)
     localStorage.setItem('activeChat', JSON.stringify(chat.id));
-    location.reload()
+    await ChatController.requestChatUsers(chat.id)
+
+    location.reload();
 }
 
 const chatList = getChats()
@@ -134,15 +137,11 @@ const closeModalBtnProps: IBtnProps =
     clickHandler: (e: Event) => {
         e.preventDefault();
         closeModal();
-    }
+    },
+    child: `<img src=${closeModalBtnSvg} class=${styles.closeBtn__img}>`
 };
 
-const itemChatProps: IItemChat =
-{
-    chatID: `${getActiveChatData()?.id}` ?? '',
-    chatName: getActiveChatData()?.title ?? '',
-    chatAvatar: getActiveChatData()?.avatar ? `${env.HOST_RESOURCES}${getActiveChatData()?.avatar}` : "https://www.meme-arsenal.com/memes/8fad74f2d563151e2be1fbc3b3aea87e.jpg",
-};
+
 
 
 const submitHandler = (e: Event) => {
@@ -157,6 +156,20 @@ const submitHandler = (e: Event) => {
     closeModal();
 };
 
+const deleteUser = (chatId: string, userId: string) => {
+
+    console.log('deleted', chatId, userId)
+}
+
+
+
+const itemChatProps: IItemChat =
+{
+    chatID: `${getActiveChatData()?.id}` ?? '',
+    chatName: getActiveChatData()?.title ?? '',
+    chatAvatar: getActiveChatData()?.avatar ? `${env.HOST_RESOURCES}${getActiveChatData()?.avatar}` : "https://www.meme-arsenal.com/memes/8fad74f2d563151e2be1fbc3b3aea87e.jpg",
+    deleteUser: deleteUser
+};
 
 export class Messenger extends Component {
     constructor() {

@@ -21,7 +21,6 @@ type TRequestOptions = {
 export class HTTPTransport {
 
     public get = (url: string, options = {}) => {
-
         return this.request(url, { ...options, method: Methods.GET }) as Promise<XMLHttpRequest>;
     }
 
@@ -85,25 +84,11 @@ export class HTTPTransport {
                 xhr.send();
             }
             else if (data instanceof FormData) {
-                console.log('Formdata');
-                // xhr.setRequestHeader('Content-Type', 'multipart/form-data;');
-                console.log(data)
-
                 xhr.send(data);
             }
-            // else if (typeof data === 'object' && data.hasOwnProperty('avatar') && data.hasOwnProperty('chatId')) {
-
-            //     console.log(data)
-
-            //     xhr.send(data.avatar, da);
-            // }
-
 
             else {
-                console.log(typeof data);
-
                 xhr.send(JSON.stringify(data));
-
             }
 
         });

@@ -10,4 +10,4 @@ export interface IChatProps {
         time: string
     },
     setActiveChat: (e: Event) => void
-}
+};

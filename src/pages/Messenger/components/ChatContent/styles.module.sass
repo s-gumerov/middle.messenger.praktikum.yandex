@@ -22,27 +22,27 @@
     justify-content: space-between
     align-items: center
 
-.header__userData
+.header__chatData
     margin-left: 10px
     display: flex
     flex-flow: row nowrap
     align-items: center
     gap: 10px
 
-.userData__figure
+.chatData__figure
     margin: 0
     border: none
-    max-width: 34px
-    max-height: 34px
+    max-width: 48px
+    max-height: 48px
     border-radius: 50%
     cursor: pointer
 
 .figure__img
-    width: 34px
-    height: 34px
+    width: 48px
+    height: 48px
     border-radius: 50%
 
-.userData__name
+.chatData__name
     height: 13px
     font-style: normal
     font-weight: 600
@@ -74,7 +74,6 @@
     box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14)
     border-radius: 12px
     padding: 15px
-    gap: 15px
     z-index: 1
 
 .userTools__list_hidden
@@ -94,6 +93,12 @@
     border: none
     cursor: pointer
     gap: 10px
+    font-style: normal
+    font-weight: 500
+    font-size: 12px
+    line-height: 12px
+    color: $gray
+    height: 40px
     &:hover
         background: $lavender
 
@@ -157,3 +162,64 @@
     background: $msgChat
     padding: 10px
     border-radius: 5px
+
+.avatar
+    display: flex
+    flex-flow: row nowrap
+    justify-content: center
+    align-items: center
+    position: absolute
+    background-color: $avatarMenu
+    width: 48px
+    height: 48px
+    border-radius: 50%
+    opacity: 0
+    &:hover
+        opacity: 0.5
+
+.avatar__uploadInput
+    display: none
+
+.avatar__uploadIabel
+    color: $white
+    cursor: pointer
+    font-size: 10px
+
+.chatData__showMembersBtn
+    background: none
+    border: none
+    display: flex
+    font-family: row nowrap
+    justify-content: center
+    align-items: center
+    cursor: pointer
+    font-style: normal
+    font-weight: 500
+    font-size: 12px
+    line-height: 12px
+    color: $gray
+    height: 40px
+    gap: 5px
+    &:hover
+        text-decoration: underline
+
+.showMembersBtn__msg
+    text-decoration: none
+    &:hover
+        text-decoration: none
+
+.chatMembersList
+    top: 55px
+    left: 380px
+    position: absolute
+    display: flex
+    flex-flow: column nowrap
+    justify-content: flex-start
+    align-items: flex-start
+    gap: 5px
+    background: $white-standard
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14)
+    border-radius: 12px
+
+.chatMembersList_hidden
+    visibility: hidden

@@ -49,7 +49,7 @@ class ChatController {
                 // .then(res => localStorage.setItem('chats', JSON.stringify(res)));
                 alert(`Чат создан, id - ${chat.id}`);
                 // return chat.id;
-                location.reload();
+                // location.reload();
             })
             .catch(errorHandler)
     }
@@ -97,9 +97,15 @@ class ChatController {
             .catch(errorHandler);
     }
 
-    public async requestChatUsers(chatId: number) {
+    public async requestChatUsers(chatId: number | string) {
         return ChatAPI.getChatUsers(chatId)
             .then((users) => {
+                localStorage.setItem('activeChatUsers',
+                    JSON.stringify({
+                        id: `${chatId}`,
+                        users: users
+                    }))
+
                 return users;
             })
             .catch(errorHandler);

@@ -4,7 +4,6 @@ export const tpl = `
 <div class=${styles.chatListItem}>
 
     {{{avatar}}}
-    {{{avatarUpload}}}
 
     <div class=${styles.chatListItem__content}>
         <span class=${styles.content__span}>

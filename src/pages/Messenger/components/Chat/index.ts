@@ -1,9 +1,3 @@
-// import { setImgSrc } from '../../../../utils/setImgSrc';
-import { inputAndLabel as inputAndLabelComponent } from '../../../../components/inputAndLabel';
-import { InputAndLabelProps } from '../../../../components/inputAndLabel/interfaces';
-// import UserProfileController from '../../../../controllers/UserProfileController';
-import ChatController from '../../../../controllers/ChatController';
-import { v4 as makeUUID } from 'uuid'
 import { Chat } from './Chat';
 import { IChatProps } from './interfaces';
 import { Avatar } from '../../../../components/avatar/Avatar';
@@ -31,42 +25,6 @@ export const chat = ({ id, title, avatar, created_by, unread_count, last_message
         }
     );
 
-
-
-    const changeAvatar = (e: Event) => {
-        const input = e.target as HTMLInputElement;
-        const avatar = input.files?.item(0);
-        const chatId = localStorage.getItem('activeChat');
-
-        if (!avatar || !chatId) {
-            return;
-        };
-
-        const formData = new FormData();
-        formData.append('avatar', avatar);
-        formData.append('chatId', JSON.parse(chatId));
-        ChatController.updateAvatar(formData);
-    };
-
-    const avatarUploadProps: InputAndLabelProps =
-    {
-        id: makeUUID() as string,
-        name: 'avatarUpload',
-        type: 'file',
-        placeholder: 'Изменить',
-        disabled: false,
-        value: '',
-        accept: ".jpg, .jpeg, .png",
-        multiple: false,
-        containerClass: styles.avatar,
-        inputClassName: styles.avatar__uploadInput,
-        labelClassName: styles.avatar__uploadIabel,
-        changeHandler: changeAvatar
-    };
-
-
-    const avatarUpload = inputAndLabelComponent(avatarUploadProps)
-
     function formatDate(str: string) {
         const regEx = /^(\d{2})(\d{2})?(\d{4})?/g;
         return str.replaceAll('.', '').substring(0, 7).replace(regEx, (match, p1, p2, p3) => {
@@ -78,7 +36,6 @@ export const chat = ({ id, title, avatar, created_by, unread_count, last_message
         'div',
         {
             avatar: chatAvatar,
-            avatarUpload: avatarUpload,
             chatName: title,
             lastMsg: (): string => {
                 if (!last_message) {

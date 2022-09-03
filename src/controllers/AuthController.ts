@@ -13,9 +13,9 @@ class AuthController {
         return AuthAPI.signIn(user)
             .then((response) => {
                 // Actions.addText(response);
-                ChatController.request().then(res => 
+                ChatController.request().then(res =>
                     localStorage.setItem('chats', JSON.stringify(res))
-                    );
+                );
 
                 // console.log(response)
                 router.go('/messenger');
@@ -45,8 +45,7 @@ class AuthController {
                 // console.log(reponse)
                 localStorage.setItem('auth', JSON.stringify(reponse))
             })
-              
-                .catch(()=>  router.go('/auth/signin')
+            .catch(() => router.go('/auth/signin')
             )
     }
 
