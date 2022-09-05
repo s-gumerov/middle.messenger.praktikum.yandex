@@ -3,7 +3,7 @@ import { inputAndLabel as inputAndLabelComponent } from '../../../../components/
 import { InputAndLabelProps } from '../../../../components/inputAndLabel/interfaces';
 import { ChatContent } from './ChatContent';
 import { UserList } from './components/userList/UserList';
-import { IItemChat, IActiveChatUsers, IChatUsers } from './interfaces';
+import { IItemChat } from './interfaces';
 import { Avatar } from '../../../../components/avatar/Avatar';
 import { IAvatarProps } from '../../../../components/avatar/interfaces';
 import { Btn } from '../../../../components/btn/Btn';
@@ -17,16 +17,13 @@ import addUserBtnSvg from '../../../../styles/icons/addUserBtn.svg';
 import deleteUserBtnSvf from '../../../../styles/icons/deleteUserBtn.svg';
 import deleteSvg from '../../../../styles/icons/delete.svg';
 import { getActiveChatUsers } from '../../../../utils/getActiveChatUsers';
-import env from '../../../../utils/env';
-
-
 
 export const itemChat = ({ chatName, chatAvatar, deleteUser }: IItemChat) => {
 
     const tools = () => document.querySelector(`.${styles.userTools__list}`) as HTMLElement;
     const btn = () => document.querySelector(`.${styles.header__userToolsBtn}`) as HTMLButtonElement;
 
-    const chatMembersList = () => document.querySelector(`.${styles.chatMembersList}`) as HTMLElement;
+    const chatMembersList = () => document.querySelector(`.${styles.chatUserList}`) as HTMLElement;
 
 
     const setToolsNotActive = (tools: HTMLElement, btn?: HTMLButtonElement) => {
@@ -207,7 +204,14 @@ export const itemChat = ({ chatName, chatAvatar, deleteUser }: IItemChat) => {
         return new Message(msg)
     });
 
-    const chatMembersCount = 5;
+
+    const showChatUsers = () => {
+        chatMembersList()?.classList.contains(styles.chatUserList_hidden) ?
+            chatMembersList()?.classList.remove(styles.chatUserList_hidden) : chatMembersList()?.classList.add(styles.chatUserList_hidden);
+    };
+
+
+    const chatMembersCount = getActiveChatUsers()?.users.length ?? 1;
 
     const showMembersBtn = new Btn(
         {
@@ -218,72 +222,20 @@ export const itemChat = ({ chatName, chatAvatar, deleteUser }: IItemChat) => {
                 // console.log(chatMembersList())
                 // setToolsNotActive(tools(), btn())
 
-                chatMembersList()?.classList.contains(styles.chatMembersList_hidden) ?
-                    chatMembersList()?.classList.remove(styles.chatMembersList_hidden) : chatMembersList()?.classList.add(styles.chatMembersList_hidden);
-
+                showChatUsers();
             },
             child: `<span class=${styles.showMembersBtn__msg}> ${chatMembersCount}</span>`
         }
     );
 
-
-
-    // const listProps = () => {
-    //     const props = getActiveChatUsers();
-    //     if (!props) {
-    //         return;
-    //     };
-    //     return new UserList({ ...props, ...{ deleteUser: deleteUser } })
-    // };
-
-
-    const userList = getActiveChatUsers();
-
-    const testData: IChatUsers[] =
-        [
-            {
-                id: 1,
-                first_name: '',
-                second_name: 'Иван',
-                display_name: 'display_name',
-                login: 'Иван',
-                email: '',
-                phone: '',
-                avatar: 'https://images.unsplash.com/photo-1506891536236-3e07892564b7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80',
-                role: ''
-            },
-            {
-                id: 2,
-                first_name: '',
-                second_name: 'Иван',
-                display_name: 'display_name',
-                login: 'Иван',
-                email: '',
-                phone: '',
-                avatar: 'https://images.unsplash.com/photo-1506891536236-3e07892564b7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80',
-                role: ''
-            },
-            {
-                id: 3,
-                first_name: '',
-                second_name: 'Иван',
-                display_name: 'display_name',
-                login: 'Иван',
-                email: '',
-                phone: '',
-                avatar: 'https://images.unsplash.com/photo-1506891536236-3e07892564b7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80',
-                role: ''
-            }
-
-        ]
-
-    const testProps = {
-        id: 123,
-        users: testData,
-        deleteUser: deleteUser
-    }
-
-    const testList = new UserList(testProps)
+    const usersList = new UserList(
+        {
+            className: styles.chatUserList,
+            deleteUser: deleteUser,
+            showChatUsers: showChatUsers,
+            ...getActiveChatUsers()
+        }
+    )
 
     return new ChatContent(
         'main',
@@ -299,7 +251,7 @@ export const itemChat = ({ chatName, chatAvatar, deleteUser }: IItemChat) => {
             addUserBtn: addUserBtn,
             deleteUserBtn: deleteUserBtn,
             deleteChatBtn: deleteChatBtn,
-            usersList: testList,
+            usersList: usersList,
             messages: itemChatMesseges,
             inputMsg: inputMsg,
             sendMsgBtn: sendMsgBtn,

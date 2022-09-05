@@ -1,5 +1,4 @@
 import * as styles from './styles.module.sass';
-// ${styles.chatMembersList_hidden}
 
 export const tpl = `
 
@@ -40,8 +39,9 @@ export const tpl = `
     {{{sendMsgBtn}}}
 
 </div>
-<div class='${styles.chatMembersList} ${styles.chatMembersList_hidden}'>
-{{{usersList}}}
+
+<div class='${styles.chatUserList} ${styles.chatUserList_hidden}'>
+    {{{usersList}}}
 </div>
 `;
 

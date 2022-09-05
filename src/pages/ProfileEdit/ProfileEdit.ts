@@ -18,6 +18,8 @@ import { setImgSrc } from '../../utils/setImgSrc';
 import { router } from '../../utils/router';
 import UserProfileController from '../../controllers/UserProfileController';
 import { IProfile } from './interfaces';
+import { defaultProfileValue } from '../../utils/defaultProfileValue';
+import env from '../../utils/env';
 
 const completedFields = {
     email: false,
@@ -90,7 +92,7 @@ const submitHandler = (e: Event) => {
 
     UserProfileController.updateProfile(data);
 
-    console.log(data);
+    console.log(data.avatar);
 };
 
 const avatarUploadProps: InputAndLabelProps =
@@ -114,8 +116,8 @@ const avatarUpload = inputAndLabelComponent(avatarUploadProps)
 
 const avatarProps: IAvatarProps =
 {
-    alt: 'автар',
-    src: 'https://images.unsplash.com/photo-1506891536236-3e07892564b7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80',
+    alt: `${defaultProfileValue?.first_name}-аватар`,
+    src: defaultProfileValue?.avatar ? `${env.HOST_RESOURCES}${defaultProfileValue?.avatar}` : 'https://www.meme-arsenal.com/memes/8fad74f2d563151e2be1fbc3b3aea87e.jpg',
     figureClassName: styles.figure,
     imgClassName: styles.figure__img,
 };
@@ -131,7 +133,7 @@ const emailInputProps: InputAndLabelProps =
     type: 'email',
     placeholder: 'Почта',
     disabled: disabledInputs,
-    value: 'pochta@yandex.ru',
+    value: defaultProfileValue?.email ?? '',
     title: EMAIL_INPUT_TITLE,
     pattern: `${EMAIL_REGEXP}`,
     required: true,
@@ -150,7 +152,7 @@ const loginInputProps: InputAndLabelProps =
     type: 'text',
     placeholder: 'Логин',
     disabled: disabledInputs,
-    value: 'ivanivanov',
+    value: defaultProfileValue?.login ?? '',
     title: LOGIN_INPUT_TITLE,
     pattern: `${LOGIN_REGEXP}`,
     required: true,
@@ -169,7 +171,7 @@ const firstNameInputProps: InputAndLabelProps =
     type: 'text',
     placeholder: 'Имя',
     disabled: disabledInputs,
-    value: 'Иван',
+    value: defaultProfileValue?.first_name ?? '',
     title: FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE,
     pattern: `${FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE_REGEXP}`,
     required: true,
@@ -188,7 +190,7 @@ const secondNameInputProps: InputAndLabelProps =
     type: 'text',
     placeholder: 'Фамилия',
     disabled: disabledInputs,
-    value: 'Иванов',
+    value: defaultProfileValue?.second_name ?? '',
     title: FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE,
     pattern: `${FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE_REGEXP}`,
     required: true,
@@ -207,7 +209,7 @@ const displayNameProps: InputAndLabelProps =
     type: 'text',
     placeholder: 'Имя в чате',
     disabled: disabledInputs,
-    value: 'Иван',
+    value: defaultProfileValue?.display_name ?? '',
     title: DISPLAY_NAME_INPUT_TITLE,
     pattern: `${DISPLAY_NAME_REGEXP}`,
     required: true,
@@ -226,7 +228,7 @@ const phoneInputProps: InputAndLabelProps =
     type: 'text',
     placeholder: 'Телефон',
     disabled: disabledInputs,
-    value: '+79099673030',
+    value: defaultProfileValue?.phone ?? '',
     title: PHONE_INPUT_TITLE,
     pattern: `${PHONE_REGEXP}`,
     required: true,

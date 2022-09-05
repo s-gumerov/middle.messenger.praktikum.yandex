@@ -27,6 +27,8 @@
     "dist",
     ".parcel-cache",
     ".github",
-    "src/server.js"
+    "src/server.js",
+    "babel.config.js",
+    "test/babel-register.js",
   ]
 }

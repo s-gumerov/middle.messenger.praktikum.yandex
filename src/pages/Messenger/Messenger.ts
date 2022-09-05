@@ -89,6 +89,8 @@ const searchInputProps: IInputProps =
 const searchInput = new Input(searchInputProps);
 
 const setActiveChat = async (e: Event) => {
+    const prevActivChat = localStorage.getItem('activeChat');
+    console.log('prevActivChat', prevActivChat)
     const chat = e.currentTarget as HTMLDivElement;
     console.log(chat)
     chat.classList.add(styles.chat_active)

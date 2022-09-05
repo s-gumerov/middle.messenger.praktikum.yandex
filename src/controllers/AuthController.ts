@@ -16,6 +16,7 @@ class AuthController {
                 ChatController.request().then(res =>
                     localStorage.setItem('chats', JSON.stringify(res))
                 );
+                this.checkAuth();
 
                 // console.log(response)
                 router.go('/messenger');

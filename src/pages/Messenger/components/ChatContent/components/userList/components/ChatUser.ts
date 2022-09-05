@@ -9,7 +9,7 @@ type TMouseEvent = MouseEvent & {
     path: Node[];
 }
 
-export class ChatMembers extends Component {
+export class ChatUser extends Component {
     constructor({ userId, avatarPath, userName, deleteUser }: IChatMembersProps) {
         super(
             'div',
@@ -32,14 +32,13 @@ export class ChatMembers extends Component {
                         className: styles.user__deleteBtn,
                         clickHandler: (e: Event) => {
                             const event = e as TMouseEvent
-                            console.log(event.path)
                             const chat = event.path[4] as HTMLDivElement
                             const target = e.target as HTMLElement
                             const userId = target.id
                             deleteUser(chat.id, userId);
                         },
                     }
-                ),
+                )
             }
         )
     }

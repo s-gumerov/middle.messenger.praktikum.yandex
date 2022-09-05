@@ -1,30 +1,35 @@
 import { Component, TProps } from "../../../../../../services/Component";
 import Handlebars from 'handlebars';
 import { tpl } from "./tpl";
-import * as styles from './styles.module.sass';
-import { ChatMembers } from "./components/ChatMembers";
+import { ChatUser } from "./components/ChatUser";
 import env from '../../../../../../utils/env';
 import { UserListProps } from "./interfaces";
 
 
 export class UserList extends Component {
-    constructor({ id, users, deleteUser }: UserListProps) {
+    constructor({ className, id, users, deleteUser, showChatUsers }: UserListProps) {
         super(
             'div',
             {
                 attr: {
-                    class: styles.userList,
+                    class: className,
                     id: id
                 },
-                list: users.map(user => {
-                    return new ChatMembers({
+                list: users && users.map(user => {
+                    return new ChatUser({
                         userId: `${user.id}`,
-                        // avatarPath: `${env.HOST_RESOURCES}${user.avatar}`,
-                        avatarPath: user.avatar,
+                        avatarPath: user.avatar ? `${env.HOST_RESOURCES}${user.avatar}` : 'https://www.meme-arsenal.com/memes/8fad74f2d563151e2be1fbc3b3aea87e.jpg',
                         userName: user.display_name ?? user.first_name,
                         deleteUser: deleteUser
                     })
-                })
+                }),
+                events: {
+                    'mouseleave': () => {
+                        const wrap = document.querySelector(`.${className}`);
+                        console.log(wrap);
+                        showChatUsers()
+                    }
+                }
             }
         )
     }
