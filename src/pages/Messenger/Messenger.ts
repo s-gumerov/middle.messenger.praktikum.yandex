@@ -89,15 +89,27 @@ const searchInputProps: IInputProps =
 const searchInput = new Input(searchInputProps);
 
 const setActiveChat = async (e: Event) => {
-    const prevActivChat = localStorage.getItem('activeChat');
-    console.log('prevActivChat', prevActivChat)
-    const chat = e.currentTarget as HTMLDivElement;
-    console.log(chat)
-    chat.classList.add(styles.chat_active)
-    localStorage.setItem('activeChat', JSON.stringify(chat.id));
-    await ChatController.requestChatUsers(chat.id)
+    const prevActivChatId = localStorage.getItem('activeChat');
+    console.log('prevActivChatId', prevActivChatId)
+    const activeChat = e.currentTarget as HTMLDivElement;
+    console.log(activeChat)
+    if (!prevActivChatId) {
+        return;
+    };
 
-    location.reload();
+    const prevActivChat = document.getElementById(`${JSON.parse(prevActivChatId)}`) as HTMLDivElement;
+    if (!prevActivChat) {
+        return;
+    };
+
+    prevActivChat.style.background = 'none';
+    activeChat.style.background = '#E4EDFD';
+
+
+    localStorage.setItem('activeChat', JSON.stringify(activeChat.id));
+    await ChatController.requestChatUsers(activeChat.id)
+
+    // location.reload();
 }
 
 const chatList = getChats()
