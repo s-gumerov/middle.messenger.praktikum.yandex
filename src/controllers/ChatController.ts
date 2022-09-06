@@ -6,11 +6,11 @@ import ChatAPI from '../api/ChatAPI';
 
 
 
-interface IChatApiCreate {
+export interface IChatApiCreate {
     title: string
 }
 
-interface IChatApiAddUser {
+export interface IChatApiAddUser {
     users: number[]
     chatId: number
 }
@@ -75,7 +75,7 @@ class ChatController {
 
     public async addUserChat(data: IChatApiAddUser) {
         return ChatAPI.addUserChat(data)
-            .then(() => {
+            .then((response) => {
                 alert('Пользователи добавлены');
             })
             .catch(errorHandler);

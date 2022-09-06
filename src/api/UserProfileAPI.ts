@@ -1,6 +1,7 @@
 import { BaseAPI } from './BaseApi';
 import { IProfile } from '../pages/ProfileEdit/interfaces';
 import { IChangePassword } from '../pages/ChangePassword/interfaces';
+import { IFindUserRequest } from '../pages/Messenger/components/ChatContent/interfaces';
 
 class UserProfileAPI extends BaseAPI {
     constructor() {
@@ -24,6 +25,13 @@ class UserProfileAPI extends BaseAPI {
     public updateAvatar(data: FormData) {
         return this.update('/profile/avatar', {
             headers: {},
+            withCredentials: true,
+            data,
+        });
+    }
+
+    public findUserRequest(data: IFindUserRequest) {
+        return this.create('/search', {
             withCredentials: true,
             data,
         });

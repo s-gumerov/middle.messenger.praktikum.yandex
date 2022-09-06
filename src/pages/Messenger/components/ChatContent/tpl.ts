@@ -2,47 +2,44 @@ import * as styles from './styles.module.sass';
 
 export const tpl = `
 
-<div class=${styles.itemChat__header}>
-    <div class=${styles.header__chatData}>
-        
-        {{{chatAvatar}}}
-        {{{avatarUpload}}}
-        
-        <span class=${styles.chatData__name}>
-            {{chatName}}
-        </span>
-        {{{showMembersBtn}}}
-    </div>
+        <div class=${styles.itemChat__header}>
+            <div class=${styles.header__chatData}>
+                {{{chatAvatar}}}
+                {{{avatarUpload}}}
+                <span class=${styles.chatData__name}>
+                    {{chatName}}
+                </span>
+                {{{showMembersBtn}}}
+            </div>
 
-
-    {{{toolsBtn}}}
-
+            {{{toolsBtn}}}
     
-    <div class='${styles.userTools__list} ${styles.userTools__list_hidden}'>
+            <div class='${styles.userTools__list} ${styles.userTools__list_hidden}'>
+                    {{{addUserBtn}}}
+                    {{{deleteChatBtn}}}
+            </div>
 
-            {{{addUserBtn}}}
+        </div>
 
-            {{{deleteUserBtn}}}
+            {{{messages}}}
 
-            {{{deleteChatBtn}}}
-        
-    </div>
+        <div class=${styles.itemChat__newMsg}>
+            {{{inputMsg}}}
+            {{{sendMsgBtn}}}
+        </div>
 
-</div>
+        <div class='${styles.chatUserList} ${styles.chatUserList_hidden}'>
+            {{{usersList}}}
+        </div>
 
-    {{{messages}}}
-
-<div class=${styles.itemChat__newMsg}>
-
-    {{{inputMsg}}}
-
-    {{{sendMsgBtn}}}
-
-</div>
-
-<div class='${styles.chatUserList} ${styles.chatUserList_hidden}'>
-    {{{usersList}}}
-</div>
+        <form class=${styles.modal}>
+            <div class=${styles.modal__box}>
+                <div class=${styles.box__header}>
+                    <span class=${styles.header__msg}>Добавить пользователя</span>
+                    {{{closeModalBtn}}}
+                </div>
+            {{{modalInput}}}
+            {{{submitModalBtn}}}
+            </div>
+        </form>
 `;
-
-

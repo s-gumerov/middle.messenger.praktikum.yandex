@@ -67,7 +67,7 @@
     flex-flow: column nowrap
     position: absolute
     width: 200px
-    height: 120px
+    height: 80px
     right: 10
     top: 65px
     background: $white-standard
@@ -223,3 +223,114 @@
 
 .chatUserList_hidden
     visibility: hidden
+
+.modal
+    display: flex
+    flex-flow: row nowrap
+    justify-content: center
+    align-items: center
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    left: 0
+    background: rgba(44, 44, 44, 0.5)
+    visibility: hidden
+    z-index: 1
+
+.modal__box
+    display: flex
+    flex-flow: column nowrap
+    justify-content: space-around
+    align-items: center
+    width: 340px
+    height: 257px
+    background: $white-standard
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14)
+    border-radius: 12px
+
+.box__header
+    display: flex
+    flex-flow: row nowrap
+    justify-content: center
+    align-items: center
+    width: 100%
+
+.header__msg
+    width: 178px
+    height: 20px
+    font-style: normal
+    font-weight: 500
+    font-size: 15px
+    line-height: 20px
+    text-align: center
+    color: $black
+
+.box__label
+    width: 27px
+    height: 9px
+    font-style: normal
+    font-weight: 500
+    font-size: 9px
+    line-height: 9px
+    color: $gray
+
+.box__input
+    color: $black
+    border-top: none
+    border-left: none
+    border-right: none
+    border-bottom: 1px $blue solid
+    width: 280px
+    font-style: normal
+    font-size: 14px
+    line-height: 24px
+    &:focus
+        border-radius: 5px
+        outline: none
+        caret-color: $blue
+        @include hover-shadow($color: $blue)
+    &:required
+        border-radius: 5px
+        outline: none
+        caret-color: $blue
+        @include hover-shadow($color: $blue)
+    &:valid
+        border-top: none
+        border-left: none
+        border-right: none
+        border-bottom: 1px $blue solid
+        border-radius: 0px
+        box-shadow: none
+
+.box__btn
+    cursor: pointer
+    display: flex
+    justify-content: center
+    align-items: center
+    text-decoration: none
+    width: 280px
+    height: 37px
+    background: $blue
+    border: none
+    border-radius: 8px
+    color: $white
+    &:hover
+        @include hover-shadow($color: $blue)
+    &:disabled
+        background: $white
+        color: $blue
+        box-shadow: none
+        cursor: not-allowed
+
+.modal__closeBtn
+    border: none
+    cursor: pointer
+    background: none
+
+.closeBtn__img
+    height: 22px
+    width: 22px
+
+.modal_active
+    visibility: visible

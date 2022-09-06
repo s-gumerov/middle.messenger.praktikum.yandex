@@ -34,8 +34,9 @@ export class ChatUser extends Component {
                             const event = e as TMouseEvent
                             const chat = event.path[4] as HTMLDivElement
                             const target = e.target as HTMLElement
-                            const userId = target.id
-                            deleteUser(chat.id, userId);
+                            const userId = +target.id;
+                            const chatId = +chat.id;
+                            deleteUser(chatId, userId);
                         },
                     }
                 )

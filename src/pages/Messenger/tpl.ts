@@ -12,9 +12,7 @@ export const tpl = `
         </div>
 
         <div class=${styles.sidebar__line}></div>
-
             {{{chatList}}}
-
     </aside>
 
         {{{itemChat}}}

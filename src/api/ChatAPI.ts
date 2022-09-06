@@ -40,14 +40,14 @@ export class ChatApi extends BaseAPI {
     public addUserChat(data: IChatApiAddUser) {
         return this.update('/users', {
             withCredentials: true,
-            data: JSON.stringify(data),
+            data: data,
         });
     }
 
     public deleteUserChat(data: IChatApiAddUser) {
         return this.delete('/users', {
             withCredentials: true,
-            data: JSON.stringify(data),
+            data: data,
         });
     }
 

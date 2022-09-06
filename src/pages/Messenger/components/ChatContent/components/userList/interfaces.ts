@@ -4,7 +4,7 @@ export interface UserListProps {
     className?: string,
     id?: number,
     users?: IChatUsers[],
-    deleteUser: (chatId: string, userId: string) => void,
+    deleteUser: (chatId: number, userId: number) => void,
     showChatUsers: () => void
 }
 

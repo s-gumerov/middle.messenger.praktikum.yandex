@@ -3,7 +3,7 @@ export interface IItemChat {
     chatName: string,
     chatAvatar: string,
     clickHandler?: (e: Event) => void,
-    deleteUser: (chatId: string, userId: string) => void
+    deleteUser: (chatId: number, userId: number) => void
 }
 
 export interface IChatUsers {
@@ -22,3 +22,7 @@ export interface IActiveChatUsers {
     id: number,
     users: IChatUsers[],
 };
+
+export interface IFindUserRequest {
+    login: string
+}

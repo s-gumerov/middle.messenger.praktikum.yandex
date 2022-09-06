@@ -12,6 +12,7 @@ import * as styles from './styles.module.sass';
 import { router } from '../../utils/router';
 import { itemChat } from './components/ChatContent';
 import { IItemChat } from './components/ChatContent/interfaces';
+import { IChatApiAddUser } from '../../controllers/ChatController';
 import { inputAndLabel } from '../../components/inputAndLabel';
 import ChatController from '../../controllers/ChatController';
 import { CHAT_NAME_REGEXP } from '../../utils/regularExpressions';
@@ -90,21 +91,14 @@ const searchInput = new Input(searchInputProps);
 
 const setActiveChat = async (e: Event) => {
     const prevActivChatId = localStorage.getItem('activeChat');
-    console.log('prevActivChatId', prevActivChatId)
     const activeChat = e.currentTarget as HTMLDivElement;
-    console.log(activeChat)
-    if (!prevActivChatId) {
-        return;
+
+    if (prevActivChatId) {
+        const prevActivChat = document.getElementById(`${JSON.parse(prevActivChatId)}`) as HTMLDivElement;
+        prevActivChat.style.background = 'none';
     };
 
-    const prevActivChat = document.getElementById(`${JSON.parse(prevActivChatId)}`) as HTMLDivElement;
-    if (!prevActivChat) {
-        return;
-    };
-
-    prevActivChat.style.background = 'none';
     activeChat.style.background = '#E4EDFD';
-
 
     localStorage.setItem('activeChat', JSON.stringify(activeChat.id));
     await ChatController.requestChatUsers(activeChat.id)
@@ -118,7 +112,7 @@ const chatList = getChats()
 
 const modalInputProps: InputAndLabelProps = {
     id: makeUUID() as string,
-    name: 'modalInput',
+    name: 'chatName',
     type: 'text',
     placeholder: 'Название',
     disabled: false,
@@ -156,22 +150,33 @@ const closeModalBtnProps: IBtnProps =
 };
 
 
-
-
 const submitHandler = (e: Event) => {
     e.preventDefault();
-    const { modalInput } = e.target as HTMLFormElement;
-    const data = {
-        title: modalInput.value,
+    e.stopPropagation();
+    const { chatName } = e.target as HTMLFormElement;
+    if (!chatName) {
+        return;
     };
+
+    const data = {
+        title: chatName.value,
+    };
+
+    chatName.value = '';
 
     const response = ChatController.createChat(data);
     response.then(res => console.log(res));
     closeModal();
 };
 
-const deleteUser = (chatId: string, userId: string) => {
+const deleteUser = (chatId: number, userId: number) => {
+    const data =
+    {
+        users: [userId],
+        chatId: chatId
 
+    };
+    ChatController.deleteUserChat(data);
     console.log('deleted', chatId, userId)
 }
 
@@ -184,6 +189,8 @@ const itemChatProps: IItemChat =
     chatAvatar: getActiveChatData()?.avatar ? `${env.HOST_RESOURCES}${getActiveChatData()?.avatar}` : "https://www.meme-arsenal.com/memes/8fad74f2d563151e2be1fbc3b3aea87e.jpg",
     deleteUser: deleteUser
 };
+
+const stub = `<div class=${styles.stub__wrapper}><span class=${styles.stub__msg}> Создайте новый чат</span></div>`;
 
 export class Messenger extends Component {
     constructor() {
@@ -198,7 +205,7 @@ export class Messenger extends Component {
                 searchInput: searchInput,
                 chatList: chatList,
                 anchorToProfile: anchorToProfile,
-                itemChat: itemChat(itemChatProps),
+                itemChat: chatList?.length ? itemChat(itemChatProps) : stub,
                 modalInput: inputAndLabel(modalInputProps),
                 closeModalBtn: new Btn(closeModalBtnProps),
                 submitModalBtn: new Btn(submitModalBtnProps),

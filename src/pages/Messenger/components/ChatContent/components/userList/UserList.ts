@@ -24,11 +24,7 @@ export class UserList extends Component {
                     })
                 }),
                 events: {
-                    'mouseleave': () => {
-                        const wrap = document.querySelector(`.${className}`);
-                        console.log(wrap);
-                        showChatUsers()
-                    }
+                    'mouseleave': showChatUsers
                 }
             }
         )

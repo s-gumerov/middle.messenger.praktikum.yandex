@@ -12,13 +12,17 @@ import { Message } from './components/message/Message';
 import * as styles from './styles.module.sass';
 import { router } from '../../../../utils/router';
 import { IInputProps } from '../../../../components/input/interfaces';
+import UserProfileController from '../../../../controllers/UserProfileController';
 import ChatController from '../../../../controllers/ChatController';
 import addUserBtnSvg from '../../../../styles/icons/addUserBtn.svg';
-import deleteUserBtnSvf from '../../../../styles/icons/deleteUserBtn.svg';
 import deleteSvg from '../../../../styles/icons/delete.svg';
 import { getActiveChatUsers } from '../../../../utils/getActiveChatUsers';
+import { CHAT_NAME_REGEXP } from '../../../../utils/regularExpressions';
+import closeModalBtnSvg from '../../../../styles/icons/closeModalBtn.svg';
+import { IBtnProps } from '../../../../components/btn/interfaces';
+import { IFindUserRequest } from './interfaces';
 
-export const itemChat = ({ chatName, chatAvatar, deleteUser }: IItemChat) => {
+export const itemChat = ({ chatID, chatName, chatAvatar, deleteUser }: IItemChat) => {
 
     const tools = () => document.querySelector(`.${styles.userTools__list}`) as HTMLElement;
     const btn = () => document.querySelector(`.${styles.header__userToolsBtn}`) as HTMLButtonElement;
@@ -37,12 +41,9 @@ export const itemChat = ({ chatName, chatAvatar, deleteUser }: IItemChat) => {
     };
 
     const toggleToolsState = () => {
-
         tools()?.classList.contains(styles.userTools__list_hidden) ?
             setToolsActive(tools(), btn()) : setToolsNotActive(tools(), btn());
-    }
-
-
+    };
 
     const avatarProps: IAvatarProps =
     {
@@ -101,16 +102,13 @@ export const itemChat = ({ chatName, chatAvatar, deleteUser }: IItemChat) => {
         {
             msg: 'Добавить пользователя',
             className: styles.item__btn,
-            child: `<img class=${styles.list__img} src=${addUserBtnSvg} >`
-        }
-    );
+            child: `<img class=${styles.list__img} src=${addUserBtnSvg} >`,
+            clickHandler: () => {
+                console.log('work');
 
-    const deleteUserBtn = new Btn(
-        {
-            msg: 'Удалить пользователя',
-            className: styles.item__btn,
-            child: `<img class=${styles.list__img} src=${deleteUserBtnSvf} >`
-
+                const modal = document.querySelector(`.${styles.modal}`);
+                modal?.classList.add(`${styles.modal_active}`);
+            }
         }
     );
 
@@ -200,14 +198,13 @@ export const itemChat = ({ chatName, chatAvatar, deleteUser }: IItemChat) => {
             },
         ]
 
-    const itemChatMesseges = messages.map(msg => {
-        return new Message(msg)
-    });
+    const itemChatMesseges = messages.map(msg => new Message(msg));
 
 
     const showChatUsers = () => {
         chatMembersList()?.classList.contains(styles.chatUserList_hidden) ?
-            chatMembersList()?.classList.remove(styles.chatUserList_hidden) : chatMembersList()?.classList.add(styles.chatUserList_hidden);
+            chatMembersList()?.classList.remove(styles.chatUserList_hidden) :
+            chatMembersList()?.classList.add(styles.chatUserList_hidden);
     };
 
 
@@ -235,7 +232,61 @@ export const itemChat = ({ chatName, chatAvatar, deleteUser }: IItemChat) => {
             showChatUsers: showChatUsers,
             ...getActiveChatUsers()
         }
-    )
+    );
+
+    const modalInputProps: InputAndLabelProps = {
+        id: makeUUID() as string,
+        name: 'userLogin',
+        type: 'text',
+        placeholder: 'Логин',
+        disabled: false,
+        value: '',
+        title: 'от 1 до 20 символов, поле не должно быть пустым',
+        pattern: `${CHAT_NAME_REGEXP}`,
+        required: true,
+        inputClassName: styles.box__input,
+        labelClassName: styles.box__label,
+    };
+
+    const submitModalBtnProps: IBtnProps =
+    {
+        btnType: 'submit',
+        msg: 'Добавить',
+        className: styles.box__btn
+    };
+
+    const closeModal = () => {
+        const modal = document.querySelector(`.${styles.modal}`);
+        modal?.classList.remove(`${styles.modal_active}`)
+    };
+
+    const closeModalBtnProps: IBtnProps =
+    {
+        btnType: 'reset',
+        msg: '',
+        className: styles.modal__closeBtn,
+        clickHandler: (e: Event) => {
+            e.preventDefault();
+            closeModal();
+        },
+        child: `<img src=${closeModalBtnSvg} class=${styles.closeBtn__img}>`
+    };
+
+    const submitHandlerToChatContent = (e: Event) => {
+        e.preventDefault();
+        e.stopPropagation()
+        const { userLogin } = e.target as HTMLFormElement;
+        const data: IFindUserRequest = {
+            login: userLogin.value,
+        };
+
+        userLogin.value = '';
+        console.log(data);
+        UserProfileController.findUserRequest(data);
+        // const response = ChatController.createChat(data);
+        // response.then(res => console.log(res));
+        // closeModal();
+    };
 
     return new ChatContent(
         'main',
@@ -249,16 +300,16 @@ export const itemChat = ({ chatName, chatAvatar, deleteUser }: IItemChat) => {
             chatName: chatName,
             showMembersBtn: showMembersBtn,
             addUserBtn: addUserBtn,
-            deleteUserBtn: deleteUserBtn,
             deleteChatBtn: deleteChatBtn,
             usersList: usersList,
             messages: itemChatMesseges,
             inputMsg: inputMsg,
             sendMsgBtn: sendMsgBtn,
+            modalInput: inputAndLabelComponent(modalInputProps),
+            closeModalBtn: new Btn(closeModalBtnProps),
+            submitModalBtn: new Btn(submitModalBtnProps),
             events: {
-                click: () => {
-
-                }
+                "submit": submitHandlerToChatContent
             }
         }
     );
