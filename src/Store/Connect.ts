@@ -1,18 +1,52 @@
-import Store from './Store';
+import Store, { StoreEvents } from './Store';
+import { Component as Block } from '../services/Component';
+import { isEqual } from '../utils/isEqual';
 
+export type Indexed = Record<string, any>;
 
-export default function connect(Component: any, mapStateToProps: Function) {
+export function connect(mapStateToProps: (state: Indexed) => Indexed) {
+	return function (Component: typeof Block) {
+		return class extends Component {
+			constructor(props: any) {
+				// сохраняем начальное состояние
+				let state = mapStateToProps(Store.getState());
 
-	return class extends Component {
-		constructor(tag = 'div', props = {}) {
+				super({ ...props, ...state });
 
-			const store = new Store();
+				// подписываемся на событие
+				Store.on(StoreEvents.Updated, () => {
+					// при обновлении получаем новое состояние
+					const newState = mapStateToProps(Store.getState());
 
-			super(tag, { ...props, ...mapStateToProps(store.getState()) });
+					// если что-то из используемых данных поменялось, обновляем компонент
+					if (!isEqual(state, newState)) {
+						this.setProps({ ...newState });
+					}
 
-			store.on(`${Store.EVENT_UPDATE}`, () => {
-				this.setProps({ ...mapStateToProps(store.getState()) });
-			});
+					// не забываем сохранить новое состояние
+					state = newState;
+				});
+			}
 		}
-	};
+	}
 }
+
+
+
+// export default function connect(Component: any, mapStateToProps: Function) {
+
+// 	return class extends Component {
+// 		constructor(tag = 'div', props = {}) {
+
+// 			const store = new Store();
+
+// 			// super(tag, { ...props, ...mapStateToProps(store.getState()) });
+// 			super({ ...props, ...state });
+
+// 			store.on(`${Store.EVENT_UPDATE}`, () => {
+// 				this.setProps({ ...mapStateToProps(store.getState()) });
+// 			});
+// 		}
+// 	};
+// }
+

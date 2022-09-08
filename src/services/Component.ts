@@ -180,17 +180,19 @@ export class Component {
     };
 
     private _componentDidUpdate(oldProps: TProps, newProps: TProps) {
+
         const isReRender = this.componentDidUpdate(oldProps, newProps);
-        if (isReRender)
+        console.log(isReRender)
+        if (!isReRender)
             this._eventBus.emit(Component.EVENTS.FLOW_RENDER);
     };
 
     public componentDidUpdate(oldProps: TProps, newProps: TProps) {
+        console.log(oldProps, newProps)
         return isEqual(oldProps, newProps);
     };
 
     public setProps(newProps: TProps) {
-
         if (!newProps) {
             return;
         };

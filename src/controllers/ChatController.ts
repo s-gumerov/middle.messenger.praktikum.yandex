@@ -1,7 +1,10 @@
 import { errorHandler } from '../utils/errorHandler';
 // import { store } from '../store';
+import Store from '../Store/Store';
+import { Actions } from '../Store';
 import { router } from '../utils/router';
 import ChatAPI from '../api/ChatAPI';
+import { IChatList } from '../pages/Messenger/components/Chat/interfaces';
 
 
 
@@ -21,7 +24,8 @@ class ChatController {
 
     public async request() {
         return ChatAPI.getChat()
-            .then((chats) => {
+            .then((data) => {
+                console.log(data)
                 // store.setState({
                 //     chats,
                 // });
@@ -30,9 +34,11 @@ class ChatController {
                 //         chatId: chats[0]?.id || null,
                 //     });
                 // }
-                if (chats) {
-                    localStorage.setItem('chats', JSON.stringify(chats));
-                    return chats;
+                if (data) {
+                    const chatList = data as IChatList[];
+                    Actions.setChatList(chatList);
+                    localStorage.setItem('chats', JSON.stringify(data));
+                    return data;
                 };
 
             })
@@ -44,12 +50,9 @@ class ChatController {
 
     public async createChat(data: IChatApiCreate) {
         return ChatAPI.createChat(data)
-            .then((chat) => {
+            .then(() => {
                 this.request()
-                // .then(res => localStorage.setItem('chats', JSON.stringify(res)));
-                alert(`Чат создан, id - ${chat.id}`);
-                // return chat.id;
-                // location.reload();
+                // .then(() => location.reload())
             })
             .catch(errorHandler)
     }
@@ -66,17 +69,15 @@ class ChatController {
             .then(() => {
                 localStorage.removeItem('activeChat')
                 this.request()
-                // .then(res => localStorage.setItem('chats', JSON.stringify(res)));
-                alert('Чат удалён')
-                location.reload();
-
+                    .then(() => location.reload())
             });
     }
 
     public async addUserChat(data: IChatApiAddUser) {
         return ChatAPI.addUserChat(data)
-            .then((response) => {
-                alert('Пользователи добавлены');
+            .then(() => {
+                this.request()
+                    .then(() => location.reload())
             })
             .catch(errorHandler);
     }
@@ -84,7 +85,8 @@ class ChatController {
     public async deleteUserChat(data: IChatApiAddUser) {
         return ChatAPI.deleteUserChat(data)
             .then(() => {
-                alert('Пользователи удалены');
+                this.request()
+                    .then(() => location.reload())
             })
             .catch(errorHandler);
     }

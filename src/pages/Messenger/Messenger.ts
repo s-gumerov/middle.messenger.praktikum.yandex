@@ -12,7 +12,6 @@ import * as styles from './styles.module.sass';
 import { router } from '../../utils/router';
 import { itemChat } from './components/ChatContent';
 import { IItemChat } from './components/ChatContent/interfaces';
-import { IChatApiAddUser } from '../../controllers/ChatController';
 import { inputAndLabel } from '../../components/inputAndLabel';
 import ChatController from '../../controllers/ChatController';
 import { CHAT_NAME_REGEXP } from '../../utils/regularExpressions';
@@ -23,6 +22,8 @@ import addChatSvg from '../../styles/icons/chat.svg';
 import profileSvg from '../../styles/icons/settings.svg';
 import closeModalBtnSvg from '../../styles/icons/closeModalBtn.svg';
 import env from '../../utils/env';
+import Store, { StoreEvents } from '../../Store/Store';
+import { IChatProps } from './components/Chat/interfaces';
 
 
 const getActiveChatData = () => {
@@ -31,6 +32,7 @@ const getActiveChatData = () => {
     if (!getChats || !activeChat) {
         return;
     };
+
 
     const allchats = getChats()
         ?.filter(chat => `${chat.id}` === JSON.parse(activeChat));
@@ -46,9 +48,12 @@ const addChatBtnProps: IBtnProps =
     msg: 'Новый чат',
     className: styles.addChat__btn,
     clickHandler: () => {
-        ChatController.request()
-        const modal = document.querySelector(`.${styles.modal}`);
-        modal?.classList.add(`${styles.modal_active}`);
+        ChatController.request().then(() => {
+            const modal = document.querySelector(`.${styles.modal}`);
+            modal?.classList.add(`${styles.modal_active}`);
+        }
+        )
+
     },
     child: `<img src=${addChatSvg} class=${styles.btn__img}>`
 };
@@ -105,8 +110,9 @@ const setActiveChat = async (e: Event) => {
 
     // location.reload();
 }
-
-const chatList = getChats()
+const data = Store.getState().chatList as IChatProps[];
+// console.log(data, getChats())
+const chatList = data
     ?.map(props => chat({ ...props, ... { setActiveChat: setActiveChat } }));
 
 
@@ -163,9 +169,9 @@ const submitHandler = (e: Event) => {
     };
 
     chatName.value = '';
-
-    const response = ChatController.createChat(data);
-    response.then(res => console.log(res));
+    ChatController.createChat(data);
+    // const response = ChatController.createChat(data);
+    // response.then(res => console.log(res));
     closeModal();
 };
 
@@ -214,10 +220,21 @@ export class Messenger extends Component {
                 }
             }
         )
+        Store.on(StoreEvents.Updated, () => {
+            // вызываем обновление компонента, передав данные из хранилища
+            this.setProps(Store.getState());
+        });
+
     }
     render() {
+        console.log(Store.getState())
+
         return this.compile(tpl);
     }
+
+    // componentDidUpdate(oldProps: TProps, newProps: TProps) {
+    //     return !(oldProps['form'] == newProps['form']);
+    // }
 
     compile(template: string, props?: TProps) {
         if (typeof (props) === 'undefined')

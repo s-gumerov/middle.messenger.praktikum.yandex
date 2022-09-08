@@ -2,7 +2,11 @@ import EventBus from "../services/EventBus";
 
 export type TState = Record<string, any>;
 
-export default class Store extends EventBus {
+export enum StoreEvents {
+	Updated = 'updated',
+}
+
+class Store extends EventBus {
 
 	static EVENT_UPDATE = 1;
 	static _instance: Store;
@@ -38,9 +42,11 @@ export default class Store extends EventBus {
 		this.emit(`${Store.EVENT_UPDATE}`);
 	}
 
-	set(id: string, value: string) {
+	set(id: string, value: string | []) {
 		this._state[id] = value;
 		this.emit(`${Store.EVENT_UPDATE}`);
 		return this;
 	}
 }
+
+export default new Store();

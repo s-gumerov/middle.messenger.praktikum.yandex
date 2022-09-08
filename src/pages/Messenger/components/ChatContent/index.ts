@@ -104,8 +104,6 @@ export const itemChat = ({ chatID, chatName, chatAvatar, deleteUser }: IItemChat
             className: styles.item__btn,
             child: `<img class=${styles.list__img} src=${addUserBtnSvg} >`,
             clickHandler: () => {
-                console.log('work');
-
                 const modal = document.querySelector(`.${styles.modal}`);
                 modal?.classList.add(`${styles.modal_active}`);
             }
@@ -281,11 +279,10 @@ export const itemChat = ({ chatID, chatName, chatAvatar, deleteUser }: IItemChat
         };
 
         userLogin.value = '';
-        console.log(data);
         UserProfileController.findUserRequest(data);
-        // const response = ChatController.createChat(data);
-        // response.then(res => console.log(res));
-        // closeModal();
+        closeModal();
+        toggleToolsState();
+
     };
 
     return new ChatContent(

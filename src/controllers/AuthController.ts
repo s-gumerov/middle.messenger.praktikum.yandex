@@ -42,9 +42,10 @@ class AuthController {
 
     public async checkAuth() {
         return AuthAPI.checkAuth()
-            .then((reponse) => {
+            .then((response) => {
                 // console.log(reponse)
-                localStorage.setItem('auth', JSON.stringify(reponse))
+                localStorage.setItem('auth', JSON.stringify(response))
+                return response;
             })
             .catch(() => router.go('/auth/signin')
             )

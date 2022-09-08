@@ -31,7 +31,6 @@ export class HTTPTransport {
     }
 
     public put = (url: string, options = {}) => {
-        console.log(options)
         return this.request(url, { ...options, method: Methods.PUT }) as Promise<XMLHttpRequest>;
     }
 
