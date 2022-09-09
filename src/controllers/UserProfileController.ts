@@ -8,6 +8,7 @@ import AuthController from './AuthController';
 import { getActiveChatUsers } from '../utils/getActiveChatUsers';
 import { IChatApiAddUser } from './ChatController';
 import ChatController from './ChatController';
+import { Actions } from '../Store';
 // import { store } from '../store';
 
 

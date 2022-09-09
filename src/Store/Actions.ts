@@ -1,8 +1,6 @@
 import Store from './Store';
-import { IStore } from './interfaces';
 import { IChatList } from '../pages/Messenger/components/Chat/interfaces';
-
-// const store = new Store();
+import { IProfile } from '../pages/ProfileEdit/interfaces';
 
 const getChatListState = () => {
 
@@ -11,7 +9,7 @@ const getChatListState = () => {
 
 	return Object.assign(
 		{
-			chats: []
+			chatList: []
 		},
 		chatList
 	);
@@ -19,10 +17,39 @@ const getChatListState = () => {
 
 const setChatList = (newChatList: IChatList[]) => {
 	console.log(newChatList)
-	const prevChatList = getChatListState().chats
+	const prevChatList = getChatListState().chatList;
 	const chatList: IChatList[] = [...prevChatList, ...newChatList];
 
 	Store.set('chatList', chatList as []);
 };
 
-export { setChatList };
+const getProfileState = () => {
+
+	const state = Store.getState(),
+		profile: IProfile = state.profile ?? {};
+
+	return Object.assign(
+		{
+			profile:
+			{
+				id: 0,
+				first_name: '',
+				second_name: '',
+				display_name: null,
+				login: '',
+				email: '',
+				phone: '',
+				avatar: null,
+			}
+		},
+		profile
+	);
+};
+
+const setProfile = (profile: IProfile) => {
+	console.log(profile);
+
+	Store.set('profile', profile);
+};
+
+export { setChatList, setProfile };

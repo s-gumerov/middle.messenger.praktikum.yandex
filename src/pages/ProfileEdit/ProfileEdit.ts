@@ -18,8 +18,11 @@ import { setImgSrc } from '../../utils/setImgSrc';
 import { router } from '../../utils/router';
 import UserProfileController from '../../controllers/UserProfileController';
 import { IProfile } from './interfaces';
-import { defaultProfileValue } from '../../utils/defaultProfileValue';
 import env from '../../utils/env';
+import Store from '../../Store/Store';
+
+
+const props = Store.getState();
 
 const completedFields = {
     email: false,
@@ -116,8 +119,8 @@ const avatarUpload = inputAndLabelComponent(avatarUploadProps)
 
 const avatarProps: IAvatarProps =
 {
-    alt: `${defaultProfileValue?.first_name}-аватар`,
-    src: defaultProfileValue?.avatar ? `${env.HOST_RESOURCES}${defaultProfileValue?.avatar}` : 'https://www.meme-arsenal.com/memes/8fad74f2d563151e2be1fbc3b3aea87e.jpg',
+    alt: `${props.profile?.first_name}-аватар`,
+    src: props.profile?.avatar ? `${env.HOST_RESOURCES}${props.profile?.avatar}` : 'https://www.meme-arsenal.com/memes/8fad74f2d563151e2be1fbc3b3aea87e.jpg',
     figureClassName: styles.figure,
     imgClassName: styles.figure__img,
 };
@@ -133,7 +136,7 @@ const emailInputProps: InputAndLabelProps =
     type: 'email',
     placeholder: 'Почта',
     disabled: disabledInputs,
-    value: defaultProfileValue?.email ?? '',
+    value: props.profile?.email ?? '',
     title: EMAIL_INPUT_TITLE,
     pattern: `${EMAIL_REGEXP}`,
     required: true,
@@ -152,7 +155,7 @@ const loginInputProps: InputAndLabelProps =
     type: 'text',
     placeholder: 'Логин',
     disabled: disabledInputs,
-    value: defaultProfileValue?.login ?? '',
+    value: props.profile?.login ?? '',
     title: LOGIN_INPUT_TITLE,
     pattern: `${LOGIN_REGEXP}`,
     required: true,
@@ -171,7 +174,7 @@ const firstNameInputProps: InputAndLabelProps =
     type: 'text',
     placeholder: 'Имя',
     disabled: disabledInputs,
-    value: defaultProfileValue?.first_name ?? '',
+    value: props.profile?.first_name ?? '',
     title: FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE,
     pattern: `${FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE_REGEXP}`,
     required: true,
@@ -190,7 +193,7 @@ const secondNameInputProps: InputAndLabelProps =
     type: 'text',
     placeholder: 'Фамилия',
     disabled: disabledInputs,
-    value: defaultProfileValue?.second_name ?? '',
+    value: props.profile?.second_name ?? '',
     title: FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE,
     pattern: `${FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE_REGEXP}`,
     required: true,
@@ -209,7 +212,7 @@ const displayNameProps: InputAndLabelProps =
     type: 'text',
     placeholder: 'Имя в чате',
     disabled: disabledInputs,
-    value: defaultProfileValue?.display_name ?? '',
+    value: props.profile?.display_name ?? '',
     title: DISPLAY_NAME_INPUT_TITLE,
     pattern: `${DISPLAY_NAME_REGEXP}`,
     required: true,
@@ -228,7 +231,7 @@ const phoneInputProps: InputAndLabelProps =
     type: 'text',
     placeholder: 'Телефон',
     disabled: disabledInputs,
-    value: defaultProfileValue?.phone ?? '',
+    value: props.profile?.phone ?? '',
     title: PHONE_INPUT_TITLE,
     pattern: `${PHONE_REGEXP}`,
     required: true,

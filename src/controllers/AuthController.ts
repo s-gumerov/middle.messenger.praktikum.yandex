@@ -4,6 +4,7 @@ import { router } from '../utils/router';
 import { errorHandler } from '../utils/errorHandler';
 import { ISignIn } from '../pages/SignIn/interfaces';
 import { ISignUp } from '../pages/SignUp/interfaces';
+import { Actions } from '../Store';
 // import { Actions } from '../Store';
 
 // import { store } from '../store';
@@ -44,7 +45,8 @@ class AuthController {
         return AuthAPI.checkAuth()
             .then((response) => {
                 // console.log(reponse)
-                localStorage.setItem('auth', JSON.stringify(response))
+                Actions.setProfile(response)
+                // localStorage.setItem('auth', JSON.stringify(response))
                 return response;
             })
             .catch(() => router.go('/auth/signin')

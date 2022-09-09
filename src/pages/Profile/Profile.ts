@@ -7,15 +7,19 @@ import { Anchor } from '../../components/anchor/Anchor';
 import { inputAndLabel as inputAndLabelComponent } from '../../components/inputAndLabel';
 import * as styles from './styles.module.sass';
 import { InputAndLabelProps } from '../../components/inputAndLabel/interfaces';
-import { defaultProfileValue } from '../../utils/defaultProfileValue';
+// import { props.profile } from '../../utils/props.profile';
 import { router } from '../../utils/router';
 import AuthController from '../../controllers/AuthController';
 import env from '../../utils/env';
+import Store from '../../Store/Store';
+
+
+const props = Store.getState();
 
 const avatarProps: IAvatarProps =
 {
-    alt: `${defaultProfileValue?.first_name}-аватар`,
-    src: defaultProfileValue?.avatar ? `${env.HOST_RESOURCES}${defaultProfileValue?.avatar}` : 'https://www.meme-arsenal.com/memes/8fad74f2d563151e2be1fbc3b3aea87e.jpg',
+    alt: `${props.profile?.first_name}-аватар`,
+    src: props.profile?.avatar ? `${env.HOST_RESOURCES}${props.profile?.avatar}` : 'https://www.meme-arsenal.com/memes/8fad74f2d563151e2be1fbc3b3aea87e.jpg',
     figureClassName: styles.figure,
     imgClassName: styles.figure__img
 };
@@ -31,7 +35,7 @@ const emailInputProps: InputAndLabelProps =
     type: 'email',
     placeholder: 'Почта',
     disabled: disabledInputs,
-    value: defaultProfileValue?.email ?? '',
+    value: props.profile?.email ?? '',
     containerClass: styles.inputs__item,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
@@ -44,7 +48,7 @@ const loginInputProps: InputAndLabelProps =
     type: 'text',
     placeholder: 'Логин',
     disabled: disabledInputs,
-    value: defaultProfileValue?.login ?? '',
+    value: props.profile?.login ?? '',
     containerClass: styles.inputs__item,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
@@ -57,7 +61,7 @@ const firstNameInputProps: InputAndLabelProps =
     type: 'text',
     placeholder: 'Имя',
     disabled: disabledInputs,
-    value: defaultProfileValue?.first_name ?? '',
+    value: props.profile?.first_name ?? '',
     containerClass: styles.inputs__item,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
@@ -70,7 +74,7 @@ const secondNameInputProps: InputAndLabelProps =
     type: 'text',
     placeholder: 'Фамилия',
     disabled: disabledInputs,
-    value: defaultProfileValue?.second_name ?? '',
+    value: props.profile?.second_name ?? '',
     containerClass: styles.inputs__item,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
@@ -83,7 +87,7 @@ const displayNameProps: InputAndLabelProps =
     type: 'text',
     placeholder: 'Имя в чате',
     disabled: disabledInputs,
-    value: defaultProfileValue?.display_name ?? '',
+    value: props.profile?.display_name ?? '',
     containerClass: styles.inputs__item,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,
@@ -96,7 +100,7 @@ const phoneInputProps: InputAndLabelProps =
     type: 'text',
     placeholder: 'Телефон',
     disabled: disabledInputs,
-    value: defaultProfileValue?.phone ?? '',
+    value: props.profile?.phone ?? '',
     containerClass: styles.inputs__item,
     inputClassName: styles.item__input,
     labelClassName: styles.item__label,

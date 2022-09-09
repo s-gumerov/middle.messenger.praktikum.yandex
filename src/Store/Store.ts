@@ -42,7 +42,7 @@ class Store extends EventBus {
 		this.emit(`${Store.EVENT_UPDATE}`);
 	}
 
-	set(id: string, value: string | []) {
+	set(id: string, value: unknown) {
 		this._state[id] = value;
 		this.emit(`${Store.EVENT_UPDATE}`);
 		return this;
