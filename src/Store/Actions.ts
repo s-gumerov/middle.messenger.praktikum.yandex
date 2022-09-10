@@ -2,6 +2,10 @@ import Store from './Store';
 import { IChatList } from '../pages/Messenger/components/Chat/interfaces';
 import { IProfile } from '../pages/ProfileEdit/interfaces';
 
+interface IActiveChat {
+	id: string
+}
+
 const getChatListState = () => {
 
 	const state = Store.getState(),
@@ -52,4 +56,25 @@ const setProfile = (profile: IProfile) => {
 	Store.set('profile', profile);
 };
 
-export { setChatList, setProfile };
+
+const getActiveChatState = () => {
+
+	const state = Store.getState();
+	const activeChat = state.activeChat ?? {};
+
+	return Object.assign(
+		{
+			activeChat: null,
+
+		},
+		activeChat
+	);
+};
+
+const setActiveChat = (activeChat: number) => {
+	console.log(activeChat);
+
+	Store.set('activeChat', activeChat);
+};
+
+export { setChatList, setProfile, setActiveChat, getActiveChatState };

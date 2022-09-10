@@ -8,7 +8,7 @@ export enum StoreEvents {
 
 class Store extends EventBus {
 
-	static EVENT_UPDATE = 1;
+	// static StoreEvents.Updated = 1;
 	static _instance: Store;
 	static STORE_NAME = 'myAppStore';
 
@@ -27,7 +27,7 @@ class Store extends EventBus {
 
 		Store._instance = this;
 
-		this.on(`${Store.EVENT_UPDATE}`, () => {
+		this.on(`${StoreEvents.Updated}`, () => {
 			localStorage.setItem(Store.STORE_NAME, JSON.stringify(this._state))
 		});
 
@@ -39,12 +39,12 @@ class Store extends EventBus {
 
 	removeState() {
 		this._state = {};
-		this.emit(`${Store.EVENT_UPDATE}`);
+		this.emit(`${StoreEvents.Updated}`);
 	}
 
 	set(id: string, value: unknown) {
 		this._state[id] = value;
-		this.emit(`${Store.EVENT_UPDATE}`);
+		this.emit(`${StoreEvents.Updated}`);
 		return this;
 	}
 }

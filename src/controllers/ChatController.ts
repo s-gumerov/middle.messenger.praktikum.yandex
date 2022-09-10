@@ -60,16 +60,18 @@ class ChatController {
 
 
     public async removeChat() {
-        const chatId = localStorage.getItem('activeChat');
-        if (!chatId) {
+        // const chatId = localStorage.getItem('activeChat');
+        const { activeChat } = Store.getState();
+
+        if (!activeChat) {
             return alert('Выберите чат, кликните и повторите удаление')
         };
 
-        return ChatAPI.removeChat(JSON.parse(chatId))
+        return ChatAPI.removeChat(activeChat)
             .then(() => {
-                localStorage.removeItem('activeChat')
+                // localStorage.removeItem('activeChat')
                 this.request()
-                    .then(() => location.reload())
+                // .then(() => location.reload())
             });
     }
 

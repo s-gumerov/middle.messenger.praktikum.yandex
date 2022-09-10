@@ -22,7 +22,8 @@ import env from '../../utils/env';
 import Store from '../../Store/Store';
 
 
-const props = Store.getState();
+const { profile } = Store.getState();
+
 
 const completedFields = {
     email: false,
@@ -94,8 +95,6 @@ const submitHandler = (e: Event) => {
     };
 
     UserProfileController.updateProfile(data);
-
-    console.log(data.avatar);
 };
 
 const avatarUploadProps: InputAndLabelProps =
@@ -119,8 +118,8 @@ const avatarUpload = inputAndLabelComponent(avatarUploadProps)
 
 const avatarProps: IAvatarProps =
 {
-    alt: `${props.profile?.first_name}-аватар`,
-    src: props.profile?.avatar ? `${env.HOST_RESOURCES}${props.profile?.avatar}` : 'https://www.meme-arsenal.com/memes/8fad74f2d563151e2be1fbc3b3aea87e.jpg',
+    alt: `${profile?.first_name}-аватар`,
+    src: profile.avatar ? `${env.HOST_RESOURCES}${profile.avatar}` : 'https://www.meme-arsenal.com/memes/8fad74f2d563151e2be1fbc3b3aea87e.jpg',
     figureClassName: styles.figure,
     imgClassName: styles.figure__img,
 };
@@ -136,7 +135,7 @@ const emailInputProps: InputAndLabelProps =
     type: 'email',
     placeholder: 'Почта',
     disabled: disabledInputs,
-    value: props.profile?.email ?? '',
+    value: profile?.email ?? '',
     title: EMAIL_INPUT_TITLE,
     pattern: `${EMAIL_REGEXP}`,
     required: true,
@@ -155,7 +154,7 @@ const loginInputProps: InputAndLabelProps =
     type: 'text',
     placeholder: 'Логин',
     disabled: disabledInputs,
-    value: props.profile?.login ?? '',
+    value: profile?.login ?? '',
     title: LOGIN_INPUT_TITLE,
     pattern: `${LOGIN_REGEXP}`,
     required: true,
@@ -174,7 +173,7 @@ const firstNameInputProps: InputAndLabelProps =
     type: 'text',
     placeholder: 'Имя',
     disabled: disabledInputs,
-    value: props.profile?.first_name ?? '',
+    value: profile?.first_name ?? '',
     title: FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE,
     pattern: `${FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE_REGEXP}`,
     required: true,
@@ -193,7 +192,7 @@ const secondNameInputProps: InputAndLabelProps =
     type: 'text',
     placeholder: 'Фамилия',
     disabled: disabledInputs,
-    value: props.profile?.second_name ?? '',
+    value: profile?.second_name ?? '',
     title: FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE,
     pattern: `${FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE_REGEXP}`,
     required: true,
@@ -212,7 +211,7 @@ const displayNameProps: InputAndLabelProps =
     type: 'text',
     placeholder: 'Имя в чате',
     disabled: disabledInputs,
-    value: props.profile?.display_name ?? '',
+    value: profile?.display_name ?? '',
     title: DISPLAY_NAME_INPUT_TITLE,
     pattern: `${DISPLAY_NAME_REGEXP}`,
     required: true,
@@ -231,7 +230,7 @@ const phoneInputProps: InputAndLabelProps =
     type: 'text',
     placeholder: 'Телефон',
     disabled: disabledInputs,
-    value: props.profile?.phone ?? '',
+    value: profile?.phone ?? '',
     title: PHONE_INPUT_TITLE,
     pattern: `${PHONE_REGEXP}`,
     required: true,
@@ -255,7 +254,6 @@ const secondNameInput = inputAndLabelComponent(secondNameInputProps);
 const displayNameInput = inputAndLabelComponent(displayNameProps);
 
 const phoneInput = inputAndLabelComponent(phoneInputProps);
-
 
 const anchorToProfile = new Anchor(
     {
@@ -302,6 +300,7 @@ export class ProfileEdit extends Component {
             }
         )
     }
+
     render() {
         return this.compile(tpl);
     }

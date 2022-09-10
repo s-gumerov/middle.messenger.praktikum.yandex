@@ -2,6 +2,8 @@ import { v4 as makeUUID } from 'uuid';
 import Handlebars from 'handlebars';
 import EventBus from './EventBus';
 import { isEqual } from '../utils/isEqual';
+import Store from '../Store/Store';
+import { connect } from '../Store/Connect';
 
 export type TProps = Record<string, any>;
 
@@ -114,6 +116,7 @@ export class Component {
 
         const propsAndStubs = { ...props };
 
+
         const fragment: HTMLElement = this.createDocumentElement('template');
 
 
@@ -182,13 +185,12 @@ export class Component {
     private _componentDidUpdate(oldProps: TProps, newProps: TProps) {
 
         const isReRender = this.componentDidUpdate(oldProps, newProps);
-        console.log(isReRender)
+
         if (!isReRender)
             this._eventBus.emit(Component.EVENTS.FLOW_RENDER);
     };
 
     public componentDidUpdate(oldProps: TProps, newProps: TProps) {
-        console.log(oldProps, newProps)
         return isEqual(oldProps, newProps);
     };
 
@@ -199,11 +201,45 @@ export class Component {
 
         const { children, props } = this.getChildren(newProps);
 
-        if (Object.values(children).length)
+        if (Object.values(children).length) {
             Object.assign(this._children, children);
+        };
 
-        if (Object.values(props).length)
+        if (Object.values(props).length) {
             Object.assign(this._props, props);
+        };
+    };
+
+
+    public setPropsToChilds(newProps: TProps) {
+
+        if (!newProps) {
+            return;
+        };
+
+        const childs = this._children;
+        // устанавливаем пропсы для для профиля пользователя 
+        const { profile } = newProps;
+
+        Object.entries(childs).forEach(([key, properties]) => {
+            if (properties instanceof Component) {
+
+                Object.entries(properties['_children']).forEach(([childName, childProperty]) => {
+
+                    // ищем вложеннные инпуты чтобы обновить в них значение из стора
+                    if (childName === 'input' && childProperty instanceof Component) {
+                        Object.entries(profile).forEach(([storeProperty, storeValue]) => {
+                            // storeProperty - название поля из стора, storeValue - значение
+                            // childName - имя дочернего компонента, childProperty - свойства дочернего компонета 
+
+                            if (childProperty['_props']['name'] === storeProperty) {
+                                childProperty.setProps({ value: storeValue })
+                            };
+                        })
+                    };
+                });
+            };
+        });
     };
 
 

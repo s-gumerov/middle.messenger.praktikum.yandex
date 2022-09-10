@@ -5,9 +5,6 @@ import { errorHandler } from '../utils/errorHandler';
 import { ISignIn } from '../pages/SignIn/interfaces';
 import { ISignUp } from '../pages/SignUp/interfaces';
 import { Actions } from '../Store';
-// import { Actions } from '../Store';
-
-// import { store } from '../store';
 
 class AuthController {
     public async signIn(user: ISignIn) {
@@ -49,8 +46,7 @@ class AuthController {
                 // localStorage.setItem('auth', JSON.stringify(response))
                 return response;
             })
-            .catch(() => router.go('/auth/signin')
-            )
+            .catch(() => router.go('/auth/signin'))
     }
 
 }

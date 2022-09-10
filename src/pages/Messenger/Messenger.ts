@@ -23,8 +23,8 @@ import profileSvg from '../../styles/icons/settings.svg';
 import closeModalBtnSvg from '../../styles/icons/closeModalBtn.svg';
 import env from '../../utils/env';
 import Store, { StoreEvents } from '../../Store/Store';
+import { Actions } from '../../Store';
 import { IChatProps } from './components/Chat/interfaces';
-
 
 const getActiveChatData = () => {
     const activeChat = localStorage.getItem('activeChat');
@@ -95,25 +95,21 @@ const searchInputProps: IInputProps =
 const searchInput = new Input(searchInputProps);
 
 const setActiveChat = async (e: Event) => {
-    const prevActivChatId = localStorage.getItem('activeChat');
-    const activeChat = e.currentTarget as HTMLDivElement;
+    const { activeChat } = Store.getState();
+    const activeChatElement = e.currentTarget as HTMLDivElement;
+    const prevActivChat = document.getElementById(`${activeChat}`) as HTMLDivElement;
 
-    if (prevActivChatId) {
-        const prevActivChat = document.getElementById(`${JSON.parse(prevActivChatId)}`) as HTMLDivElement;
+    if (prevActivChat) {
         prevActivChat.style.background = 'none';
     };
 
-    activeChat.style.background = '#E4EDFD';
+    activeChatElement.style.background = '#E4EDFD';
 
-    localStorage.setItem('activeChat', JSON.stringify(activeChat.id));
-    await ChatController.requestChatUsers(activeChat.id)
-
-    // location.reload();
+    Actions.setActiveChat(+activeChatElement.id);
 }
-const data = Store.getState().chatList as IChatProps[];
-// console.log(data, getChats())
-const chatList = data
-    ?.map(props => chat({ ...props, ... { setActiveChat: setActiveChat } }));
+const props = Store.getState().chatList as IChatProps[];
+const chatList = props
+    .map(item => chat({ ...item, ... { setActiveChat: setActiveChat } }));
 
 
 const modalInputProps: InputAndLabelProps = {
@@ -128,7 +124,6 @@ const modalInputProps: InputAndLabelProps = {
     required: true,
     inputClassName: styles.box__input,
     labelClassName: styles.box__label,
-
 };
 
 const submitModalBtnProps: IBtnProps =
@@ -221,13 +216,14 @@ export class Messenger extends Component {
             }
         )
         Store.on(StoreEvents.Updated, () => {
+            console.log('123');
+
             // вызываем обновление компонента, передав данные из хранилища
             this.setProps(Store.getState());
         });
 
     }
     render() {
-        console.log(Store.getState())
 
         return this.compile(tpl);
     }

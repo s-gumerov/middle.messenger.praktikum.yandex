@@ -8,12 +8,17 @@ import { ChangePassword } from './pages/ChangePassword/ChangePassword';
 import { NotFoundPage } from './pages/404/NotFoundPage';
 import { ServerErrorPage } from './pages/500/ServerErrorPage';
 import { router } from './utils/router';
+import { connect } from './Store/Connect';
+
+const withUser = connect(state => ({
+    profile: state.profile
+}));
 
 router
     .use("/auth/signin", SignIn)
     .use("/auth/signup", SignUp)
-    .use('/user', Profile)
-    .use('/user/profile', ProfileEdit)
+    .use('/user', withUser(Profile))
+    .use('/user/profile', withUser(ProfileEdit))
     .use('/user/password', ChangePassword)
     .use('/messenger', MessengerPage)
     .use("/500", ServerErrorPage)
