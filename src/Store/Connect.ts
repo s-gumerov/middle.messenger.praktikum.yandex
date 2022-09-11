@@ -5,7 +5,6 @@ import { isEqual } from '../utils/isEqual';
 export type Indexed = Record<string, any>;
 
 export function connect(mapStateToProps: (state: Indexed) => Indexed) {
-
 	return function (Component: typeof Block) {
 		return class extends Component {
 			constructor(props: any) {
@@ -33,23 +32,3 @@ export function connect(mapStateToProps: (state: Indexed) => Indexed) {
 		}
 	}
 }
-
-
-
-// export default function connect(Component: any, mapStateToProps: Function) {
-
-// 	return class extends Component {
-// 		constructor(tag = 'div', props = {}) {
-
-// 			const store = new Store();
-
-// 			// super(tag, { ...props, ...mapStateToProps(store.getState()) });
-// 			super({ ...props, ...state });
-
-// 			store.on(`${Store.EVENT_UPDATE}`, () => {
-// 				this.setProps({ ...mapStateToProps(store.getState()) });
-// 			});
-// 		}
-// 	};
-// }
-

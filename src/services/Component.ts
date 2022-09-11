@@ -2,8 +2,8 @@ import { v4 as makeUUID } from 'uuid';
 import Handlebars from 'handlebars';
 import EventBus from './EventBus';
 import { isEqual } from '../utils/isEqual';
-import Store from '../Store/Store';
-import { connect } from '../Store/Connect';
+import { Actions } from '../Store';
+import { IChatList } from '../pages/Messenger/components/Chat/interfaces';
 
 export type TProps = Record<string, any>;
 
@@ -153,7 +153,7 @@ export class Component {
             };
         });
 
-        Object.entries(propsAndStubs).forEach(([key, child]) => {
+        Object.entries(propsAndStubs).forEach(([key,]) => {
             if (containerId.includes(propsAndStubs[key])) {
                 if (fragment instanceof HTMLTemplateElement) {
                     const stub = fragment.content.querySelector(`[data-id="${propsAndStubs[key]}"]`);
@@ -218,28 +218,39 @@ export class Component {
         };
 
         const childs = this._children;
-        // устанавливаем пропсы для для профиля пользователя 
-        const { profile } = newProps;
 
-        Object.entries(childs).forEach(([key, properties]) => {
-            if (properties instanceof Component) {
+        const { profile, chatList } = newProps;
 
-                Object.entries(properties['_children']).forEach(([childName, childProperty]) => {
+        if (chatList) { /* устанавливаем пропсы для для мессенджера, удаляем лишний чат  */
+            const state = Actions.getChatListState() as IChatList[];
+            const chatListFromStore = state.map(chat => chat.id);
+            const childs = this._props['chatList'];
+            const newChilds = childs.filter(child => chatListFromStore.includes(child['_props']['attr']['id']));
+            this.setProps({ chatList: newChilds });
+        };
 
-                    // ищем вложеннные инпуты чтобы обновить в них значение из стора
-                    if (childName === 'input' && childProperty instanceof Component) {
-                        Object.entries(profile).forEach(([storeProperty, storeValue]) => {
-                            // storeProperty - название поля из стора, storeValue - значение
-                            // childName - имя дочернего компонента, childProperty - свойства дочернего компонета 
 
-                            if (childProperty['_props']['name'] === storeProperty) {
-                                childProperty.setProps({ value: storeValue })
-                            };
-                        })
-                    };
-                });
-            };
-        });
+        if (profile) { /* устанавливаем пропсы для для профиля пользователя  */
+            Object.entries(childs).forEach(([, properties]) => {
+                if (properties instanceof Component) {
+
+                    Object.entries(properties['_children']).forEach(([childName, childProperty]) => {
+
+                        // ищем вложеннные инпуты чтобы обновить в них значение из стора
+                        if (childName === 'input' && childProperty instanceof Component) {
+                            Object.entries(profile).forEach(([storeProperty, storeValue]) => {
+                                // storeProperty - название поля из стора, storeValue - значение
+                                // childName - имя дочернего компонента, childProperty - свойства дочернего компонета 
+
+                                if (childProperty['_props']['name'] === storeProperty) {
+                                    childProperty.setProps({ value: storeValue })
+                                };
+                            })
+                        };
+                    });
+                };
+            });
+        };
     };
 
 

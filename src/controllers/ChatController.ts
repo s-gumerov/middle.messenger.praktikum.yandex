@@ -25,25 +25,18 @@ class ChatController {
     public async request() {
         return ChatAPI.getChat()
             .then((data) => {
-                console.log(data)
-                // store.setState({
-                //     chats,
-                // });
-                // if (!store.state.chatId) {
-                //     store.setState({
-                //         chatId: chats[0]?.id || null,
-                //     });
-                // }
-                if (data) {
-                    const chatList = data as IChatList[];
-                    Actions.setChatList(chatList);
-                    localStorage.setItem('chats', JSON.stringify(data));
-                    return data;
-                };
+                // if (data) {
+                console.log(data);
+
+                return Actions.setChatList(data);
+                // return data;
+                // };
 
             })
             .catch((error) => {
-                router.go('/auth/signin');
+                console.log(error);
+
+                // router.go('/auth/signin');
                 errorHandler(error);
             })
     }
@@ -52,7 +45,6 @@ class ChatController {
         return ChatAPI.createChat(data)
             .then(() => {
                 this.request()
-                // .then(() => location.reload())
             })
             .catch(errorHandler)
     }
@@ -60,8 +52,9 @@ class ChatController {
 
 
     public async removeChat() {
-        // const chatId = localStorage.getItem('activeChat');
-        const { activeChat } = Store.getState();
+        const getActiveChatData = Actions.getActiveChatState();
+        Actions.setActiveChat({ id: '', title: '', avatar: '' })
+        const activeChat = getActiveChatData.id;
 
         if (!activeChat) {
             return alert('Выберите чат, кликните и повторите удаление')
@@ -69,9 +62,10 @@ class ChatController {
 
         return ChatAPI.removeChat(activeChat)
             .then(() => {
-                // localStorage.removeItem('activeChat')
-                this.request()
-                // .then(() => location.reload())
+                const chatList = Actions.getChatListState() as IChatList[];
+                const newChatList = chatList.filter(chat => chat.id !== activeChat);
+                //обновим store, чтобы удалить лишний чат
+                Actions.setChatList(newChatList);
             });
     }
 

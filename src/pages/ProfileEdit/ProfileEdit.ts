@@ -19,11 +19,10 @@ import { router } from '../../utils/router';
 import UserProfileController from '../../controllers/UserProfileController';
 import { IProfile } from './interfaces';
 import env from '../../utils/env';
-import Store from '../../Store/Store';
+import { Actions } from '../../Store';
 
 
-const { profile } = Store.getState();
-
+const profile = Actions.getProfileState();
 
 const completedFields = {
     email: false,

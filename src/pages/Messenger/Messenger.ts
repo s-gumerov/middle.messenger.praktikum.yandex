@@ -17,31 +17,15 @@ import ChatController from '../../controllers/ChatController';
 import { CHAT_NAME_REGEXP } from '../../utils/regularExpressions';
 import { chat } from './components/Chat';
 import Handlebars from 'handlebars';
-import { getChats } from '../../utils/getChats';
 import addChatSvg from '../../styles/icons/chat.svg';
 import profileSvg from '../../styles/icons/settings.svg';
 import closeModalBtnSvg from '../../styles/icons/closeModalBtn.svg';
 import env from '../../utils/env';
-import Store, { StoreEvents } from '../../Store/Store';
 import { Actions } from '../../Store';
 import { IChatProps } from './components/Chat/interfaces';
 
-const getActiveChatData = () => {
-    const activeChat = localStorage.getItem('activeChat');
 
-    if (!getChats || !activeChat) {
-        return;
-    };
-
-
-    const allchats = getChats()
-        ?.filter(chat => `${chat.id}` === JSON.parse(activeChat));
-
-    if (!allchats) {
-        return;
-    }
-    return allchats[0];
-};
+const getActiveChatData = Actions.getActiveChatState();
 
 const addChatBtnProps: IBtnProps =
 {
@@ -95,22 +79,27 @@ const searchInputProps: IInputProps =
 const searchInput = new Input(searchInputProps);
 
 const setActiveChat = async (e: Event) => {
-    const { activeChat } = Store.getState();
     const activeChatElement = e.currentTarget as HTMLDivElement;
-    const prevActivChat = document.getElementById(`${activeChat}`) as HTMLDivElement;
+    const activeChatId = activeChatElement.id;
+    const chatList = Actions.getChatListState();
+    const { id } = Actions.getActiveChatState();
+    const prevActivChat = document.getElementById(`${id}`) as HTMLDivElement;
 
-    if (prevActivChat) {
+
+    if (id && prevActivChat) {
         prevActivChat.style.background = 'none';
     };
 
     activeChatElement.style.background = '#E4EDFD';
 
-    Actions.setActiveChat(+activeChatElement.id);
-}
-const props = Store.getState().chatList as IChatProps[];
-const chatList = props
-    .map(item => chat({ ...item, ... { setActiveChat: setActiveChat } }));
+    const data = chatList.find(chat => `${chat['id']}` === activeChatId);
 
+    if (!data) {
+        return;
+    }
+
+    Actions.setActiveChat(data);
+}
 
 const modalInputProps: InputAndLabelProps = {
     id: makeUUID() as string,
@@ -181,17 +170,18 @@ const deleteUser = (chatId: number, userId: number) => {
     console.log('deleted', chatId, userId)
 }
 
-
-
 const itemChatProps: IItemChat =
 {
-    chatID: `${getActiveChatData()?.id}` ?? '',
-    chatName: getActiveChatData()?.title ?? '',
-    chatAvatar: getActiveChatData()?.avatar ? `${env.HOST_RESOURCES}${getActiveChatData()?.avatar}` : "https://www.meme-arsenal.com/memes/8fad74f2d563151e2be1fbc3b3aea87e.jpg",
+    chatID: `${getActiveChatData?.id}` ?? '',
+    chatName: getActiveChatData?.title ?? '',
+    chatAvatar: getActiveChatData?.avatar ? `${env.HOST_RESOURCES}${getActiveChatData?.avatar}` : "https://www.meme-arsenal.com/memes/8fad74f2d563151e2be1fbc3b3aea87e.jpg",
     deleteUser: deleteUser
 };
 
 const stub = `<div class=${styles.stub__wrapper}><span class=${styles.stub__msg}> Создайте новый чат</span></div>`;
+
+const chatListProps = Actions.getChatListState() as IChatProps[];
+const chatList = chatListProps.map(item => chat({ ...item, ... { setActiveChat: setActiveChat } }));
 
 export class Messenger extends Component {
     constructor() {
@@ -215,22 +205,11 @@ export class Messenger extends Component {
                 }
             }
         )
-        Store.on(StoreEvents.Updated, () => {
-            console.log('123');
-
-            // вызываем обновление компонента, передав данные из хранилища
-            this.setProps(Store.getState());
-        });
-
     }
     render() {
 
         return this.compile(tpl);
     }
-
-    // componentDidUpdate(oldProps: TProps, newProps: TProps) {
-    //     return !(oldProps['form'] == newProps['form']);
-    // }
 
     compile(template: string, props?: TProps) {
         if (typeof (props) === 'undefined')

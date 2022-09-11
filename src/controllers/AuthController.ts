@@ -46,7 +46,7 @@ class AuthController {
                 // localStorage.setItem('auth', JSON.stringify(response))
                 return response;
             })
-            .catch(() => router.go('/auth/signin'))
+        // .catch(() => router.go('/auth/signin'))
     }
 
 }

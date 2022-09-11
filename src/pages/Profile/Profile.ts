@@ -10,10 +10,10 @@ import { InputAndLabelProps } from '../../components/inputAndLabel/interfaces';
 import { router } from '../../utils/router';
 import AuthController from '../../controllers/AuthController';
 import env from '../../utils/env';
-import Store from '../../Store/Store';
+import { Actions } from '../../Store';
 
 
-const { profile } = Store.getState();
+const profile = Actions.getProfileState();
 
 const avatarProps: IAvatarProps =
 {

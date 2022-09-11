@@ -1,7 +1,7 @@
 
 import { SignIn } from './pages/SignIn/SignIn';
 import { SignUp } from './pages/SignUp/SignUp';
-import MessengerPage from './pages/Messenger';
+import { Messenger } from './pages/Messenger/Messenger';
 import { Profile } from './pages/Profile/Profile';
 import { ProfileEdit } from './pages/ProfileEdit/ProfileEdit';
 import { ChangePassword } from './pages/ChangePassword/ChangePassword';
@@ -14,13 +14,17 @@ const withUser = connect(state => ({
     profile: state.profile
 }));
 
+const withMessenger = connect(state => ({
+    chatList: state.chatList
+}));
+
 router
     .use("/auth/signin", SignIn)
     .use("/auth/signup", SignUp)
     .use('/user', withUser(Profile))
     .use('/user/profile', withUser(ProfileEdit))
     .use('/user/password', ChangePassword)
-    .use('/messenger', MessengerPage)
+    .use('/messenger', withMessenger(Messenger))
     .use("/500", ServerErrorPage)
     .use("/404", NotFoundPage)
     .start();
