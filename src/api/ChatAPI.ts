@@ -51,7 +51,7 @@ export class ChatApi extends BaseAPI {
         });
     }
 
-    public requestMessageToken(chatId: number) {
+    public getTokenToMessagesServer(chatId: number) {
         return this.create(`/token/${chatId}`, {
             withCredentials: true,
         });
@@ -63,7 +63,6 @@ export class ChatApi extends BaseAPI {
         });
     }
 
-    // chatId: string, data: FormData
     public updateAvatar(data: FormData) {
         return this.update('/avatar', {
             headers: {},
@@ -72,10 +71,5 @@ export class ChatApi extends BaseAPI {
         });
     }
 }
-
-
-
-
-
 
 export default new ChatApi()

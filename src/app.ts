@@ -16,7 +16,9 @@ const withUser = connect(state => ({
 
 const withMessenger = connect(state => ({
     chatList: state.chatList,
-    activeChat: state.activeChat
+    activeChat: state.activeChat,
+    token: state.token,
+    msg: state.msg,
 }));
 
 router

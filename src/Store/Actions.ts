@@ -2,6 +2,7 @@ import Store from './Store';
 import { IChatList } from '../pages/Messenger/components/Chat/interfaces';
 import { IProfile } from '../pages/ProfileEdit/interfaces';
 import { IActiveChatUsers } from '../pages/Messenger/components/ChatContent/interfaces';
+import { IChatMessages } from '../pages/Messenger/components/ChatContent/components/message/interfaces';
 
 
 const getChatListState = () => {
@@ -27,6 +28,7 @@ const getProfileState = () => {
 		{
 			profile:
 			{
+				id: null,
 				first_name: '',
 				second_name: '',
 				display_name: null,
@@ -100,4 +102,52 @@ const removeActiveChat = () => {
 	Store.set('activeChat', intialState);
 };
 
-export { setChatList, setActiveChat, setProfile, getChatListState, getActiveChatState, getProfileState, removeActiveChat };
+const getTokenToMessagesServer = () => {
+	const state = Store.getState();
+	const token: string = state.token ?? {};
+
+	return Object.assign(
+		'',
+		token
+	);
+};
+
+const setTokenToMessagesServer = (token: string) => {
+	Store.set('token', token);
+};
+
+const getChatMessages = () => {
+	const state = Store.getState();
+	const msg: string = state.msg ?? {};
+
+	return Object.assign(
+		[
+			{
+				chat_id: 0,
+				time: '',
+				type: '',
+				user_id: '',
+				content: '',
+				file: {
+					id: 0,
+					user_id: 0,
+					path: '',
+					filename: '',
+					content_type: '',
+					content_size: 0,
+					upload_date: '',
+				}
+			}
+		],
+		msg
+	);
+};
+
+const setChatMessages = (msg: IChatMessages[]) => {
+	Store.set('msg', msg);
+};
+
+
+
+
+export { setChatList, setActiveChat, setProfile, getChatListState, getActiveChatState, getProfileState, removeActiveChat, getTokenToMessagesServer, setTokenToMessagesServer, getChatMessages, setChatMessages };

@@ -1,18 +1,21 @@
 import { Component } from "../../../../../../services/Component";
 import { tpl } from "./tpl";
-import { IMessageProps } from "./interfaces";
+import { IChatMessages } from "./interfaces";
+import { Actions } from "../../../../../../Store";
+import * as styles from './styles.module.sass';
 
+const { id } = Actions.getProfileState();
 export class Message extends Component {
-    constructor({ message, time, imgSrc, className }: IMessageProps) {
+    constructor({ className, content, time, user_id }: IChatMessages) {
+
         super(
             'div',
             {
                 attr: {
-                    class: className
+                    class: className ?? `${id}` !== user_id ? styles.message__in : styles.message__out
                 },
-                message: message,
+                message: content,
                 time: time,
-                imgSrc: imgSrc,
             }
         )
     }

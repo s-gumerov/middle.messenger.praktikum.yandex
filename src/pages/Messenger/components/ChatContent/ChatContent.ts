@@ -24,6 +24,8 @@ import { IFindUserRequest } from './interfaces';
 import { Actions } from '../../../../Store';
 import env from '../../../../utils/env';
 import { showChatUsers } from './components/userList/UserList';
+import MessageController from '../../../../controllers/MessageController';
+import { IChatMessages } from './components/message/interfaces';
 
 
 const tools = () => document.querySelector(`.${styles.userTools__list}`) as HTMLElement;
@@ -114,7 +116,16 @@ const deleteChatBtn = new Btn(
 const sendMsgBtn = new Btn(
     {
         msg: '',
-        className: styles.newMsg__sendMsgBtn
+        className: styles.newMsg__sendMsgBtn,
+        clickHandler: () => {
+            const input = document.querySelector(`.${styles.newMsg__inputMsg}`) as HTMLInputElement;
+            const msg = input.value;
+            if (msg.length < 1) {
+                return;
+            }
+            input.value = '';
+            MessageController.sendMessage(msg);
+        }
     }
 );
 
@@ -130,63 +141,6 @@ const inputMsgProps: IInputProps =
 };
 
 const inputMsg = new Input(inputMsgProps);
-const messages =
-    [
-        {
-            message: "Привет",
-            time: "11:56",
-            className: styles.message__out
-        },
-        {
-            message: "Как дела?",
-            time: "11:56",
-            className: styles.message__in
-        },
-        {
-            message: `Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой.
-
-        Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так никогда и не попали. Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро.`,
-            time: "11:56",
-            className: styles.message__out
-        },
-        {
-            message: "Привет",
-            time: "11:56",
-            className: styles.message__in
-        },
-        {
-            message: "Как дела?",
-            time: "11:56",
-            className: styles.message__out
-        },
-        {
-            message: `Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой.
-
-        Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так никогда и не попали. Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро.`,
-            time: "11:56",
-            className: styles.message__in
-        },
-        {
-            message: "Привет ",
-            time: "11:56",
-            className: styles.message__out
-        },
-        {
-            message: "Как дела?",
-            time: "11:56",
-            className: styles.message__in
-        },
-        {
-            message: `Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой.
-
-        Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так никогда и не попали. Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро.`,
-            time: "11:56",
-            className: styles.message__out
-        },
-    ]
-
-const chatContentMesseges = messages.map(msg => new Message(msg));
-
 
 const modalInputProps: InputAndLabelProps = {
     id: makeUUID() as string,
@@ -241,6 +195,8 @@ const submitHandlerToChatContent = (e: Event) => {
 
 };
 
+const messages = Actions.getChatMessages();
+
 export class ChatContent extends Component {
     constructor({ id, title, avatar, users }: IActiveChatUsers) {
         super(
@@ -274,7 +230,7 @@ export class ChatContent extends Component {
                     {
                         users: users,
                     }),
-                messages: chatContentMesseges,
+                messages: messages.map(msg => new Message(msg)),
                 inputMsg: inputMsg,
                 sendMsgBtn: sendMsgBtn,
                 modalInput: inputAndLabelComponent(modalInputProps),

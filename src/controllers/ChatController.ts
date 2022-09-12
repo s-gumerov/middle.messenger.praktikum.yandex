@@ -3,9 +3,8 @@ import { Actions } from '../Store';
 import ChatAPI from '../api/ChatAPI';
 import { IChatUsers, IActiveChatUsers } from '../pages/Messenger/components/ChatContent/interfaces';
 import { IChatList } from '../pages/Messenger/components/Chat/interfaces';
-
-
-
+import { IMessageWebSocketConnect } from './MessageController';
+import MessageController from './MessageController';
 
 
 export interface IChatApiCreate {
@@ -33,6 +32,7 @@ class ChatController {
     public async createChat(data: IChatApiCreate) {
         return ChatAPI.createChat(data)
             .then(() => {
+                Actions.removeActiveChat()
                 this.request()
             })
             .catch(errorHandler)
@@ -73,10 +73,21 @@ class ChatController {
             .catch(errorHandler);
     }
 
-    public async requestMessageToken(chatId: number) {
-        return ChatAPI.requestMessageToken(chatId)
-            .then((auth) => {
-                return auth;
+    public async getTokenToMessagesServer(chatId: number) {
+        return ChatAPI.getTokenToMessagesServer(chatId)
+            .then((data) => {
+                if (!data.token) {
+                    return;
+                };
+                Actions.setTokenToMessagesServer(data.token);
+                const { id } = Actions.getProfileState()
+                const socketOptios: IMessageWebSocketConnect =
+                {
+                    userId: id,
+                    chatId: chatId,
+                    token: data.token
+                };
+                MessageController.connect(socketOptios);
             })
             .catch(errorHandler);
     }
@@ -93,7 +104,8 @@ class ChatController {
                     users: users as IChatUsers[]
                 }
 
-                return Actions.setActiveChat(activeChat);
+                Actions.setActiveChat(activeChat);
+                this.getTokenToMessagesServer(id);
             })
             .catch(errorHandler);
     }
@@ -104,21 +116,23 @@ class ChatController {
                 if (!chat.avatar) {
                     return;
                 };
-                const activeChat = Actions.getActiveChatState();
-                activeChat.avatar = chat.avatar;
-                Actions.setActiveChat(activeChat);
+                let { id, avatar, users } = Actions.getActiveChatState();
+                avatar = chat.avatar;
+
+
+
 
                 const chatList = Actions.getChatListState() as IChatList[];
 
                 const updateChatList = chatList.map(chat => {
-                    if (chat.id === activeChat.id) {
-                        chat.avatar = activeChat.avatar;
+                    if (chat.id === id) {
+                        chat.avatar = avatar;
+                        Actions.setActiveChat({ ...chat, users: users });
                         return chat;
                     };
                     return chat;
                 });
-
-                return Actions.setChatList(updateChatList);
+                Actions.setChatList(updateChatList);
             })
             .catch(errorHandler)
     }

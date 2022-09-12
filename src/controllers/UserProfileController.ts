@@ -9,7 +9,6 @@ import { IChatApiAddUser } from './ChatController';
 import ChatController from './ChatController';
 import { Actions } from '../Store';
 
-
 class UserProfileController {
 
     public async updatePassword(data: IChangePassword) {

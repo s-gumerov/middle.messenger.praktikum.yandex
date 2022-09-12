@@ -15,7 +15,7 @@ import { IChatList } from './components/Chat/interfaces';
 import { inputAndLabel } from '../../components/inputAndLabel';
 import ChatController from '../../controllers/ChatController';
 import { CHAT_NAME_REGEXP } from '../../utils/regularExpressions';
-import { chat } from './components/Chat';
+import { Chat } from './components/Chat/Chat';
 import Handlebars from 'handlebars';
 import addChatSvg from '../../styles/icons/chat.svg';
 import profileSvg from '../../styles/icons/settings.svg';
@@ -24,6 +24,7 @@ import { Actions } from '../../Store';
 import { IChatProps } from './components/Chat/interfaces';
 import { Stub } from './components/Stub/Stub';
 import env from '../../utils/env';
+import { Message } from './components/ChatContent/components/message/Message';
 
 const addChatBtnProps: IBtnProps =
 {
@@ -161,7 +162,7 @@ export class Messenger extends Component {
                 avatar: avatar,
                 addChatBtn: new Btn(addChatBtnProps),
                 searchInput: searchInput,
-                chatList: chatListProps.map(item => chat(item)),
+                chatList: chatListProps.map(item => new Chat(item)),
                 anchorToProfile: anchorToProfile,
                 chatContent: getChatContent(),
                 modalInput: inputAndLabel(modalInputProps),
@@ -259,9 +260,8 @@ export class Messenger extends Component {
         if (!newProps) {
             return;
         };
-        console.log(newProps);
 
-        const { chatList, activeChat } = newProps;
+        const { chatList, activeChat, msg } = newProps;
 
         const updateActiveChatAvatarFromChatList = (id: number, avatar: string) => {/* для обновление аватара в списке чатов в случае */
             this._props['chatList'].forEach(child => {
@@ -276,7 +276,7 @@ export class Messenger extends Component {
             const childs = this._props['chatList'];
             if (childs.length !== state.length) {/* меняем список чатов только в случае добавления или удаления чата */
                 const chatListProps = Actions.getChatListState() as IChatProps[];
-                this._props['chatList'] = chatListProps.map(item => chat(item));
+                this._props['chatList'] = chatListProps.map(item => new Chat(item));
             };
         };
 
@@ -290,9 +290,21 @@ export class Messenger extends Component {
                 this._children['chatContent'] = new Stub('Выберите чат');
             } else if (chats.length < 1) {
                 this._children['chatContent'] = new Stub('Создайте новый чат');
+
             } else {
                 this._children['chatContent'] = new ChatContent(Actions.getActiveChatState());
             }
+        };
+
+        if (msg.length > 1) {/* Обновляем сообщения в текущем чате и последнее сообщение в выбранном чате */
+            const { id } = Actions.getProfileState()
+            this._children['chatContent']['_props']['messages'] = msg.map(i => new Message({ ...i, ...{ className: id === i.user_id ? styles.message__in : styles.message__out } }))
+            this._props['chatList'].forEach((chat, index) => {
+                const { id } = Actions.getActiveChatState();
+                if (chat['_props']['attr']['id'] === id && msg[index].content) {
+                    chat['_props']['lastMsg'] = msg[index].content;
+                }
+            });
         };
     };
 
