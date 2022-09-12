@@ -1,12 +1,8 @@
 import Store from './Store';
 import { IChatList } from '../pages/Messenger/components/Chat/interfaces';
 import { IProfile } from '../pages/ProfileEdit/interfaces';
+import { IActiveChatUsers } from '../pages/Messenger/components/ChatContent/interfaces';
 
-interface IActiveChat {
-	id: string,
-	title: string,
-	avatar: string
-}
 
 const getChatListState = () => {
 	const state = Store.getState();
@@ -57,14 +53,51 @@ const getActiveChatState = () => {
 		{
 			id: null,
 			title: '',
-			avatar: ''
+			avatar: '',
+			users: [
+				{
+					id: 0,
+					first_name: '',
+					second_name: '',
+					display_name: '',
+					login: '',
+					email: '',
+					phone: '',
+					avatar: '',
+					role: ''
+				}
+			]
 		},
 		activeChat
 	);
 };
 
-const setActiveChat = (activeChat: IActiveChat) => {
+const setActiveChat = (activeChat: IActiveChatUsers) => {
 	Store.set('activeChat', activeChat);
 };
 
-export { setChatList, setActiveChat, setProfile, getChatListState, getActiveChatState, getProfileState };
+const removeActiveChat = () => {
+
+	const intialState: IActiveChatUsers = {
+		id: null,
+		title: '',
+		avatar: '',
+		users: [
+			{
+				id: 0,
+				first_name: '',
+				second_name: '',
+				display_name: '',
+				login: '',
+				email: '',
+				phone: '',
+				avatar: '',
+				role: ''
+			}
+		]
+	}
+
+	Store.set('activeChat', intialState);
+};
+
+export { setChatList, setActiveChat, setProfile, getChatListState, getActiveChatState, getProfileState, removeActiveChat };

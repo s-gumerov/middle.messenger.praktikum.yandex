@@ -2,8 +2,6 @@ import { v4 as makeUUID } from 'uuid';
 import Handlebars from 'handlebars';
 import EventBus from './EventBus';
 import { isEqual } from '../utils/isEqual';
-import { Actions } from '../Store';
-import { IChatList } from '../pages/Messenger/components/Chat/interfaces';
 
 export type TProps = Record<string, any>;
 
@@ -111,6 +109,7 @@ export class Component {
     };
 
     public compile(template: string, props?: TProps) {
+
         if (typeof (props) === 'undefined')
             props = this._props;
 
@@ -129,7 +128,7 @@ export class Component {
 
                 propsAndStubs[key] = `<div data-id="${propsAndStubs.__id}"></div>`;
 
-                Object.entries(list).forEach(([i, child]) => {
+                Object.entries(list).forEach(([, child]) => {
                     //является ли child "сложным"
                     if (child instanceof Component)
                         childs.push(child.getContent());
@@ -182,7 +181,7 @@ export class Component {
             this._eventBus.emit(Component.EVENTS.FLOW_RENDER);
     };
 
-    private _componentDidUpdate(oldProps: TProps, newProps: TProps) {
+    public _componentDidUpdate(oldProps: TProps, newProps: TProps) {
 
         const isReRender = this.componentDidUpdate(oldProps, newProps);
 
@@ -211,7 +210,7 @@ export class Component {
     };
 
 
-    public setPropsToChilds(newProps: TProps) {
+    public updatePropsForChilds(newProps: TProps) {
 
         if (!newProps) {
             return;
@@ -219,16 +218,7 @@ export class Component {
 
         const childs = this._children;
 
-        const { profile, chatList } = newProps;
-
-        if (chatList) { /* устанавливаем пропсы для для мессенджера, удаляем лишний чат  */
-            const state = Actions.getChatListState() as IChatList[];
-            const chatListFromStore = state.map(chat => chat.id);
-            const childs = this._props['chatList'];
-            const newChilds = childs.filter(child => chatListFromStore.includes(child['_props']['attr']['id']));
-            this.setProps({ chatList: newChilds });
-        };
-
+        const { profile } = newProps;
 
         if (profile) { /* устанавливаем пропсы для для профиля пользователя  */
             Object.entries(childs).forEach(([, properties]) => {
@@ -251,6 +241,7 @@ export class Component {
                 };
             });
         };
+
     };
 
 

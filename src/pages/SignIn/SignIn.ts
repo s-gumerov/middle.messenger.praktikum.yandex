@@ -53,7 +53,6 @@ const submitHandler = (e: Event) => {
         password: password.value
     };
     AuthController.signIn(data);
-    console.log(data);
 };
 
 const loginInputProps: InputAndLabelProps = {

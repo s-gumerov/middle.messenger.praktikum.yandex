@@ -22,7 +22,7 @@ export function connect(mapStateToProps: (state: Indexed) => Indexed) {
 
 					// если что-то из используемых данных поменялось, обновляем компонент
 					if (!isEqual(state, newState)) {
-						this.setPropsToChilds({ ...newState });
+						this.updatePropsForChilds({ ...newState });
 					};
 
 					// не забываем сохранить новое состояние

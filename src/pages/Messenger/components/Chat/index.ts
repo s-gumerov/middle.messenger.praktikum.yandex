@@ -5,8 +5,32 @@ import { IAvatarProps } from '../../../../components/avatar/interfaces';
 import { Btn } from '../../../../components/btn/Btn';
 import * as styles from './styles.module.sass';
 import env from '../../../../utils/env'
+import { Actions } from '../../../../Store';
+import ChatController from '../../../../controllers/ChatController';
 
-export const chat = ({ id, title, avatar, created_by, unread_count, last_message, setActiveChat }: IChatProps) => {
+export const chat = ({ id, title, avatar, created_by, unread_count, last_message }: IChatProps) => {
+
+    const setActiveChat = (e: Event) => {
+        const activeChatElement = e.currentTarget as HTMLDivElement;
+        const activeChatId = activeChatElement.id;
+        const chatList = Actions.getChatListState();
+        const { id } = Actions.getActiveChatState();
+        const prevActivChat = document.getElementById(`${id}`) as HTMLDivElement;
+
+        if (id && prevActivChat) {
+            prevActivChat.style.background = 'none';
+        };
+
+        activeChatElement.style.background = '#E4EDFD';
+
+        const data = chatList.find(chat => `${chat['id']}` === activeChatId);
+
+        if (!data) {
+            return;
+        }
+
+        return ChatController.requestChatUsers(data);
+    };
 
     const avatarProps: IAvatarProps =
     {

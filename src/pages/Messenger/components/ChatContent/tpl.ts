@@ -2,7 +2,7 @@ import * as styles from './styles.module.sass';
 
 export const tpl = `
 
-        <div class=${styles.itemChat__header}>
+        <div class=${styles.chatContent__header}>
             <div class=${styles.header__chatData}>
                 {{{chatAvatar}}}
                 {{{avatarUpload}}}
@@ -23,14 +23,12 @@ export const tpl = `
 
             {{{messages}}}
 
-        <div class=${styles.itemChat__newMsg}>
+        <div class=${styles.chatContent__newMsg}>
             {{{inputMsg}}}
             {{{sendMsgBtn}}}
         </div>
 
-        <div class='${styles.chatUserList} ${styles.chatUserList_hidden}'>
             {{{usersList}}}
-        </div>
 
         <form class=${styles.modal}>
             <div class=${styles.modal__box}>

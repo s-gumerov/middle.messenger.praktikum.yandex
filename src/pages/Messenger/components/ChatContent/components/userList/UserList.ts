@@ -1,26 +1,34 @@
+import { v4 as makeUUID } from 'uuid';
 import { Component, TProps } from "../../../../../../services/Component";
 import Handlebars from 'handlebars';
 import { tpl } from "./tpl";
 import { ChatUser } from "./components/ChatUser";
 import env from '../../../../../../utils/env';
 import { UserListProps } from "./interfaces";
+import * as styles from './styles.module.sass';
 
+const chatMembersList = () => document.querySelector(`.${styles.chatUserList}`) as HTMLElement;
+
+export const showChatUsers = () => {
+    chatMembersList()?.classList.contains(styles.chatUserList_hidden) ?
+        chatMembersList()?.classList.remove(styles.chatUserList_hidden) :
+        chatMembersList()?.classList.add(styles.chatUserList_hidden);
+};
 
 export class UserList extends Component {
-    constructor({ className, id, users, deleteUser, showChatUsers }: UserListProps) {
+    constructor({ users }: UserListProps) {
         super(
             'div',
             {
                 attr: {
-                    class: className,
-                    id: id
+                    class: `${styles.chatUserList} ${styles.chatUserList_hidden}`,
+                    id: makeUUID()
                 },
                 list: users && users.map(user => {
                     return new ChatUser({
                         userId: `${user.id}`,
                         avatarPath: user.avatar ? `${env.HOST_RESOURCES}${user.avatar}` : 'https://www.meme-arsenal.com/memes/8fad74f2d563151e2be1fbc3b3aea87e.jpg',
                         userName: user.display_name ?? user.first_name,
-                        deleteUser: deleteUser
                     })
                 }),
                 events: {

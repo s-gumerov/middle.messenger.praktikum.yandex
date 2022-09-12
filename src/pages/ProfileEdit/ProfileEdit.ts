@@ -80,7 +80,7 @@ const submitHandler = (e: Event) => {
             first_name,
             second_name,
             display_name,
-            phone
+            phone,
         } = e.target as HTMLFormElement;
 
     const data: IProfile =
@@ -91,6 +91,7 @@ const submitHandler = (e: Event) => {
         second_name: second_name.value,
         display_name: display_name.value,
         phone: phone.value,
+
     };
 
     UserProfileController.updateProfile(data);
@@ -99,7 +100,7 @@ const submitHandler = (e: Event) => {
 const avatarUploadProps: InputAndLabelProps =
 {
     id: makeUUID() as string,
-    name: 'avatarUpload',
+    name: 'avatar',
     type: 'file',
     placeholder: 'Поменять аватар',
     disabled: false,

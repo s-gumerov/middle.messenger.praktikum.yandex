@@ -1,10 +1,9 @@
 import { errorHandler } from '../utils/errorHandler';
-// import { store } from '../store';
-import Store from '../Store/Store';
 import { Actions } from '../Store';
-import { router } from '../utils/router';
 import ChatAPI from '../api/ChatAPI';
+import { IChatUsers, IActiveChatUsers } from '../pages/Messenger/components/ChatContent/interfaces';
 import { IChatList } from '../pages/Messenger/components/Chat/interfaces';
+
 
 
 
@@ -21,22 +20,12 @@ export interface IChatApiAddUser {
 
 class ChatController {
 
-
     public async request() {
         return ChatAPI.getChat()
             .then((data) => {
-                // if (data) {
-                console.log(data);
-
                 return Actions.setChatList(data);
-                // return data;
-                // };
-
             })
             .catch((error) => {
-                console.log(error);
-
-                // router.go('/auth/signin');
                 errorHandler(error);
             })
     }
@@ -49,22 +38,19 @@ class ChatController {
             .catch(errorHandler)
     }
 
-
-
     public async removeChat() {
-        const getActiveChatData = Actions.getActiveChatState();
-        Actions.setActiveChat({ id: '', title: '', avatar: '' })
-        const activeChat = getActiveChatData.id;
+        const { id } = Actions.getActiveChatState();
 
-        if (!activeChat) {
+        if (!id) {
             return alert('Выберите чат, кликните и повторите удаление')
         };
 
-        return ChatAPI.removeChat(activeChat)
+        return ChatAPI.removeChat(id)
             .then(() => {
                 const chatList = Actions.getChatListState() as IChatList[];
-                const newChatList = chatList.filter(chat => chat.id !== activeChat);
+                const newChatList = chatList.filter(chat => chat.id !== id);
                 //обновим store, чтобы удалить лишний чат
+                Actions.removeActiveChat();
                 Actions.setChatList(newChatList);
             });
     }
@@ -72,8 +58,8 @@ class ChatController {
     public async addUserChat(data: IChatApiAddUser) {
         return ChatAPI.addUserChat(data)
             .then(() => {
-                this.request()
-                    .then(() => location.reload())
+                //обновим store, чтобы получить изменения в активном чате
+                this.requestChatUsers(Actions.getActiveChatState());
             })
             .catch(errorHandler);
     }
@@ -81,8 +67,8 @@ class ChatController {
     public async deleteUserChat(data: IChatApiAddUser) {
         return ChatAPI.deleteUserChat(data)
             .then(() => {
-                this.request()
-                    .then(() => location.reload())
+                //обновим store, чтобы получить изменения в активном чате
+                this.requestChatUsers(Actions.getActiveChatState());
             })
             .catch(errorHandler);
     }
@@ -95,16 +81,19 @@ class ChatController {
             .catch(errorHandler);
     }
 
-    public async requestChatUsers(chatId: number | string) {
-        return ChatAPI.getChatUsers(chatId)
+    public async requestChatUsers(data: IChatList) {
+        const { id, title, avatar } = data;
+        return ChatAPI.getChatUsers(id)
             .then((users) => {
-                localStorage.setItem('activeChatUsers',
-                    JSON.stringify({
-                        id: `${chatId}`,
-                        users: users
-                    }))
+                const activeChat: IActiveChatUsers =
+                {
+                    id: id,
+                    title: title,
+                    avatar: avatar,
+                    users: users as IChatUsers[]
+                }
 
-                return users;
+                return Actions.setActiveChat(activeChat);
             })
             .catch(errorHandler);
     }
@@ -112,14 +101,24 @@ class ChatController {
     public async updateAvatar(data: FormData) {
         return ChatAPI.updateAvatar(data)
             .then((chat) => {
-                this.request()
-                alert('Аватар обновлен')
-                console.log(chat)
-                location.reload();
-                // store.setState({
-                //     currentUser: user,
-                // });
-                return chat;
+                if (!chat.avatar) {
+                    return;
+                };
+                const activeChat = Actions.getActiveChatState();
+                activeChat.avatar = chat.avatar;
+                Actions.setActiveChat(activeChat);
+
+                const chatList = Actions.getChatListState() as IChatList[];
+
+                const updateChatList = chatList.map(chat => {
+                    if (chat.id === activeChat.id) {
+                        chat.avatar = activeChat.avatar;
+                        return chat;
+                    };
+                    return chat;
+                });
+
+                return Actions.setChatList(updateChatList);
             })
             .catch(errorHandler)
     }

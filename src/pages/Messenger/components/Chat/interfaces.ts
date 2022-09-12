@@ -9,7 +9,6 @@ export interface IChatProps {
         content: string,
         time: string
     },
-    setActiveChat: (e: Event) => void
 };
 
 export interface IChatList {

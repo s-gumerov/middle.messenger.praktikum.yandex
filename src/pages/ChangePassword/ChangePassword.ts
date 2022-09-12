@@ -16,16 +16,18 @@ import { validate } from '../../utils/validate';
 import { inputCheckToForm } from '../../utils/inputCheckToForm';
 import { IChangePassword } from './interfaces';
 import { router } from '../../utils/router';
-import { defaultProfileValue } from '../../utils/defaultProfileValue';
 import env from '../../utils/env';
 import UserProfileController from '../../controllers/UserProfileController';
+import { Actions } from '../../Store';
+
+
+const profile = Actions.getProfileState();
 
 const completedFields = {
     old_password: false,
     new_password: false,
     again_password: false
 };
-
 
 const focusHandler = (e: Event) => {
     const { value, name } = e.target as HTMLInputElement;
@@ -69,8 +71,8 @@ const submitHandler = (e: Event) => {
 
 const avatarProps: IAvatarProps =
 {
-    alt: `${defaultProfileValue?.first_name}-аватар`,
-    src: defaultProfileValue?.avatar ? `${env.HOST_RESOURCES}${defaultProfileValue?.avatar}` : 'https://www.meme-arsenal.com/memes/8fad74f2d563151e2be1fbc3b3aea87e.jpg',
+    alt: `${profile?.first_name}-аватар`,
+    src: profile?.avatar ? `${env.HOST_RESOURCES}${profile?.avatar}` : 'https://www.meme-arsenal.com/memes/8fad74f2d563151e2be1fbc3b3aea87e.jpg',
     figureClassName: styles.figure,
     imgClassName: styles.figure__img
 };

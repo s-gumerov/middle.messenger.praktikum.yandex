@@ -15,7 +15,7 @@ export const tpl = `
             {{{chatList}}}
     </aside>
 
-        {{{itemChat}}}
+        {{{chatContent}}}
 
     <form class=${styles.modal}>
         <div class=${styles.modal__box}>

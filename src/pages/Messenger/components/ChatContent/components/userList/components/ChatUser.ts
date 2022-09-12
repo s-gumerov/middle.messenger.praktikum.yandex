@@ -4,13 +4,12 @@ import * as styles from './styles.module.sass';
 import { IChatMembersProps } from "./interfaces";
 import { Avatar } from "../../../../../../../components/avatar/Avatar";
 import { Btn } from "../../../../../../../components/btn/Btn";
+import { deleteUser } from "../../../../../../../utils/deleteUser";
+import { Actions } from "../../../../../../../Store";
 
-type TMouseEvent = MouseEvent & {
-    path: Node[];
-}
 
 export class ChatUser extends Component {
-    constructor({ userId, avatarPath, userName, deleteUser }: IChatMembersProps) {
+    constructor({ userId, avatarPath, userName }: IChatMembersProps) {
         super(
             'div',
             {
@@ -31,12 +30,10 @@ export class ChatUser extends Component {
                         msg: 'удалить',
                         className: styles.user__deleteBtn,
                         clickHandler: (e: Event) => {
-                            const event = e as TMouseEvent
-                            const chat = event.path[4] as HTMLDivElement
                             const target = e.target as HTMLElement
                             const userId = +target.id;
-                            const chatId = +chat.id;
-                            deleteUser(chatId, userId);
+                            const { id } = Actions.getActiveChatState();
+                            deleteUser(id, userId);
                         },
                     }
                 )
@@ -47,5 +44,4 @@ export class ChatUser extends Component {
     render() {
         return this.compile(tpl);
     }
-
 }

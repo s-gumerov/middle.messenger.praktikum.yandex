@@ -9,15 +9,17 @@ import { Actions } from '../Store';
 class AuthController {
     public async signIn(user: ISignIn) {
         return AuthAPI.signIn(user)
-            .then((response) => {
-                // Actions.addText(response);
-                ChatController.request().then(res =>
-                    localStorage.setItem('chats', JSON.stringify(res))
-                );
-                this.checkAuth();
+            .then(() => {
+                this.checkAuth()
+                    .then((response) => {
+                        Actions.setProfile(response);
+                        ChatController.request().then(() => {
+                            router.go('/messenger');
+                        }
+                        )
+                    })
 
-                // console.log(response)
-                router.go('/messenger');
+
             })
             .catch(errorHandler);
     }
@@ -41,12 +43,10 @@ class AuthController {
     public async checkAuth() {
         return AuthAPI.checkAuth()
             .then((response) => {
-                // console.log(reponse)
-                Actions.setProfile(response)
-                // localStorage.setItem('auth', JSON.stringify(response))
+                Actions.setProfile(response);
                 return response;
             })
-        // .catch(() => router.go('/auth/signin'))
+            .catch(() => router.go('/auth/signin'))
     }
 
 }

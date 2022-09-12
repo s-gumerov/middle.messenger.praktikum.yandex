@@ -5,12 +5,9 @@ import { IFindUserRequest } from '../pages/Messenger/components/ChatContent/inte
 import { IChangePassword } from '../pages/ChangePassword/interfaces';
 import { router } from '../utils/router';
 import AuthController from './AuthController';
-import { getActiveChatUsers } from '../utils/getActiveChatUsers';
 import { IChatApiAddUser } from './ChatController';
 import ChatController from './ChatController';
 import { Actions } from '../Store';
-// import { store } from '../store';
-
 
 
 class UserProfileController {
@@ -38,10 +35,6 @@ class UserProfileController {
         return UserProfileAPI.updateAvatar(data)
             .then((user) => {
                 AuthController.checkAuth();
-                console.log(user)
-                // store.setState({
-                //     currentUser: user,
-                // });
                 return user.avatar;
             })
             .catch(errorHandler)
@@ -50,7 +43,8 @@ class UserProfileController {
     public async findUserRequest(data: IFindUserRequest) {
         return UserProfileAPI.findUserRequest(data)
             .then((user) => {
-                const chatId = getActiveChatUsers()?.id;
+
+                const chatId = Actions.getActiveChatState().id
 
                 if (Array.isArray(user) && chatId) {
                     if (user.length < 1) {
@@ -63,13 +57,9 @@ class UserProfileController {
                         ],
                         "chatId": chatId
                     };
+
                     ChatController.addUserChat(data);
                 }
-
-                // store.setState({
-                //     currentUser: user,
-                // });
-                // return user.avatar;
             })
             .catch(errorHandler)
     }

@@ -1,9 +1,7 @@
-export interface IItemChat {
-    chatID: string,
-    chatName: string,
-    chatAvatar: string,
-    clickHandler?: (e: Event) => void,
-    deleteUser: (chatId: number, userId: number) => void
+export interface IchatContent {
+    id: string,
+    title: string,
+    avatar: string,
 }
 
 export interface IChatUsers {
@@ -14,12 +12,14 @@ export interface IChatUsers {
     login: string,
     email: string,
     phone: string,
-    avatar: string,
+    avatar: string | null,
     role: string
 };
 
 export interface IActiveChatUsers {
-    id: number,
+    id: number | null,
+    title: string,
+    avatar: string | null,
     users: IChatUsers[],
 };
 
