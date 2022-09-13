@@ -2,6 +2,12 @@
   "name": "middle.messenger.praktikum.yandex",
   "version": "1.0.0",
   "description": "---",
+  "babel": {
+    "presets": [
+      "@babel/preset-typescript",
+      "@babel/preset-env"
+    ]
+  },
   "dependencies": {
     "@babel/polyfill": "7.12.1",
     "handlebars": "4.7.7",
