@@ -15,7 +15,6 @@ export function connect(mapStateToProps: (state: Indexed) => Indexed) {
 
 				// подписываемся на событие
 				Store.on(StoreEvents.Updated, () => {
-					console.log('Updated');
 
 					// при обновлении получаем новое состояние
 					const newState = mapStateToProps(Store.getState());

@@ -54,7 +54,7 @@ export class HTTPTransport {
         const query = method === Methods.GET && data ? queryStringify(data as TQueryStringify) : '';
 
         return new Promise((resolve, reject) => {
-            const xhr = new XMLHttpRequest();
+            const xhr = new window.XMLHttpRequest();
 
             xhr.open(method, url + query);
 
@@ -82,7 +82,7 @@ export class HTTPTransport {
             if (method === Methods.GET || !data) {
                 xhr.send();
             }
-            else if (data instanceof FormData) {
+            else if (data instanceof window.FormData) {
                 xhr.send(data);
             }
 

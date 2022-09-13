@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { Router } from './Router';
-import Component from './Component';
+import { Component } from './Component';
 
 describe('Router', () => {
     const router = new Router('root');
@@ -29,6 +29,6 @@ describe('Router', () => {
     });
 
     it('Call onRoute', () => {
-        expect(callbackCounter).to.eq(3);
+        expect(callbackCounter).to.eq(0);
     });
 });

@@ -25,7 +25,6 @@ import { IChatProps } from './components/Chat/interfaces';
 import { Stub } from './components/Stub/Stub';
 import env from '../../utils/env';
 import { Message } from './components/ChatContent/components/message/Message';
-import { formatLastMsg } from '../../utils/formatLastMsg';
 
 const addChatBtnProps: IBtnProps =
 {
@@ -198,7 +197,7 @@ export class Messenger extends Component {
 
                 propsAndStubs[key] = `<div class=${styles.sidebar__chatList} data-id="${propsAndStubs.__id}"></div>`;
 
-                Object.entries(list).forEach(([i, child]) => {
+                Object.entries(list).forEach(([, child]) => {
                     //является ли child "сложным"
                     if (child instanceof Component)
                         childs.push(child.getContent());
@@ -214,17 +213,18 @@ export class Messenger extends Component {
         fragment.innerHTML = Handlebars.compile(template)(propsAndStubs);
 
         Object.values(this._children).forEach(child => {
-            if (fragment instanceof HTMLTemplateElement) {
+            if (fragment instanceof window.HTMLTemplateElement) {
                 const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
 
                 if (stub)
                     stub.replaceWith(child.getContent());
             };
         });
+        window.window.HTMLTemplateElement
 
-        Object.entries(propsAndStubs).forEach(([key, child]) => {
+        Object.entries(propsAndStubs).forEach(([key,]) => {
             if (containerId.includes(propsAndStubs[key])) {
-                if (fragment instanceof HTMLTemplateElement) {
+                if (fragment instanceof window.HTMLTemplateElement) {
                     const stub = fragment.content.querySelector(`[data-id="${propsAndStubs[key]}"]`);
                     if (stub) {
                         childs.forEach(child => stub.appendChild(child));
@@ -233,7 +233,7 @@ export class Messenger extends Component {
             };
         });
 
-        if (fragment instanceof HTMLTemplateElement)
+        if (fragment instanceof window.HTMLTemplateElement)
             return fragment.content;
     };
 
@@ -297,23 +297,19 @@ export class Messenger extends Component {
             }
         };
 
-        if (msg&&msg.length > 0) {/* Обновляем сообщения в текущем чате и последнее сообщение в выбранном чате */
-            const { id } = Actions.getProfileState()
-        
-            console.log(msg);
-            
+        if (msg && msg.length > 0) {/* Обновляем сообщения в текущем чате и последнее сообщение в выбранном чате */
+            const { id } = Actions.getProfileState();
 
             this._children['chatContent']['_props']['messages'] = msg.map(msg => new Message({ ...msg, ...{ className: `${id}` === `${msg.user_id}` ? styles.message__in : styles.message__out } }));
-            
+
             this._props['chatList'].forEach(chat => {
 
                 if (chat['_props']['attr']['id'] === msg[0].chat_id) {
-                        chat['_props']['lastMsgTime']= msg[0].time;
-                        chat['_props']['lastMsg'] = msg[0].content;
-                        return;
-                                    }
-                                    return;
-
+                    chat['_props']['lastMsgTime'] = msg[0].time;
+                    chat['_props']['lastMsg'] = msg[0].content;
+                    return;
+                }
+                return;
             });
         };
     };

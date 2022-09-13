@@ -91,7 +91,6 @@ const submitHandler = (e: Event) => {
         second_name: second_name.value,
         display_name: display_name.value,
         phone: phone.value,
-
     };
 
     UserProfileController.updateProfile(data);

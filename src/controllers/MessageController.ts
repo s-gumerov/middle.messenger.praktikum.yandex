@@ -48,22 +48,21 @@ class MessageController {
     }
 
     private _handleOpen() {
-        console.log('Соединение установлено');
         this.getMessages({ offset: 0 });
         ChatController.request();
         this._ping = setInterval(() => {
             this._ws.send('');
-          }, 10000);
+        }, 10000);
     }
 
     private _handleMassage(e: MessageEvent) {
         const data = JSON.parse(e.data) as IChatMessages[];
 
         if (Array.isArray(data)) {
-data.forEach(msg=>{
-    msg.time=formatLastMsg(msg.time)
-    return msg
-})
+            data.forEach(msg => {
+                msg.time = formatLastMsg(msg.time)
+                return msg
+            })
 
             Actions.setChatMessages(data);
             ChatController.request()
@@ -94,7 +93,7 @@ data.forEach(msg=>{
         this._removeEvents();
     }
 
-    public sendMessage(message: string) {       
+    public sendMessage(message: string) {
         this._ws.send(JSON.stringify({
             content: message,
             type: 'message',

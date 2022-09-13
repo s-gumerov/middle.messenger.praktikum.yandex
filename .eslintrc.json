@@ -5,7 +5,21 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "eqeqeq": "always",
+        "import/no-extraneous-dependencies": [
+            "error",
+            {
+                "devDependencies": true
+            }
+        ],
+        "linebreak-style": [
+            "error",
+            "windows"
+        ],
+        "eol-last": [
+            "error",
+            "never"
+        ],
+        "eqeqeq": 2,
         "max-len": [
             2,
             100

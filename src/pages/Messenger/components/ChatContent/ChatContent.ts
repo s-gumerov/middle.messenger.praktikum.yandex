@@ -112,7 +112,7 @@ const deleteChatBtn = new Btn(
     }
 );
 
-const getMsgText=()=>{
+const getMsgText = () => {
     const input = document.querySelector(`.${styles.newMsg__inputMsg}`) as HTMLInputElement;
     const msg = input.value;
     if (msg.length < 1) {
@@ -141,10 +141,10 @@ const inputMsgProps: IInputProps =
     value: '',
     placeholder: 'Сообщение',
     className: styles.newMsg__inputMsg,
-    keyupHandler:(e:KeyboardEvent)=>{
-        if(e.code==='Enter' || e.code==='NumpadEnter'){
-            const message=getMsgText();
-           return MessageController.sendMessage(message);           
+    keyupHandler: (e: KeyboardEvent) => {
+        if (e.code === 'Enter' || e.code === 'NumpadEnter') {
+            const message = getMsgText();
+            return MessageController.sendMessage(message);
         };
     }
 };
@@ -289,7 +289,7 @@ export class ChatContent extends Component {
         fragment.innerHTML = Handlebars.compile(template)(propsAndStubs);
 
         Object.values(this._children).forEach(child => {
-            if (fragment instanceof HTMLTemplateElement) {
+            if (fragment instanceof window.HTMLTemplateElement) {
                 const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
 
                 if (stub)
@@ -299,7 +299,7 @@ export class ChatContent extends Component {
 
         Object.entries(propsAndStubs).forEach(([key, child]) => {
             if (containerId.includes(propsAndStubs[key])) {
-                if (fragment instanceof HTMLTemplateElement) {
+                if (fragment instanceof window.HTMLTemplateElement) {
                     const stub = fragment.content.querySelector(`[data-id="${propsAndStubs[key]}"]`);
                     if (stub) {
                         childs.forEach(child => stub.appendChild(child));
@@ -308,7 +308,7 @@ export class ChatContent extends Component {
             };
         });
 
-        if (fragment instanceof HTMLTemplateElement)
+        if (fragment instanceof window.HTMLTemplateElement)
             return fragment.content;
     };
 

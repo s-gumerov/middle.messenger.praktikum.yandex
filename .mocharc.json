@@ -3,5 +3,9 @@
         "ts"
     ],
     "spec": "src/**/*.ts",
-    "require": "test/babel-register.js"
+    "require": [
+        "test/babel-register.js",
+        "ignore-styles",
+        "mock-local-storage"
+    ]
 }

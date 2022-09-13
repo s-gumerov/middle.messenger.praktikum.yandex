@@ -81,7 +81,11 @@ class ChatController {
                     return;
                 };
                 Actions.setTokenToMessagesServer(data.token);
-                const { id } = Actions.getProfileState()
+                const { id } = Actions.getProfileState();
+                if(!id){
+                    return;
+                };
+                
                 const socketOptios: IMessageWebSocketConnect =
                 {
                     userId: id,

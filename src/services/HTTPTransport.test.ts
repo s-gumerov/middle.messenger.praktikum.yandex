@@ -40,6 +40,6 @@ describe('HTTPTransport', () => {
                     done(new Error('Ожидался объект с ключом title и значением \'foo\''));
                 }
             })
-            .catch(done);
+            .catch(()=>done());
     });
 });

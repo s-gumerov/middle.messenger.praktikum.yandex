@@ -8,6 +8,5 @@ export const deleteUser = (chatId: number, userId: number) => {
 
     };
     ChatController.deleteUserChat(data);
-    console.log('deleted', chatId, userId)
 }
 

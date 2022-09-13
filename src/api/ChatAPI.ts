@@ -10,8 +10,6 @@ interface IChatApiAddUser {
 }
 
 
-
-
 export class ChatApi extends BaseAPI {
     constructor() {
         super({ path: '/chats' });

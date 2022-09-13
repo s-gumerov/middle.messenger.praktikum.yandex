@@ -31,7 +31,6 @@ class AuthController {
     }
 
     public async signOut() {
-        localStorage.clear();
         return AuthAPI.signOut()
             .then(() => {
                 router.go('/auth/signin');

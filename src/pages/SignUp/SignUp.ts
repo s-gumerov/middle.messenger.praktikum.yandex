@@ -70,9 +70,7 @@ const submitHandler = (e: Event) => {
         password: password.value,
         phone: phone.value,
     }
-    AuthController.signUp(data)
-
-    console.log(data);
+    AuthController.signUp(data);
 };
 
 const emailInputProps: InputAndLabelProps = {

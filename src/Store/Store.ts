@@ -8,7 +8,6 @@ export enum StoreEvents {
 
 class Store extends EventBus {
 
-	// static StoreEvents.Updated = 1;
 	static _instance: Store;
 	static STORE_NAME = 'myAppStore';
 
@@ -21,14 +20,14 @@ class Store extends EventBus {
 		}
 		super();
 
-		const savedState = localStorage.getItem(Store.STORE_NAME);
+		const savedState = window.localStorage.getItem(Store.STORE_NAME);
 
 		this._state = savedState ? (JSON.parse(savedState) ?? {}) : {}
 
 		Store._instance = this;
 
 		this.on(`${StoreEvents.Updated}`, () => {
-			localStorage.setItem(Store.STORE_NAME, JSON.stringify(this._state))
+			window.localStorage.setItem(Store.STORE_NAME, JSON.stringify(this._state))
 		});
 
 	}

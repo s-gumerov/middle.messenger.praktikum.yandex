@@ -61,12 +61,6 @@ const submitHandler = (e: Event) => {
     };
 
     UserProfileController.updatePassword(data);
-
-    console.log({
-        old_password: old_password.value,
-        new_password: new_password.value,
-        again_password: again_password.value
-    })
 };
 
 const avatarProps: IAvatarProps =
