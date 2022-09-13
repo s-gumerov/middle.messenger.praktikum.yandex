@@ -50,6 +50,7 @@ class ChatController {
                 const chatList = Actions.getChatListState() as IChatList[];
                 const newChatList = chatList.filter(chat => chat.id !== id);
                 //обновим store, чтобы удалить лишний чат
+                MessageController.leave();
                 Actions.removeActiveChat();
                 Actions.setChatList(newChatList);
             });
@@ -105,6 +106,7 @@ class ChatController {
                 }
 
                 Actions.setActiveChat(activeChat);
+                
                 this.getTokenToMessagesServer(id);
             })
             .catch(errorHandler);

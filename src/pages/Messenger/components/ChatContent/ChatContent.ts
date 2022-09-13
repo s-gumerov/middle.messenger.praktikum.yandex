@@ -25,7 +25,6 @@ import { Actions } from '../../../../Store';
 import env from '../../../../utils/env';
 import { showChatUsers } from './components/userList/UserList';
 import MessageController from '../../../../controllers/MessageController';
-import { IChatMessages } from './components/message/interfaces';
 
 
 const tools = () => document.querySelector(`.${styles.userTools__list}`) as HTMLElement;
@@ -113,18 +112,22 @@ const deleteChatBtn = new Btn(
     }
 );
 
+const getMsgText=()=>{
+    const input = document.querySelector(`.${styles.newMsg__inputMsg}`) as HTMLInputElement;
+    const msg = input.value;
+    if (msg.length < 1) {
+        return '';
+    }
+    input.value = '';
+    return msg;
+};
+
 const sendMsgBtn = new Btn(
     {
         msg: '',
         className: styles.newMsg__sendMsgBtn,
         clickHandler: () => {
-            const input = document.querySelector(`.${styles.newMsg__inputMsg}`) as HTMLInputElement;
-            const msg = input.value;
-            if (msg.length < 1) {
-                return;
-            }
-            input.value = '';
-            MessageController.sendMessage(msg);
+            MessageController.sendMessage(getMsgText());
         }
     }
 );
@@ -137,7 +140,13 @@ const inputMsgProps: IInputProps =
     disabled: false,
     value: '',
     placeholder: 'Сообщение',
-    className: styles.newMsg__inputMsg
+    className: styles.newMsg__inputMsg,
+    keyupHandler:(e:KeyboardEvent)=>{
+        if(e.code==='Enter' || e.code==='NumpadEnter'){
+            const message=getMsgText();
+           return MessageController.sendMessage(message);           
+        };
+    }
 };
 
 const inputMsg = new Input(inputMsgProps);
@@ -230,7 +239,7 @@ export class ChatContent extends Component {
                     {
                         users: users,
                     }),
-                messages: messages.map(msg => new Message(msg)),
+                messages: messages.length < 1 ? messages.map(msg => new Message(msg)) : null,
                 inputMsg: inputMsg,
                 sendMsgBtn: sendMsgBtn,
                 modalInput: inputAndLabelComponent(modalInputProps),

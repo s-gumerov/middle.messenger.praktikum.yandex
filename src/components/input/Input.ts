@@ -5,7 +5,7 @@ import { addAttribute } from "../../utils/addAttribute";
 
 export class Input extends Component {
 
-    constructor({ pattern, title, required, id, name, type, className, placeholder, disabled, value, inputHandler, focusHandler, blurHandler, changeHandler, accept, multiple }: IInputProps) {
+    constructor({ pattern, title, required, id, name, type, className, placeholder, disabled, value, inputHandler, focusHandler, blurHandler, changeHandler, keyupHandler,keypressHandler, accept, multiple }: IInputProps) {
 
         super('div',
             {
@@ -22,7 +22,9 @@ export class Input extends Component {
                     focus: focusHandler,
                     blur: blurHandler,
                     input: inputHandler,
-                    change: changeHandler
+                    change: changeHandler,
+                    keyup: keyupHandler,
+                    keypress:keypressHandler
                 },
                 attr: {
                     pattern: pattern ? pattern.replace(/^.|.$/g, "") : '',
@@ -44,7 +46,9 @@ export class Input extends Component {
             input.addEventListener('focus', this._props.events.focus);
             input.addEventListener('blur', this._props.events.blur);
             input.addEventListener('input', this._props.events.input);
-            input.addEventListener('input', this._props.events.change);
+            input.addEventListener('change', this._props.events.change);
+            input.addEventListener('keyup', this._props.events.keyup);
+            input.addEventListener('keypress', this._props.events.keypress);
         });
     };
 

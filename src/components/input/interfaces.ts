@@ -14,5 +14,7 @@ export interface IInputProps {
     inputHandler?: (e: Event) => void,
     focusHandler?: (e: Event) => void,
     blurHandler?: (e: Event) => void,
-    changeHandler?: (e: Event) => void
+    changeHandler?: (e: Event) => void,
+    keyupHandler?:(e:KeyboardEvent)=>void,
+    keypressHandler?:(e:KeyboardEvent)=>void,
 }

@@ -2,6 +2,7 @@ import env from '../utils/env';
 import { Actions } from '../Store';
 import { IChatMessages } from '../pages/Messenger/components/ChatContent/components/message/interfaces';
 import ChatController from './ChatController';
+import { formatLastMsg } from '../utils/formatLastMsg';
 
 export interface IMessageWebSocketConnect {
     userId: number
@@ -18,6 +19,7 @@ class MessageController {
     private _userId!: number;
     private _chatId!: number;
     private _token!: string;
+    private _ping: any;
 
     constructor() {
         this._handleOpen = this._handleOpen.bind(this);
@@ -49,13 +51,22 @@ class MessageController {
         console.log('Соединение установлено');
         this.getMessages({ offset: 0 });
         ChatController.request();
+        this._ping = setInterval(() => {
+            this._ws.send('');
+          }, 10000);
     }
 
     private _handleMassage(e: MessageEvent) {
         const data = JSON.parse(e.data) as IChatMessages[];
 
         if (Array.isArray(data)) {
+data.forEach(msg=>{
+    msg.time=formatLastMsg(msg.time)
+    return msg
+})
+
             Actions.setChatMessages(data);
+            ChatController.request()
         };
     }
 
@@ -65,7 +76,7 @@ class MessageController {
         if (e.wasClean) {
             alert('Соединение закрыто');
         } else if (e.code === 1006) {
-            alert('Сессия завершена. Вы были долго не активны');
+            this._reconnection();
         }
     }
 
@@ -78,17 +89,17 @@ class MessageController {
     }
 
     public leave() {
+        clearInterval(this._ping);
         this._ws.close();
         this._removeEvents();
     }
 
-    public sendMessage(message: string) {
+    public sendMessage(message: string) {       
         this._ws.send(JSON.stringify({
             content: message,
             type: 'message',
         }));
         this._handleOpen()
-
     }
 
     private _reconnection() {

@@ -25,6 +25,7 @@ import { IChatProps } from './components/Chat/interfaces';
 import { Stub } from './components/Stub/Stub';
 import env from '../../utils/env';
 import { Message } from './components/ChatContent/components/message/Message';
+import { formatLastMsg } from '../../utils/formatLastMsg';
 
 const addChatBtnProps: IBtnProps =
 {
@@ -296,14 +297,23 @@ export class Messenger extends Component {
             }
         };
 
-        if (msg.length > 1) {/* Обновляем сообщения в текущем чате и последнее сообщение в выбранном чате */
+        if (msg&&msg.length > 0) {/* Обновляем сообщения в текущем чате и последнее сообщение в выбранном чате */
             const { id } = Actions.getProfileState()
-            this._children['chatContent']['_props']['messages'] = msg.map(i => new Message({ ...i, ...{ className: id === i.user_id ? styles.message__in : styles.message__out } }))
-            this._props['chatList'].forEach((chat, index) => {
-                const { id } = Actions.getActiveChatState();
-                if (chat['_props']['attr']['id'] === id && msg[index].content) {
-                    chat['_props']['lastMsg'] = msg[index].content;
-                }
+        
+            console.log(msg);
+            
+
+            this._children['chatContent']['_props']['messages'] = msg.map(msg => new Message({ ...msg, ...{ className: `${id}` === `${msg.user_id}` ? styles.message__in : styles.message__out } }));
+            
+            this._props['chatList'].forEach(chat => {
+
+                if (chat['_props']['attr']['id'] === msg[0].chat_id) {
+                        chat['_props']['lastMsgTime']= msg[0].time;
+                        chat['_props']['lastMsg'] = msg[0].content;
+                        return;
+                                    }
+                                    return;
+
             });
         };
     };
