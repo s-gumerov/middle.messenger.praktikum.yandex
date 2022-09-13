@@ -168,12 +168,12 @@ export class Component {
     };
 
 
-    private _componentDidMount() {
+    public _componentDidMount() {
         this.componentDidMount();
         Object.values(this._children).forEach(child => child.dispatchComponentDidMount());
     };
 
-    private componentDidMount() { };
+    public componentDidMount() { };
 
     public dispatchComponentDidMount() {
         this._eventBus.emit(Component.EVENTS.FLOW_CDM);

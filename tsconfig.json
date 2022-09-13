@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "moduleResolution": "node",
     "target": "es6",
     "lib": [
       "dom",
@@ -19,7 +20,6 @@
     "removeComments": true,
     "preserveConstEnums": true,
     "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node",
     "isolatedModules": true
   },
   "exclude": [
@@ -29,6 +29,6 @@
     ".github",
     "src/server.js",
     "babel.config.js",
-    "test/babel-register.js",
+    "test/babel-register.js"
   ]
 }

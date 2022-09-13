@@ -12,6 +12,7 @@
     "@babel/polyfill": "7.12.1",
     "handlebars": "4.7.7",
     "jsdom": "20.0.0",
+    "module-name": "0.0.1-security",
     "parcel": "2.6.2",
     "sass-import-modules": "8.0.0",
     "stylelint-scss": "4.3.0",

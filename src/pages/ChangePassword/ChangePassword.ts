@@ -53,7 +53,7 @@ const blurHandler = (e: Event) => {
 
 const submitHandler = (e: Event) => {
     e.preventDefault();
-    const { old_password, new_password, again_password } = e.target as HTMLFormElement;
+    const { old_password, new_password } = e.target as HTMLFormElement;
     const data: IChangePassword =
     {
         oldPassword: old_password.value,
