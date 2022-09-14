@@ -28,7 +28,6 @@
     ".parcel-cache",
     ".github",
     "src/server.js",
-    "babel.config.js",
     "test/babel-register.js"
   ]
 }
