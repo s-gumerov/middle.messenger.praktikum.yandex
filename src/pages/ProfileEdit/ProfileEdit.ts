@@ -5,7 +5,7 @@ import { Avatar } from '../../components/avatar/Avatar';
 import { IAvatarProps } from '../../components/avatar/interfaces';
 import { Btn } from '../../components/btn/Btn';
 import { Anchor } from '../../components/anchor/Anchor';
-import { inputAndLabel as inputAndLabelComponent } from '../../components/inputAndLabel';
+import { InputAndLabel } from '../../components/inputAndLabel/InputAndLabel';
 import * as styles from './styles.module.sass';
 import { InputAndLabelProps } from '../../components/inputAndLabel/interfaces';
 import { FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE, EMAIL_INPUT_TITLE, LOGIN_INPUT_TITLE, DISPLAY_NAME_INPUT_TITLE, PHONE_INPUT_TITLE } from '../../utils/inputTitleMsg';
@@ -113,7 +113,7 @@ const avatarUploadProps: InputAndLabelProps =
 };
 
 
-const avatarUpload = inputAndLabelComponent(avatarUploadProps)
+const avatarUpload = new InputAndLabel(avatarUploadProps)
 
 const avatarProps: IAvatarProps =
 {
@@ -242,17 +242,17 @@ const phoneInputProps: InputAndLabelProps =
 };
 
 
-const emailInput = inputAndLabelComponent(emailInputProps);
+const emailInput = new InputAndLabel(emailInputProps);
 
-const loginInput = inputAndLabelComponent(loginInputProps);
+const loginInput = new InputAndLabel(loginInputProps);
 
-const firstNameInput = inputAndLabelComponent(firstNameInputProps);
+const firstNameInput = new InputAndLabel(firstNameInputProps);
 
-const secondNameInput = inputAndLabelComponent(secondNameInputProps);
+const secondNameInput = new InputAndLabel(secondNameInputProps);
 
-const displayNameInput = inputAndLabelComponent(displayNameProps);
+const displayNameInput = new InputAndLabel(displayNameProps);
 
-const phoneInput = inputAndLabelComponent(phoneInputProps);
+const phoneInput = new InputAndLabel(phoneInputProps);
 
 const anchorToProfile = new Anchor(
     {

@@ -3,7 +3,7 @@ import { tpl } from './tpl';
 import { v4 as makeUUID } from 'uuid';
 import { Btn } from '../../components/btn/Btn';
 import { Anchor } from '../../components/anchor/Anchor';
-import { inputAndLabel as inputAndLabelComponent } from '../../components/inputAndLabel';
+import { InputAndLabel } from '../../components/inputAndLabel/InputAndLabel';
 import * as styles from './styles.module.sass';
 import { InputAndLabelProps } from '../../components/inputAndLabel/interfaces';
 import { LOGIN_INPUT_TITLE, PASSWORD_INPUT_TITLE } from '../../utils/inputTitleMsg';
@@ -89,9 +89,9 @@ const passwordInputProps: InputAndLabelProps = {
     inputHandler: inputHandler
 };
 
-const loginInput = inputAndLabelComponent(loginInputProps);
+const loginInput = new InputAndLabel(loginInputProps);
 
-const passwordInput = inputAndLabelComponent(passwordInputProps);
+const passwordInput = new InputAndLabel(passwordInputProps);
 
 const loginBtn = new Btn(
     {

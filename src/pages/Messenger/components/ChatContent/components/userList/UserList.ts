@@ -16,7 +16,11 @@ export const showChatUsers = () => {
 };
 
 export class UserList extends Component {
-    constructor({ users }: UserListProps) {
+    constructor(
+        {
+            users
+        }: UserListProps
+    ) {
         super(
             'div',
             {

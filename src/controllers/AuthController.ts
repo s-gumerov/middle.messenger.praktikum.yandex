@@ -8,42 +8,44 @@ import { Actions } from '../Store';
 
 class AuthController {
     public async signIn(user: ISignIn) {
-        return AuthAPI.signIn(user)
-            .then(() => {
-                this.checkAuth()
-                    .then((response) => {
-                        Actions.setProfile(response);
-                        ChatController.request().then(() => {
-                            router.go('/messenger');
-                        }
-                        )
-                    })
-            })
-            .catch(errorHandler);
+        try {
+            await AuthAPI.signIn(user);
+            await this.checkAuth();
+            await ChatController.request();
+            router.go('/messenger');
+        } catch (error) {
+            errorHandler(error);
+        }
     }
 
     public async signUp(user: ISignUp) {
-        return AuthAPI.signUp(user)
-            .then(() => {
-                router.go('/auth/signin');
-            })
-            .catch(errorHandler);
+        try {
+            await AuthAPI.signUp(user);
+            router.go('/auth/signin');
+        } catch (error) {
+            errorHandler(error);
+        }
     }
 
     public async signOut() {
-        return AuthAPI.signOut()
-            .then(() => {
-                router.go('/auth/signin');
-            });
+        try {
+            await AuthAPI.signOut();
+            window.localStorage.removeItem('myAppStore')
+            router.go('/auth/signin');
+        } catch (error) {
+            errorHandler(error);
+        }
     }
 
     public async checkAuth() {
-        return AuthAPI.checkAuth()
-            .then((response) => {
-                Actions.setProfile(response);
-                return response;
-            })
-            .catch(() => router.go('/auth/signin'))
+        try {
+            const checkAuthResponse = await AuthAPI.checkAuth();
+            Actions.setProfile(checkAuthResponse);
+
+        } catch (error) {
+            errorHandler(error);
+            router.go('/auth/signin');
+        }
     }
 
 }

@@ -10,15 +10,15 @@
   },
   "dependencies": {
     "@babel/polyfill": "7.12.1",
-    "handlebars": "4.7.7",
-    "jsdom": "20.0.0",
-    "module-name": "0.0.1-security",
-    "parcel": "2.6.2",
-    "sass-import-modules": "8.0.0",
-    "stylelint-scss": "4.3.0",
     "uuid": "8.3.2"
   },
   "devDependencies": {
+    "module-name": "0.0.1-security",
+    "sass-import-modules": "8.0.0",
+    "stylelint-scss": "4.3.0",
+    "parcel": "2.6.2",
+    "handlebars": "4.7.7",
+    "jsdom": "20.0.0",
     "@babel/core": "7.18.13",
     "@babel/preset-env": "7.18.10",
     "@babel/preset-typescript": "7.18.6",

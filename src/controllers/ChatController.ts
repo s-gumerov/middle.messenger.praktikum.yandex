@@ -20,127 +20,136 @@ export interface IChatApiAddUser {
 class ChatController {
 
     public async request() {
-        return ChatAPI.getChat()
-            .then((data) => {
-                return Actions.setChatList(data);
-            })
-            .catch((error) => {
-                errorHandler(error);
-            })
+        try {
+            const getChatResponse = await ChatAPI.getChat();
+            Actions.setChatList(getChatResponse);
+        } catch (error) {
+            errorHandler(error);
+        }
     }
 
     public async createChat(data: IChatApiCreate) {
-        return ChatAPI.createChat(data)
-            .then(() => {
-                Actions.removeActiveChat()
-                this.request()
-            })
-            .catch(errorHandler)
+        try {
+            await ChatAPI.createChat(data);
+            Actions.removeActiveChat();
+            await this.request();
+        } catch (error) {
+
+        }
     }
 
     public async removeChat() {
-        const { id } = Actions.getActiveChatState();
+        try {
+            const { id } = Actions.getActiveChatState();
 
-        if (!id) {
-            return alert('Выберите чат, кликните и повторите удаление')
-        };
+            if (!id) {
+                return alert('Выберите чат, кликните и повторите удаление')
+            };
 
-        return ChatAPI.removeChat(id)
-            .then(() => {
-                const chatList = Actions.getChatListState() as IChatList[];
-                const newChatList = chatList.filter(chat => chat.id !== id);
-                //обновим store, чтобы удалить лишний чат
-                MessageController.leave();
-                Actions.removeActiveChat();
-                Actions.setChatList(newChatList);
-            });
+            await ChatAPI.removeChat(id);
+            const chatList = Actions.getChatListState() as IChatList[];
+            const newChatList = chatList.filter(chat => chat.id !== id);
+            //обновим store, чтобы удалить лишний чат
+            MessageController.leave();
+            Actions.removeActiveChat();
+            Actions.setChatList(newChatList);
+        } catch (error) {
+            errorHandler(error);
+        }
+
     }
 
     public async addUserChat(data: IChatApiAddUser) {
-        return ChatAPI.addUserChat(data)
-            .then(() => {
-                //обновим store, чтобы получить изменения в активном чате
-                this.requestChatUsers(Actions.getActiveChatState());
-            })
-            .catch(errorHandler);
+        try {
+            await ChatAPI.addUserChat(data);
+
+            //обновим store, чтобы получить изменения в активном чате
+            await this.requestChatUsers(Actions.getActiveChatState());
+        } catch (error) {
+            errorHandler(error);
+        }
     }
 
     public async deleteUserChat(data: IChatApiAddUser) {
-        return ChatAPI.deleteUserChat(data)
-            .then(() => {
-                //обновим store, чтобы получить изменения в активном чате
-                this.requestChatUsers(Actions.getActiveChatState());
-            })
-            .catch(errorHandler);
+        try {
+            await ChatAPI.deleteUserChat(data);
+
+            //обновим store, чтобы получить изменения в активном чате
+            await this.requestChatUsers(Actions.getActiveChatState());
+        } catch (error) {
+            errorHandler(error);
+        }
     }
 
     public async getTokenToMessagesServer(chatId: number) {
-        return ChatAPI.getTokenToMessagesServer(chatId)
-            .then((data) => {
-                if (!data.token) {
-                    return;
-                };
-                Actions.setTokenToMessagesServer(data.token);
-                const { id } = Actions.getProfileState();
-                if(!id){
-                    return;
-                };
-                
-                const socketOptios: IMessageWebSocketConnect =
-                {
-                    userId: id,
-                    chatId: chatId,
-                    token: data.token
-                };
-                MessageController.connect(socketOptios);
-            })
-            .catch(errorHandler);
+        try {
+            const data = await ChatAPI.getTokenToMessagesServer(chatId);
+            if (!data.token) {
+                return;
+            };
+            Actions.setTokenToMessagesServer(data.token);
+            const { id } = Actions.getProfileState();
+            if (!id) {
+                return;
+            };
+
+            const socketOptios: IMessageWebSocketConnect =
+            {
+                userId: id,
+                chatId: chatId,
+                token: data.token
+            };
+            MessageController.connect(socketOptios);
+        } catch (error) {
+            errorHandler(error);
+        }
     }
 
     public async requestChatUsers(data: IChatList) {
-        const { id, title, avatar } = data;
-        return ChatAPI.getChatUsers(id)
-            .then((users) => {
-                const activeChat: IActiveChatUsers =
-                {
-                    id: id,
-                    title: title,
-                    avatar: avatar,
-                    users: users as IChatUsers[]
-                }
+        try {
+            const { id, title, avatar } = data;
+            const getChatUsersResponse = await ChatAPI.getChatUsers(id);
+            const activeChat: IActiveChatUsers =
+            {
+                id: id,
+                title: title,
+                avatar: avatar,
+                users: getChatUsersResponse as IChatUsers[]
+            };
 
-                Actions.setActiveChat(activeChat);
-                
-                this.getTokenToMessagesServer(id);
-            })
-            .catch(errorHandler);
+            Actions.setActiveChat(activeChat);
+
+            await this.getTokenToMessagesServer(id);
+
+        } catch (error) {
+            errorHandler(error);
+        }
     }
 
     public async updateAvatar(data: FormData) {
-        return ChatAPI.updateAvatar(data)
-            .then((chat) => {
-                if (!chat.avatar) {
-                    return;
-                };
-                let { id, avatar, users } = Actions.getActiveChatState();
-                avatar = chat.avatar;
+        try {
+            const getChatAvatarResponse = await ChatAPI.updateAvatar(data);
+            if (!getChatAvatarResponse.avatar) {
+                return;
+            };
 
+            let { id, avatar, users } = Actions.getActiveChatState();
+            avatar = getChatAvatarResponse.avatar;
+            const chatList = Actions.getChatListState() as IChatList[];
 
-
-
-                const chatList = Actions.getChatListState() as IChatList[];
-
-                const updateChatList = chatList.map(chat => {
-                    if (chat.id === id) {
-                        chat.avatar = avatar;
-                        Actions.setActiveChat({ ...chat, users: users });
-                        return chat;
-                    };
+            const updateChatList = chatList.map(chat => {
+                if (chat.id === id) {
+                    chat.avatar = avatar;
+                    Actions.setActiveChat({ ...chat, users: users });
                     return chat;
-                });
-                Actions.setChatList(updateChatList);
-            })
-            .catch(errorHandler)
+                };
+                return chat;
+            });
+            Actions.setChatList(updateChatList);
+
+        } catch (error) {
+            errorHandler(error);
+        }
     }
 
 }

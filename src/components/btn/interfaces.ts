@@ -1,6 +1,6 @@
 export interface IBtnProps {
     id?: string,
-    btnType?: string,
+    btnType?: 'submit' | 'button' | 'reset',
     msg: string,
     className?: string,
     disabled?: boolean,

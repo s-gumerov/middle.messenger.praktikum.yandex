@@ -20,6 +20,6 @@ export interface IChatList {
     last_message: {
         id: number,
         content: string,
-        time: string
+        time: Date
     }
 };

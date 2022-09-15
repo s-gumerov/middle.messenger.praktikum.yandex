@@ -12,55 +12,55 @@ import { Actions } from '../Store';
 class UserProfileController {
 
     public async updatePassword(data: IChangePassword) {
-        return UserProfileAPI.updatePassword(data)
-            .then((user) => {
-                router.go('/user');
-                return user;
-            })
-            .catch(errorHandler)
+        try {
+            await UserProfileAPI.updatePassword(data);
+            router.go('/user');
+        } catch (error) {
+            errorHandler(error);
+        }
     }
 
     public async updateProfile(data: IProfile) {
-        return UserProfileAPI.updateProfile(data)
-            .then((user) => {
-                AuthController.checkAuth();
-                router.go('/user');
-                return user;
-            })
-            .catch(errorHandler)
+        try {
+            await UserProfileAPI.updateProfile(data);
+            await AuthController.checkAuth();
+            router.go('/user');
+        } catch (error) {
+            errorHandler(error);
+        }
     }
 
     public async updateAvatar(data: FormData) {
-        return UserProfileAPI.updateAvatar(data)
-            .then((user) => {
-                AuthController.checkAuth();
-                return user.avatar;
-            })
-            .catch(errorHandler)
+        try {
+            await UserProfileAPI.updateAvatar(data);
+            await AuthController.checkAuth();
+        } catch (error) {
+            errorHandler(error);
+        }
     }
 
     public async findUserRequest(data: IFindUserRequest) {
-        return UserProfileAPI.findUserRequest(data)
-            .then((user) => {
+        try {
+            const userProfile = await UserProfileAPI.findUserRequest(data);
+            const chatId = Actions.getActiveChatState().id
 
-                const chatId = Actions.getActiveChatState().id
+            if (Array.isArray(userProfile) && chatId) {
+                if (userProfile.length < 1) {
+                    alert('Пользователь не найден')
+                };
+                const userId = userProfile[0].id;
+                const data: IChatApiAddUser = {
+                    "users": [
+                        userId
+                    ],
+                    "chatId": chatId
+                };
 
-                if (Array.isArray(user) && chatId) {
-                    if (user.length < 1) {
-                        alert('Пользователь не найден')
-                    };
-                    const userId = user[0].id;
-                    const data: IChatApiAddUser = {
-                        "users": [
-                            userId
-                        ],
-                        "chatId": chatId
-                    };
-
-                    ChatController.addUserChat(data);
-                }
-            })
-            .catch(errorHandler)
+                await ChatController.addUserChat(data);
+            }
+        } catch (error) {
+            errorHandler(error);
+        }
     }
 }
 

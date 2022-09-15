@@ -5,7 +5,7 @@ import { Avatar } from '../../components/avatar/Avatar';
 import { IAvatarProps } from '../../components/avatar/interfaces';
 import { Btn } from '../../components/btn/Btn';
 import { Anchor } from '../../components/anchor/Anchor';
-import { inputAndLabel as inputAndLabelComponent } from '../../components/inputAndLabel';
+import { InputAndLabel } from '../../components/inputAndLabel/InputAndLabel';
 import * as styles from './styles.module.sass';
 import { InputAndLabelProps } from '../../components/inputAndLabel/interfaces';
 import { PASSWORD_INPUT_TITLE } from '../../utils/inputTitleMsg';
@@ -130,11 +130,11 @@ const againNewPasswordInputProps: InputAndLabelProps = {
 };
 
 
-const oldPasswordInput = inputAndLabelComponent(oldPasswordInputProps);
+const oldPasswordInput = new InputAndLabel(oldPasswordInputProps);
 
-const newPasswordInputName = inputAndLabelComponent(newPasswordInputNameProps);
+const newPasswordInputName = new InputAndLabel(newPasswordInputNameProps);
 
-const againNewPasswordInput = inputAndLabelComponent(againNewPasswordInputProps);
+const againNewPasswordInput = new InputAndLabel(againNewPasswordInputProps);
 
 
 const anchorToProfile = new Anchor(

@@ -3,7 +3,7 @@ import Handlebars from 'handlebars';
 import { tpl } from './tpl';
 import * as styles from './styles.module.sass';
 import { v4 as makeUUID } from 'uuid'
-import { inputAndLabel as inputAndLabelComponent } from '../../../../components/inputAndLabel';
+import { InputAndLabel } from '../../../../components/inputAndLabel/InputAndLabel';
 import { InputAndLabelProps } from '../../../../components/inputAndLabel/interfaces';
 import { UserList } from './components/userList/UserList';
 import { IActiveChatUsers } from './interfaces';
@@ -12,7 +12,6 @@ import { Btn } from '../../../../components/btn/Btn';
 import { Input } from '../../../../components/input/Input';
 import { Message } from './components/message/Message';
 import { router } from '../../../../utils/router';
-import { IInputProps } from '../../../../components/input/interfaces';
 import UserProfileController from '../../../../controllers/UserProfileController';
 import ChatController from '../../../../controllers/ChatController';
 import addUserBtnSvg from '../../../../styles/icons/addUserBtn.svg';
@@ -78,7 +77,7 @@ const avatarUploadProps: InputAndLabelProps =
     changeHandler: changeAvatar
 };
 
-const avatarUpload = inputAndLabelComponent(avatarUploadProps);
+const avatarUpload = new InputAndLabel(avatarUploadProps);
 
 const toolsBtn = new Btn(
     {
@@ -132,24 +131,24 @@ const sendMsgBtn = new Btn(
     }
 );
 
-const inputMsgProps: IInputProps =
-{
-    id: 'inputMsg',
-    name: 'inputMsg',
-    type: 'text',
-    disabled: false,
-    value: '',
-    placeholder: 'Сообщение',
-    className: styles.newMsg__inputMsg,
-    keyupHandler: (e: KeyboardEvent) => {
-        if (e.code === 'Enter' || e.code === 'NumpadEnter') {
-            const message = getMsgText();
-            return MessageController.sendMessage(message);
-        };
+const inputMsg = new Input(
+    {
+        autofocus: true,
+        id: 'inputMsg',
+        name: 'inputMsg',
+        type: 'text',
+        disabled: false,
+        value: '',
+        placeholder: 'Сообщение',
+        className: styles.newMsg__inputMsg,
+        keyupHandler: (e: KeyboardEvent) => {
+            if (e.code === 'Enter' || e.code === 'NumpadEnter') {
+                const message = getMsgText();
+                MessageController.sendMessage(message);
+            };
+        }
     }
-};
-
-const inputMsg = new Input(inputMsgProps);
+);
 
 const modalInputProps: InputAndLabelProps = {
     id: makeUUID() as string,
@@ -207,7 +206,14 @@ const submitHandlerToChatContent = (e: Event) => {
 const messages = Actions.getChatMessages();
 
 export class ChatContent extends Component {
-    constructor({ id, title, avatar, users }: IActiveChatUsers) {
+    constructor(
+        {
+            id,
+            title,
+            avatar,
+            users
+        }: IActiveChatUsers
+    ) {
         super(
             'main',
             {
@@ -242,7 +248,7 @@ export class ChatContent extends Component {
                 messages: messages.length < 1 ? messages.map(msg => new Message(msg)) : null,
                 inputMsg: inputMsg,
                 sendMsgBtn: sendMsgBtn,
-                modalInput: inputAndLabelComponent(modalInputProps),
+                modalInput: new InputAndLabel(modalInputProps),
                 closeModalBtn: new Btn(closeModalBtnProps),
                 submitModalBtn: new Btn(submitModalBtnProps),
                 events: {

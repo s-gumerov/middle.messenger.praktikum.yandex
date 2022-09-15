@@ -6,7 +6,14 @@ import { addAttribute } from "../../utils/addAttribute";
 
 export class Anchor extends Component {
 
-    constructor({ anchorPath, msg, className, clickHandler }: IAnchorProps) {
+    constructor(
+        {
+            anchorPath,
+            msg,
+            className,
+            clickHandler
+        }: IAnchorProps
+    ) {
         super('div',
             {
                 anchorPath: anchorPath,

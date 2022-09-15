@@ -4,7 +4,14 @@ import { ILableProps } from "./interfaces";
 
 export class Label extends Component {
 
-    constructor({ id, to, className, message }: ILableProps) {
+    constructor(
+        {
+            id,
+            to,
+            className,
+            message
+        }: ILableProps
+    ) {
         super('div',
             {
                 id: id,

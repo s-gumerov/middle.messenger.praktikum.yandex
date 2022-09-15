@@ -52,16 +52,18 @@ class MessageController {
         ChatController.request();
         this._ping = setInterval(() => {
             this._ws.send('');
-        }, 10000);
+        }, 1000);
     }
 
     private _handleMassage(e: MessageEvent) {
         const data = JSON.parse(e.data) as IChatMessages[];
 
         if (Array.isArray(data)) {
+            console.log(data);
+
             data.forEach(msg => {
                 msg.time = formatLastMsg(msg.time)
-                return msg
+                return msg;
             })
 
             Actions.setChatMessages(data);
@@ -98,7 +100,7 @@ class MessageController {
             content: message,
             type: 'message',
         }));
-        this._handleOpen()
+        this._handleOpen();
     }
 
     private _reconnection() {

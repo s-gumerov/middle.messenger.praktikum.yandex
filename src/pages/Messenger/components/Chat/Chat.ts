@@ -35,7 +35,15 @@ const setActiveChat = (e: Event) => {
 };
 
 export class Chat extends Component {
-    constructor({ id, title, avatar, created_by, unread_count, last_message }: IChatProps) {
+    constructor(
+        {
+            id,
+            title,
+            avatar,
+            unread_count,
+            last_message
+        }: IChatProps
+    ) {
         super(
             'div',
             {

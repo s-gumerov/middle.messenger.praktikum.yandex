@@ -1,4 +1,5 @@
 export interface IInputProps {
+    autofocus?: boolean,
     pattern?: string,
     title?: string,
     required?: boolean,
@@ -15,6 +16,6 @@ export interface IInputProps {
     focusHandler?: (e: Event) => void,
     blurHandler?: (e: Event) => void,
     changeHandler?: (e: Event) => void,
-    keyupHandler?:(e:KeyboardEvent)=>void,
-    keypressHandler?:(e:KeyboardEvent)=>void,
+    keyupHandler?: (e: KeyboardEvent) => void,
+    keypressHandler?: (e: KeyboardEvent) => void,
 }

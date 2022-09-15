@@ -6,13 +6,12 @@ import { Btn } from '../../components/btn/Btn';
 import { IBtnProps } from '../../components/btn/interfaces';
 import { IAvatarProps } from '../../components/avatar/interfaces';
 import { Input } from '../../components/input/Input';
-import { IInputProps } from '../../components/input/interfaces';
 import { InputAndLabelProps } from '../../components/inputAndLabel/interfaces';
 import * as styles from './styles.module.sass';
 import { router } from '../../utils/router';
 import { ChatContent } from './components/ChatContent/ChatContent';
 import { IChatList } from './components/Chat/interfaces';
-import { inputAndLabel } from '../../components/inputAndLabel';
+import { InputAndLabel } from '../../components/inputAndLabel/InputAndLabel';
 import ChatController from '../../controllers/ChatController';
 import { CHAT_NAME_REGEXP } from '../../utils/regularExpressions';
 import { Chat } from './components/Chat/Chat';
@@ -64,18 +63,18 @@ const anchorToProfile = new Btn(
     }
 );
 
-const searchInputProps: IInputProps =
-{
-    id: 'searchInput',
-    name: 'searchInput',
-    type: 'message',
-    disabled: false,
-    value: '',
-    placeholder: 'Поиск',
-    className: styles.chatSearch__input
-};
 
-const searchInput = new Input(searchInputProps);
+const searchInput = new Input(
+    {
+        id: 'searchInput',
+        name: 'searchInput',
+        type: 'message',
+        disabled: false,
+        value: '',
+        placeholder: 'Поиск',
+        className: styles.chatSearch__input
+    }
+);
 
 const modalInputProps: InputAndLabelProps = {
     id: makeUUID() as string,
@@ -165,7 +164,7 @@ export class Messenger extends Component {
                 chatList: chatListProps.map(item => new Chat(item)),
                 anchorToProfile: anchorToProfile,
                 chatContent: getChatContent(),
-                modalInput: inputAndLabel(modalInputProps),
+                modalInput: new InputAndLabel(modalInputProps),
                 closeModalBtn: new Btn(closeModalBtnProps),
                 submitModalBtn: new Btn(submitModalBtnProps),
                 events: {
@@ -175,7 +174,6 @@ export class Messenger extends Component {
         )
     }
     render() {
-
         return this.compile(tpl);
     }
 

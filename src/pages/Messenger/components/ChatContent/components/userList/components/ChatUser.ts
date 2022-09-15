@@ -9,7 +9,12 @@ import { Actions } from "../../../../../../../Store";
 
 
 export class ChatUser extends Component {
-    constructor({ userId, avatarPath, userName }: IChatMembersProps) {
+    constructor(
+        {
+            userId,
+            avatarPath,
+            userName
+        }: IChatMembersProps) {
         super(
             'div',
             {

@@ -5,7 +5,17 @@ import * as styles from './styles.module.sass';
 
 export class Avatar extends Component {
 
-    constructor({ alt, src, figureClassName, imgClassName, mouseoverHandler, mouseleaveHandler, clickHandler }: IAvatarProps) {
+    constructor(
+        {
+            alt,
+            src,
+            figureClassName,
+            imgClassName,
+            mouseoverHandler,
+            mouseleaveHandler,
+            clickHandler
+        }: IAvatarProps
+    ) {
         super('figure',
             {
                 imgClassName: imgClassName,

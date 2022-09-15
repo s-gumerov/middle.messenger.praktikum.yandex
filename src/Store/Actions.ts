@@ -147,7 +147,16 @@ const setChatMessages = (msg: IChatMessages[]) => {
 	Store.set('msg', msg);
 };
 
-
-
-
-export { setChatList, setActiveChat, setProfile, getChatListState, getActiveChatState, getProfileState, removeActiveChat, getTokenToMessagesServer, setTokenToMessagesServer, getChatMessages, setChatMessages };
+export {
+	setChatList,
+	setActiveChat,
+	setProfile,
+	getChatListState,
+	getActiveChatState,
+	getProfileState,
+	removeActiveChat,
+	getTokenToMessagesServer,
+	setTokenToMessagesServer,
+	getChatMessages,
+	setChatMessages
+};

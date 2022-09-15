@@ -12,17 +12,15 @@ const headers = {
     'Content-type': 'application/json; charset=UTF-8',
 };
 
-const HTTP = new HTTPTransport();
-
 export class BaseAPI {
 
-    private _http: typeof HTTP;
+    private _http: HTTPTransport;
     private _baseUrl: string;
     private _path: string;
     private _headers: Record<string, string>;
 
     constructor(config: IBaseApi = {}) {
-        this._http = HTTP;
+        this._http = new HTTPTransport();
         this._baseUrl = config.baseUrl || env.HOST_API || '';
         this._path = config.path || '';
         this._headers = config.headers || headers;

@@ -1,6 +1,6 @@
 import { router } from "./router";
 
-export const errorHandler = (error: XMLHttpRequest) => {
+export const errorHandler = (error: XMLHttpRequest | unknown) => {
     if (typeof error.response === 'undefined') {
         return alert('Произошла сетевая ошибка. '
             + 'Это может быть проблема CORS или слабое подключение к Интернету.');

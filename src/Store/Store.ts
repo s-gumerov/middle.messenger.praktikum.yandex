@@ -9,7 +9,7 @@ export enum StoreEvents {
 class Store extends EventBus {
 
 	static _instance: Store;
-	static STORE_NAME = 'myAppStore';
+	static readonly STORE_NAME = 'myAppStore';
 
 	_state: TState = {};
 

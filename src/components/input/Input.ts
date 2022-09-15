@@ -5,7 +5,29 @@ import { addAttribute } from "../../utils/addAttribute";
 
 export class Input extends Component {
 
-    constructor({ pattern, title, required, id, name, type, className, placeholder, disabled, value, inputHandler, focusHandler, blurHandler, changeHandler, keyupHandler,keypressHandler, accept, multiple }: IInputProps) {
+    constructor(
+        {
+            autofocus,
+            pattern,
+            title,
+            required,
+            id,
+            name,
+            type,
+            className,
+            placeholder,
+            disabled,
+            value,
+            inputHandler,
+            focusHandler,
+            blurHandler,
+            changeHandler,
+            keyupHandler,
+            keypressHandler,
+            accept,
+            multiple
+        }: IInputProps
+    ) {
 
         super('div',
             {
@@ -24,9 +46,10 @@ export class Input extends Component {
                     input: inputHandler,
                     change: changeHandler,
                     keyup: keyupHandler,
-                    keypress:keypressHandler
+                    keypress: keypressHandler
                 },
                 attr: {
+                    autofocus: autofocus,
                     pattern: pattern ? pattern.replace(/^.|.$/g, "") : '',
                     title: title ?? '',
                     required: required,
