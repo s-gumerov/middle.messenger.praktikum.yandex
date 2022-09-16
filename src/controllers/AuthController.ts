@@ -21,6 +21,7 @@ class AuthController {
     public async signUp(user: ISignUp) {
         try {
             await AuthAPI.signUp(user);
+            await this.checkAuth();
             router.go('/auth/signin');
         } catch (error) {
             errorHandler(error);
@@ -40,6 +41,7 @@ class AuthController {
     public async checkAuth() {
         try {
             const checkAuthResponse = await AuthAPI.checkAuth();
+
             Actions.setProfile(checkAuthResponse);
 
         } catch (error) {

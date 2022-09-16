@@ -133,8 +133,6 @@ const submitHandler = (e: Event) => {
     closeModal();
 };
 
-const chatListProps = Actions.getChatListState() as IChatProps[];
-
 const getChatContent = () => {
 
     const chats = Actions.getChatListState();
@@ -161,7 +159,7 @@ export class Messenger extends Component {
                 avatar: avatar,
                 addChatBtn: new Btn(addChatBtnProps),
                 searchInput: searchInput,
-                chatList: chatListProps.map(item => new Chat(item)),
+                chatList: Actions.getChatListState().map(item => new Chat(item)),
                 anchorToProfile: anchorToProfile,
                 chatContent: getChatContent(),
                 modalInput: new InputAndLabel(modalInputProps),
@@ -274,8 +272,7 @@ export class Messenger extends Component {
             const state = Actions.getChatListState() as IChatList[];
             const childs = this._props['chatList'];
             if (childs.length !== state.length) {/* меняем список чатов только в случае добавления или удаления чата */
-                const chatListProps = Actions.getChatListState() as IChatProps[];
-                this._props['chatList'] = chatListProps.map(item => new Chat(item));
+                this._props['chatList'] = Actions.getChatListState().map(item => new Chat(item));
             };
         };
 

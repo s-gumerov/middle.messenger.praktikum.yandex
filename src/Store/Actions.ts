@@ -4,7 +4,6 @@ import { IProfile } from '../pages/ProfileEdit/interfaces';
 import { IActiveChatUsers } from '../pages/Messenger/components/ChatContent/interfaces';
 import { IChatMessages } from '../pages/Messenger/components/ChatContent/components/message/interfaces';
 
-
 const getChatListState = () => {
 	const state = Store.getState();
 	const chatList: IChatList[] = state.chatList ?? {};
@@ -22,6 +21,7 @@ const setChatList = (newChatList: IChatList[]) => {
 const getProfileState = () => {
 
 	const state = Store.getState();
+
 	const profile: IProfile = state.profile ?? {};
 
 	return Object.assign(

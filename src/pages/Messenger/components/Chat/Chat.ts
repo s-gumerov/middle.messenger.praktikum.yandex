@@ -12,7 +12,7 @@ import { formatLastMsg } from '../../../../utils/formatLastMsg';
 
 
 
-const setActiveChat = (e: Event) => {
+const setActiveChat = async (e: Event) => {
     const activeChatElement = e.currentTarget as HTMLDivElement;
     const activeChatId = activeChatElement.id;
     const chatList = Actions.getChatListState();
@@ -31,7 +31,7 @@ const setActiveChat = (e: Event) => {
         return;
     }
 
-    return ChatController.requestChatUsers(data);
+    await ChatController.requestChatUsers(data);
 };
 
 export class Chat extends Component {

@@ -1,7 +1,7 @@
 
 import { Route } from "./Route";
 import { Component } from "./Component";
-
+import { Actions } from "../Store";
 
 
 export class Router {
@@ -26,6 +26,11 @@ export class Router {
     }
 
     public use(pathname: string, block: typeof Component, props = {}) {
+        const { id } = Actions.getProfileState();
+
+        if (!id) {
+            this.go('/auth/signin');
+        };
 
         const page = block;
 

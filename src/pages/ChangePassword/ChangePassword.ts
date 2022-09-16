@@ -139,12 +139,12 @@ const againNewPasswordInput = new InputAndLabel(againNewPasswordInputProps);
 
 const anchorToProfile = new Anchor(
     {
-        anchorPath: '/messenger',
+        anchorPath: '',
         msg: '',
         className: styles.anchorToProfile,
         clickHandler: (e: Event) => {
             e.preventDefault();
-            router.go('/messenger')
+            router.back();
         }
     }
 );

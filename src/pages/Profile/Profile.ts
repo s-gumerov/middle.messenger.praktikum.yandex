@@ -1,4 +1,4 @@
-import { Component } from '../../services/Component';
+import { Component, TProps } from '../../services/Component';
 import { tpl } from './tpl';
 import { v4 as makeUUID } from 'uuid';
 import { Avatar } from '../../components/avatar/Avatar';
@@ -193,4 +193,38 @@ export class Profile extends Component {
     render() {
         return this.compile(tpl);
     }
+    public updatePropsForChilds(newProps: TProps) {
+
+        if (!newProps) {
+            return;
+        };
+
+
+        const { profile } = newProps;
+
+        if (profile) { /* устанавливаем пропсы для для профиля пользователя  */
+            Object.entries(this._children).forEach(([, properties]) => {
+                if (properties instanceof Component) {
+
+                    Object.entries(properties['_children']).forEach(([childName, childProperty]) => {
+
+                        // ищем вложеннные инпуты чтобы обновить в них значение из стора
+                        if (childName === 'input' && childProperty instanceof Component) {
+
+                            Object.entries(profile).forEach(([storeProperty, storeValue]) => {
+                                // storeProperty - название поля из стора, storeValue - значение
+                                // childName - имя дочернего компонента, childProperty - свойства дочернего компонета 
+                                console.log(childProperty['_props']['value']);
+
+                                if (childProperty['_props']['name'] === storeProperty) {
+                                    childProperty.setProps({ value: storeValue })
+                                };
+                            })
+                        };
+                    });
+                };
+            });
+        };
+
+    };
 }

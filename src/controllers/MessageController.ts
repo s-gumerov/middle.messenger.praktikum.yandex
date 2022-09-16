@@ -59,7 +59,6 @@ class MessageController {
         const data = JSON.parse(e.data) as IChatMessages[];
 
         if (Array.isArray(data)) {
-            console.log(data);
 
             data.forEach(msg => {
                 msg.time = formatLastMsg(msg.time)

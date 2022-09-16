@@ -22,11 +22,12 @@ const withMessenger = connect(state => ({
 }));
 
 router
+    .use("/", SignIn)
     .use("/auth/signin", SignIn)
     .use("/auth/signup", SignUp)
     .use('/user', withUser(Profile))
     .use('/user/profile', withUser(ProfileEdit))
-    .use('/user/password', ChangePassword)
+    .use('/user/password', withUser(ChangePassword))
     .use('/messenger', withMessenger(Messenger))
     .use("/500", ServerErrorPage)
     .use("/404", NotFoundPage)
