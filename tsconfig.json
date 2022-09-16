@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "moduleResolution": "node",
+    "target": "es6",
     "lib": [
       "dom",
       "dom.iterable",
@@ -19,7 +20,6 @@
     "removeComments": true,
     "preserveConstEnums": true,
     "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node",
     "isolatedModules": true
   },
   "exclude": [
@@ -27,6 +27,7 @@
     "dist",
     ".parcel-cache",
     ".github",
-    "src/server.js"
+    "src/server.js",
+    "test/babel-register.js"
   ]
 }

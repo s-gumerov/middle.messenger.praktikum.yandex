@@ -11,7 +11,10 @@ export interface InputAndLabelProps {
     containerClass?: string,
     inputClassName: string,
     labelClassName: string,
+    accept?: string,
+    multiple?: boolean,
     focusHandler?: (e: Event) => void,
     blurHandler?: (e: Event) => void,
     inputHandler?: (e: Event) => void,
+    changeHandler?: (e: Event) => void
 }

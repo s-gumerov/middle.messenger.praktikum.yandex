@@ -1,4 +1,4 @@
-import Component from "../../services/Component";
+import { Component } from "../../services/Component";
 import { tpl } from "./tpl";
 import { IAnchorProps } from "./interfaces";
 import { addAttribute } from "../../utils/addAttribute";
@@ -6,7 +6,14 @@ import { addAttribute } from "../../utils/addAttribute";
 
 export class Anchor extends Component {
 
-    constructor({ anchorPath, msg, className, clickHandler }: IAnchorProps) {
+    constructor(
+        {
+            anchorPath,
+            msg,
+            className,
+            clickHandler
+        }: IAnchorProps
+    ) {
         super('div',
             {
                 anchorPath: anchorPath,

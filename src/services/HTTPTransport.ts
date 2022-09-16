@@ -15,27 +15,31 @@ type TRequestOptions = {
     headers?: Record<string, string>
     timeout?: number
     data?: unknown
+    withCredentials?: boolean
 };
 
-export default class HTTPTransport {
-    public get = (url: string, options = {}) =>
-        this.request(url, { ...options, method: Methods.GET });
+export class HTTPTransport {
+
+    public get = (url: string, options = {}) => {
+        return this.request(url, { ...options, method: Methods.GET }) as Promise<XMLHttpRequest>;
+    }
 
 
-    public post = (url: string, options = {}) =>
-        this.request(url, { ...options, method: Methods.POST });
+    public post = (url: string, options = {}) => {
+        return this.request(url, { ...options, method: Methods.POST }) as Promise<XMLHttpRequest>;
 
+    }
 
-    public put = (url: string, options = {}) =>
-        this.request(url, { ...options, method: Methods.PUT });
-
+    public put = (url: string, options = {}) => {
+        return this.request(url, { ...options, method: Methods.PUT }) as Promise<XMLHttpRequest>;
+    }
 
     public patch = (url: string, options = {}) =>
-        this.request(url, { ...options, method: Methods.PATCH });
+        this.request(url, { ...options, method: Methods.PATCH }) as Promise<XMLHttpRequest>;
 
 
     public delete = (url: string, options = {}) =>
-        this.request(url, { ...options, method: Methods.DELETE });
+        this.request(url, { ...options, method: Methods.DELETE }) as Promise<XMLHttpRequest>;
 
 
     request = (url: string, options: TRequestOptions) => {
@@ -44,24 +48,30 @@ export default class HTTPTransport {
             headers = {},
             data,
             timeout = 5000,
+            withCredentials = false,
         } = options;
 
-        const query = method === Methods.GET ? queryStringify(data as TQueryStringify) : '';
+        const query = method === Methods.GET && data ? queryStringify(data as TQueryStringify) : '';
 
         return new Promise((resolve, reject) => {
-            const xhr = new XMLHttpRequest();
+            const xhr = new window.XMLHttpRequest();
 
             xhr.open(method, url + query);
+
+            if (withCredentials) {
+                xhr.withCredentials = true;
+            }
 
             Object.entries(headers).forEach(([key, value]) =>
                 xhr.setRequestHeader(key, value)
             );
 
             xhr.onload = () => {
-                if (xhr.status >= 300)
+                if (xhr.status >= 300) {
                     reject(xhr);
-                else
+                } else {
                     resolve(xhr);
+                }
             };
 
             xhr.onabort = reject;
@@ -69,10 +79,16 @@ export default class HTTPTransport {
             xhr.timeout = timeout;
             xhr.ontimeout = reject;
 
-            if (method === Methods.GET || !data)
+            if (method === Methods.GET || !data) {
                 xhr.send();
-            else
+            }
+            else if (data instanceof window.FormData) {
+                xhr.send(data);
+            }
+
+            else {
                 xhr.send(JSON.stringify(data));
+            }
 
         });
     };

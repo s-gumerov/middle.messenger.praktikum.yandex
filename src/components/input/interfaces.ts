@@ -1,4 +1,5 @@
 export interface IInputProps {
+    autofocus?: boolean,
     pattern?: string,
     title?: string,
     required?: boolean,
@@ -9,7 +10,12 @@ export interface IInputProps {
     placeholder: string,
     disabled: boolean,
     value: string,
+    accept?: string,
+    multiple?: boolean,
     inputHandler?: (e: Event) => void,
     focusHandler?: (e: Event) => void,
-    blurHandler?: (e: Event) => void
+    blurHandler?: (e: Event) => void,
+    changeHandler?: (e: Event) => void,
+    keyupHandler?: (e: KeyboardEvent) => void,
+    keypressHandler?: (e: KeyboardEvent) => void,
 }

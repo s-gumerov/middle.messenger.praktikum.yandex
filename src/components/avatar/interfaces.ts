@@ -4,6 +4,6 @@ export interface IAvatarProps {
     figureClassName: string,
     imgClassName: string,
     mouseoverHandler?: (e: Event) => void,
-    mouseoutHandler?: (e: Event) => void,
+    mouseleaveHandler?: (e: Event) => void,
     clickHandler?: (e: Event) => void
 }

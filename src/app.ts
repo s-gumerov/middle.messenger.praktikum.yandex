@@ -1,46 +1,34 @@
-import { Layout } from './layout/index';
-import * as styles from './app.module.sass';
-import { signIn } from './pages/SignIn';
-import { signUp } from './pages/SignUp';
-import { chat } from './pages/Chat';
-import { profile } from './pages/Profile';
-import { profileEdit } from './pages/ProfileEdit';
-import { changePassword } from './pages/ChangePassword';
-import { notFoundPage } from './pages/404';
-import { serverErrorPage } from './pages/500';
-import { render as renderDom } from './utils/render';
 
-const routes = {
-    '/': signIn,
-    '/sign-in': signIn,
-    '/sign-up': signUp,
-    '/chat': chat,
-    '/profile': profile,
-    '/profile/edit': profileEdit,
-    '/profile/change-password': changePassword,
-    '/404': notFoundPage,
-    '/500': serverErrorPage,
-};
+import { SignIn } from './pages/SignIn/SignIn';
+import { SignUp } from './pages/SignUp/SignUp';
+import { Messenger } from './pages/Messenger/Messenger';
+import { Profile } from './pages/Profile/Profile';
+import { ProfileEdit } from './pages/ProfileEdit/ProfileEdit';
+import { ChangePassword } from './pages/ChangePassword/ChangePassword';
+import { NotFoundPage } from './pages/404/NotFoundPage';
+import { ServerErrorPage } from './pages/500/ServerErrorPage';
+import { router } from './utils/router';
+import { connect } from './Store/Connect';
 
-const pageLoader = (routes: { [index: string]: any }, location: string) => {
-    let loadPage = routes['/404'];
+const withUser = connect(state => ({
+    profile: state.profile
+}));
 
-    for (let [page] of Object.entries(routes))
-        if (page === location)
-            loadPage = routes[page];
+const withMessenger = connect(state => ({
+    chatList: state.chatList,
+    activeChat: state.activeChat,
+    token: state.token,
+    msg: state.msg,
+}));
 
-    return renderDom(
-        'root',
-        new Layout(
-            "div", {
-            attr: {
-                class: styles.app
-            },
-            page: loadPage
-        }
-        ));
-};
-
-const location = window.location.pathname;
-
-pageLoader(routes, location);
+router
+    .use("/", SignIn)
+    .use("/auth/signin", SignIn)
+    .use("/auth/signup", SignUp)
+    .use('/user', withUser(Profile))
+    .use('/user/profile', withUser(ProfileEdit))
+    .use('/user/password', withUser(ChangePassword))
+    .use('/messenger', withMessenger(Messenger))
+    .use("/500", ServerErrorPage)
+    .use("/404", NotFoundPage)
+    .start();

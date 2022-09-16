@@ -1,13 +1,15 @@
 import { v4 as makeUUID } from 'uuid';
 import Handlebars from 'handlebars';
 import EventBus from './EventBus';
+import { isEqual } from '../utils/isEqual';
 
 export type TProps = Record<string, any>;
+
 interface IPropsAndChilds {
     [unit: string]: string
 };
 
-export default class Component {
+export class Component {
     static EVENTS = {
         INIT: "init",
         FLOW_CDM: "flow:component-did-mount",
@@ -16,11 +18,11 @@ export default class Component {
     };
 
     public _props: TProps;
-    private _children;
-    private _id;
+    public _children;
+    public _id;
     public _element!: HTMLElement;
-    private _meta;
-    private _eventBus;
+    public _meta;
+    public _eventBus;
 
     constructor(tag = "div", propsAndChilds: TProps = {}) {
 
@@ -48,7 +50,7 @@ export default class Component {
         this._eventBus.emit(Component.EVENTS.FLOW_RENDER);
     };
 
-    private createDocumentElement(tag: string) {
+    public createDocumentElement(tag: string) {
         const element = document.createElement(tag);
 
         if (this._props.settings?.withInternalID)
@@ -91,7 +93,7 @@ export default class Component {
         });
     };
 
-    private getChildren(propsAndChilds: TProps) {
+    public getChildren(propsAndChilds: TProps) {
         const children: IPropsAndChilds = {};
         const props: IPropsAndChilds = {};
 
@@ -107,10 +109,12 @@ export default class Component {
     };
 
     public compile(template: string, props?: TProps) {
+
         if (typeof (props) === 'undefined')
             props = this._props;
 
         const propsAndStubs = { ...props };
+
 
         const fragment: HTMLElement = this.createDocumentElement('template');
 
@@ -124,7 +128,7 @@ export default class Component {
 
                 propsAndStubs[key] = `<div data-id="${propsAndStubs.__id}"></div>`;
 
-                Object.entries(list).forEach(([i, child]) => {
+                Object.entries(list).forEach(([, child]) => {
                     //является ли child "сложным"
                     if (child instanceof Component)
                         childs.push(child.getContent());
@@ -140,7 +144,7 @@ export default class Component {
         fragment.innerHTML = Handlebars.compile(template)(propsAndStubs);
 
         Object.values(this._children).forEach(child => {
-            if (fragment instanceof HTMLTemplateElement) {
+            if (fragment instanceof window.HTMLTemplateElement) {
                 const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
 
                 if (stub)
@@ -148,9 +152,9 @@ export default class Component {
             };
         });
 
-        Object.entries(propsAndStubs).forEach(([key, child]) => {
+        Object.entries(propsAndStubs).forEach(([key,]) => {
             if (containerId.includes(propsAndStubs[key])) {
-                if (fragment instanceof HTMLTemplateElement) {
+                if (fragment instanceof window.HTMLTemplateElement) {
                     const stub = fragment.content.querySelector(`[data-id="${propsAndStubs[key]}"]`);
                     if (stub) {
                         childs.forEach(child => stub.appendChild(child));
@@ -159,17 +163,17 @@ export default class Component {
             };
         });
 
-        if (fragment instanceof HTMLTemplateElement)
+        if (fragment instanceof window.HTMLTemplateElement)
             return fragment.content;
     };
 
 
-    private _componentDidMount() {
+    public _componentDidMount() {
         this.componentDidMount();
         Object.values(this._children).forEach(child => child.dispatchComponentDidMount());
     };
 
-    private componentDidMount() { };
+    public componentDidMount() { };
 
     public dispatchComponentDidMount() {
         this._eventBus.emit(Component.EVENTS.FLOW_CDM);
@@ -177,31 +181,66 @@ export default class Component {
             this._eventBus.emit(Component.EVENTS.FLOW_RENDER);
     };
 
-    private _componentDidUpdate(oldProps: TProps, newProps: TProps) {
+    public _componentDidUpdate(oldProps: TProps, newProps: TProps) {
+
         const isReRender = this.componentDidUpdate(oldProps, newProps);
-        if (isReRender)
+
+        if (!isReRender)
             this._eventBus.emit(Component.EVENTS.FLOW_RENDER);
     };
 
     public componentDidUpdate(oldProps: TProps, newProps: TProps) {
-        if (JSON.stringify(oldProps) === JSON.stringify(newProps))
-            return true;
-        else false
+        return isEqual(oldProps, newProps);
     };
 
     public setProps(newProps: TProps) {
-
         if (!newProps) {
             return;
         };
 
         const { children, props } = this.getChildren(newProps);
 
-        if (Object.values(children).length)
+        if (Object.values(children).length) {
             Object.assign(this._children, children);
+        };
 
-        if (Object.values(props).length)
+        if (Object.values(props).length) {
             Object.assign(this._props, props);
+        };
+    };
+
+
+    public updatePropsForChilds(newProps: TProps) {
+
+        if (!newProps) {
+            return;
+        };
+
+
+        const { profile } = newProps;
+
+        if (profile) { /* устанавливаем пропсы для для профиля пользователя  */
+            Object.entries(this._children).forEach(([, properties]) => {
+                if (properties instanceof Component) {
+
+                    Object.entries(properties['_children']).forEach(([childName, childProperty]) => {
+
+                        // ищем вложеннные инпуты чтобы обновить в них значение из стора
+                        if (childName === 'input' && childProperty instanceof Component) {
+
+                            Object.entries(profile).forEach(([storeProperty, storeValue]) => {
+                                // storeProperty - название поля из стора, storeValue - значение
+                                // childName - имя дочернего компонента, childProperty - свойства дочернего компонета 
+                                if (childProperty['_props']['name'] === storeProperty) {
+                                    childProperty.setProps({ value: storeValue })
+                                };
+                            })
+                        };
+                    });
+                };
+            });
+        };
+
     };
 
 
@@ -229,7 +268,7 @@ export default class Component {
     };
 
     show() {
-        this.getContent().style.display = "Component";
+        this.getContent().style.display = "flex";
     };
 
     hide() {

@@ -1,0 +1,279 @@
+@import '../../styles/colors'
+@import '../../styles/mixins'
+
+.messenger
+    display: flex
+    flex-flow: row nowrap
+    align-items: flex-start
+    justify-content: flex-start
+    width: 100%
+    height: inherit
+
+.messenger__sidebar
+    height: 100%
+    min-width: 310px
+    display: flex
+    flex-flow: column nowrap
+    justify-content: flex-start
+    background: $snow-white
+
+.sidebar__line
+    width: 290px
+    height: 1px
+    background: $pale-white
+    align-self: center
+
+.sidebar__nav
+    height: 56px
+    display: flex
+    flex-flow: row nowrap
+    justify-content: flex-end
+    align-items: center
+    gap: 20px
+
+.nav__goToProfile
+    display: flex
+    flex-flow: row nowrap
+    align-items: center
+    height: 12px
+    gap: 8px
+    cursor: pointer
+
+.goToProfileBtn
+    display: flex
+    flex-flow: row nowrap
+    justify-content: flex-start
+    align-items: center
+    height: 22px
+    border: none
+    cursor: pointer
+    gap: 10px
+    background: none
+    font-style: normal
+    font-weight: 500
+    font-size: 12px
+    line-height: 12px
+    color: $gray
+    &:hover
+        opacity: 0.8
+
+.goToProfileBtn__img
+    height: 22px
+    width: 22px
+
+.sidebar__chatSearch
+    display: flex
+    flex-flow: row nowrap
+    justify-content: center
+    align-items: center
+    height: 60px
+
+.chatSearch__input
+    border: none
+    width: 290px
+    height: 32px
+    background: $smoky-white
+    border-radius: 5px
+    text-align: center
+    &:focus
+        outline: none
+        @include hover-shadow($color: currentColor)
+
+.figure
+    border-radius: 50%
+    cursor: pointer
+
+.figure__img
+    width: 34px
+    height: 34px
+    border-radius: 50%
+
+.messenger__content
+    width: 800px
+    height: 100%
+    display: flex
+    flex-flow: row nowrap
+    justify-content: center
+    align-items: center
+
+.content__selectChatMsg
+    font-style: normal
+    font-weight: 500
+    font-size: 12px
+    line-height: 12px
+    text-align: center
+    color: $gray
+
+.message__in
+    display: inline-block
+    margin: 10px 0 10px auto
+    max-width: 402px
+    background: $lavender
+    padding: 10px
+    border-radius: 5px
+
+.message__out
+    display: inline-block
+    margin: 10px auto 10px 0
+    max-width: 402px
+    background: $msgChat
+    padding: 10px
+    border-radius: 5px
+
+.addChat__btn
+    display: flex
+    flex-flow: row nowrap
+    justify-content: flex-start
+    align-items: center
+    height: 22px
+    border: none
+    cursor: pointer
+    gap: 10px
+    background: none
+    font-style: normal
+    font-weight: 500
+    font-size: 12px
+    line-height: 12px
+    color: $gray
+    &:hover
+        opacity: 0.8
+
+.btn__img
+    height: 22px
+    width: 22px
+
+.modal
+    display: flex
+    flex-flow: row nowrap
+    justify-content: center
+    align-items: center
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    left: 0
+    background: rgba(44, 44, 44, 0.5)
+    visibility: hidden
+    z-index: 1
+
+.modal__box
+    display: flex
+    flex-flow: column nowrap
+    justify-content: space-around
+    align-items: center
+    width: 340px
+    height: 257px
+    background: $white-standard
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14)
+    border-radius: 12px
+
+.box__header
+    display: flex
+    flex-flow: row nowrap
+    justify-content: center
+    align-items: center
+    width: 100%
+
+.header__msg
+    width: 178px
+    height: 20px
+    font-style: normal
+    font-weight: 500
+    font-size: 15px
+    line-height: 20px
+    text-align: center
+    color: $black
+
+.box__label
+    width: 27px
+    height: 9px
+    font-style: normal
+    font-weight: 500
+    font-size: 9px
+    line-height: 9px
+    color: $gray
+
+.box__input
+    color: $black
+    border-top: none
+    border-left: none
+    border-right: none
+    border-bottom: 1px $blue solid
+    width: 280px
+    font-style: normal
+    font-size: 14px
+    line-height: 24px
+    &:focus
+        border-radius: 5px
+        outline: none
+        caret-color: $blue
+        @include hover-shadow($color: $blue)
+    &:required
+        border-radius: 5px
+        outline: none
+        caret-color: $blue
+        @include hover-shadow($color: $blue)
+    &:valid
+        border-top: none
+        border-left: none
+        border-right: none
+        border-bottom: 1px $blue solid
+        border-radius: 0px
+        box-shadow: none
+
+.box__btn
+    cursor: pointer
+    display: flex
+    justify-content: center
+    align-items: center
+    text-decoration: none
+    width: 280px
+    height: 37px
+    background: $blue
+    border: none
+    border-radius: 8px
+    color: $white
+    &:hover
+        @include hover-shadow($color: $blue)
+    &:disabled
+        background: $white
+        color: $blue
+        box-shadow: none
+        cursor: not-allowed
+
+.modal__closeBtn
+    border: none
+    cursor: pointer
+    background: none
+
+.closeBtn__img
+    height: 22px
+    width: 22px
+
+.modal_active
+    visibility: visible
+
+.sidebar__chatList
+    display: flex
+    flex-flow: column nowrap
+    justify-content: flex-start
+    align-items: center
+
+.chat_active
+    background-color: $gray-header
+
+.message__in
+    display: inline-block
+    margin: 10px 0 10px auto
+    max-width: 402px
+    background: $lavender
+    padding: 10px
+    border-radius: 5px
+
+.message__out
+    display: inline-block
+    margin: 10px auto 10px 0
+    max-width: 402px
+    background: $msgChat
+    padding: 10px
+    border-radius: 5px

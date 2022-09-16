@@ -1,11 +1,21 @@
-import Component from "../../services/Component";
+import { Component } from "../../services/Component";
 import { tpl } from "./tpl";
 import { IAvatarProps } from "./interfaces";
 import * as styles from './styles.module.sass';
 
 export class Avatar extends Component {
 
-    constructor({ alt, src, figureClassName, imgClassName, mouseoverHandler, mouseoutHandler, clickHandler }: IAvatarProps) {
+    constructor(
+        {
+            alt,
+            src,
+            figureClassName,
+            imgClassName,
+            mouseoverHandler,
+            mouseleaveHandler,
+            clickHandler
+        }: IAvatarProps
+    ) {
         super('figure',
             {
                 imgClassName: imgClassName,
@@ -14,7 +24,7 @@ export class Avatar extends Component {
                 events: {
                     click: clickHandler,
                     mouseover: mouseoverHandler,
-                    mouseout: mouseoutHandler
+                    mouseout: mouseleaveHandler
                 },
                 attr: {
                     class: `${figureClassName} ${styles.figure}`,
