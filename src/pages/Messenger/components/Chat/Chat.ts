@@ -3,8 +3,8 @@ import { tpl } from './tpl';
 import { IChatProps } from './interfaces';
 import { Avatar } from '../../../../components/avatar/Avatar';
 import { Btn } from '../../../../components/btn/Btn';
-import * as styles from './styles.module.sass';
-import env from '../../../../utils/env'
+import styles from './styles.module.sass';
+import { env } from '../../../../utils/env'
 import { Actions } from '../../../../Store';
 import ChatController from '../../../../controllers/ChatController';
 import { formatLastMsg } from '../../../../utils/formatLastMsg';

@@ -1,4 +1,4 @@
-import env from '../utils/env';
+import { env } from '../utils/env';
 import { Actions } from '../Store';
 import { IChatMessages } from '../pages/Messenger/components/ChatContent/components/message/interfaces';
 import ChatController from './ChatController';

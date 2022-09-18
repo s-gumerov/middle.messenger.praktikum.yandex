@@ -1,5 +1,5 @@
 import { HTTPTransport } from "../services/HTTPTransport";
-import env from '../utils/env';
+import { env } from '../utils/env';
 
 interface IBaseApi {
     baseUrl?: string,

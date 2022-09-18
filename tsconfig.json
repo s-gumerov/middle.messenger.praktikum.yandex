@@ -28,6 +28,8 @@
     ".parcel-cache",
     ".github",
     "src/server.js",
-    "test/babel-register.js"
+    "test/babel-register.js",
+    "webpack.config.js",
+    "**/*.test.ts",
   ]
 }

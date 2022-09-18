@@ -2,7 +2,7 @@ import { Component } from '../../services/Component';
 import { tpl } from './tpl';
 import { Anchor } from '../../components/anchor/Anchor';
 import { router } from '../../utils/router';
-import * as styles from './styles.module.sass';
+import styles from './styles.module.sass';
 
 const button = new Anchor(
     {

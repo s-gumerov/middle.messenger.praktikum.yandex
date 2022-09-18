@@ -1,7 +1,7 @@
 import { Component, TProps } from '../../../../services/Component';
 import Handlebars from 'handlebars';
 import { tpl } from './tpl';
-import * as styles from './styles.module.sass';
+import styles from './styles.module.sass';
 import { v4 as makeUUID } from 'uuid'
 import { InputAndLabel } from '../../../../components/inputAndLabel/InputAndLabel';
 import { InputAndLabelProps } from '../../../../components/inputAndLabel/interfaces';
@@ -21,7 +21,7 @@ import closeModalBtnSvg from '../../../../styles/icons/closeModalBtn.svg';
 import { IBtnProps } from '../../../../components/btn/interfaces';
 import { IFindUserRequest } from './interfaces';
 import { Actions } from '../../../../Store';
-import env from '../../../../utils/env';
+import { env } from '../../../../utils/env';
 import { showChatUsers } from './components/userList/UserList';
 import MessageController from '../../../../controllers/MessageController';
 
@@ -133,7 +133,6 @@ const sendMsgBtn = new Btn(
 
 const inputMsg = new Input(
     {
-        autofocus: true,
         id: 'inputMsg',
         name: 'inputMsg',
         type: 'text',
@@ -279,7 +278,7 @@ export class ChatContent extends Component {
 
                 propsAndStubs[key] = `<div class=${styles.chatContent_mesages} data-id="${propsAndStubs.__id}"></div>`;
 
-                Object.entries(list).forEach(([i, child]) => {
+                Object.entries(list).forEach(([, child]) => {
                     //является ли child "сложным"
                     if (child instanceof Component)
                         childs.push(child.getContent());
@@ -303,7 +302,7 @@ export class ChatContent extends Component {
             };
         });
 
-        Object.entries(propsAndStubs).forEach(([key, child]) => {
+        Object.entries(propsAndStubs).forEach(([key,]) => {
             if (containerId.includes(propsAndStubs[key])) {
                 if (fragment instanceof window.HTMLTemplateElement) {
                     const stub = fragment.content.querySelector(`[data-id="${propsAndStubs[key]}"]`);

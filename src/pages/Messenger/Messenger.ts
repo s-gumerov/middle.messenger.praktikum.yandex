@@ -7,7 +7,7 @@ import { IBtnProps } from '../../components/btn/interfaces';
 import { IAvatarProps } from '../../components/avatar/interfaces';
 import { Input } from '../../components/input/Input';
 import { InputAndLabelProps } from '../../components/inputAndLabel/interfaces';
-import * as styles from './styles.module.sass';
+import styles from './styles.module.sass';
 import { router } from '../../utils/router';
 import { ChatContent } from './components/ChatContent/ChatContent';
 import { IChatList } from './components/Chat/interfaces';
@@ -22,8 +22,9 @@ import closeModalBtnSvg from '../../styles/icons/closeModalBtn.svg';
 import { Actions } from '../../Store';
 import { IChatProps } from './components/Chat/interfaces';
 import { Stub } from './components/Stub/Stub';
-import env from '../../utils/env';
+import { env } from '../../utils/env';
 import { Message } from './components/ChatContent/components/message/Message';
+import { IChatMessages } from './components/ChatContent/components/message/interfaces';
 
 const addChatBtnProps: IBtnProps =
 {
@@ -261,7 +262,7 @@ export class Messenger extends Component {
         const { chatList, activeChat, msg } = newProps;
 
         const updateActiveChatAvatarFromChatList = (id: number, avatar: string) => {/* для обновление аватара в списке чатов в случае */
-            this._props['chatList'].forEach(child => {
+            this._props['chatList'].forEach((child: Chat) => {
                 if (child['_props']['attr']['id'] === id) {
                     child['_children']['avatar']['_props']['src'] = avatar ? `${env.HOST_RESOURCES}${avatar}` : 'https://www.meme-arsenal.com/memes/8fad74f2d563151e2be1fbc3b3aea87e.jpg';
                 };
@@ -295,9 +296,9 @@ export class Messenger extends Component {
         if (msg && msg.length > 0) {/* Обновляем сообщения в текущем чате и последнее сообщение в выбранном чате */
             const { id } = Actions.getProfileState();
 
-            this._children['chatContent']['_props']['messages'] = msg.map(msg => new Message({ ...msg, ...{ className: `${id}` === `${msg.user_id}` ? styles.message__in : styles.message__out } }));
+            this._children['chatContent']['_props']['messages'] = msg.map((msg: IChatMessages) => new Message({ ...msg, ...{ className: `${id}` === `${msg.user_id}` ? styles.message__in : styles.message__out } }));
 
-            this._props['chatList'].forEach(chat => {
+            this._props['chatList'].forEach((chat: { [x: string]: { [x: string]: IChatProps; }; }) => {
 
                 if (chat['_props']['attr']['id'] === msg[0].chat_id) {
                     chat['_props']['lastMsgTime'] = msg[0].time;

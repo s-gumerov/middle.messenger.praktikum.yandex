@@ -4,7 +4,7 @@ import { v4 as makeUUID } from 'uuid';
 import { Btn } from '../../components/btn/Btn';
 import { Anchor } from '../../components/anchor/Anchor';
 import { InputAndLabel } from '../../components/inputAndLabel/InputAndLabel';
-import * as styles from './styles.module.sass';
+import styles from './styles.module.sass';
 import { InputAndLabelProps } from '../../components/inputAndLabel/interfaces';
 import { LOGIN_INPUT_TITLE, PASSWORD_INPUT_TITLE } from '../../utils/inputTitleMsg';
 import { LOGIN_REGEXP, PASSWORD_REGEXP } from '../../utils/regularExpressions';

@@ -9,6 +9,12 @@ import { NotFoundPage } from './pages/404/NotFoundPage';
 import { ServerErrorPage } from './pages/500/ServerErrorPage';
 import { router } from './utils/router';
 import { connect } from './Store/Connect';
+import styles from '../public/index.sass';
+
+
+
+const app = document.getElementById('root');
+app?.classList.add(styles.root);
 
 const withUser = connect(state => ({
     profile: state.profile
