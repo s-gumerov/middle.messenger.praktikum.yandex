@@ -19,6 +19,11 @@ const setActiveChat = async (e: Event) => {
     const { id } = Actions.getActiveChatState();
     const prevActivChat = document.getElementById(`${id}`) as HTMLDivElement;
 
+    // const location = window.location.pathname;
+
+    // window.location.pathname = `${location}/${id}`;
+
+
     if (id && prevActivChat) {
         prevActivChat.style.background = 'none';
     };
