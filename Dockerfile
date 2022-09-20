@@ -1,4 +1,4 @@
-FROM node
+FROM node:latest
 WORKDIR /messenger
 COPY . .
 RUN npm i

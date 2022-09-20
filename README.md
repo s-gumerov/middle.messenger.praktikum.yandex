@@ -28,7 +28,7 @@ https://github.com/s-gumerov/middle.messenger.praktikum.yandex/pull/4
 
 
 **Демонстрация на
-[Netlify](https://sweet-biscuit-08a16e.netlify.app/chat)** - https://sweet-biscuit-08a16e.netlify.app/chat
+[Heroku](https://ancient-river-55467.herokuapp.com)** - https://ancient-river-55467.herokuapp.com
 
 
 ### Установка
