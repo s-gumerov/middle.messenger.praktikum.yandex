@@ -1,3 +1,5 @@
+/* eslint-disable */ 
+/* для игнорирования, так как в ubuntu не сработала настройка eslintIgnore из package.json*/
 const express = require('express');
 const path = require('path');
 
