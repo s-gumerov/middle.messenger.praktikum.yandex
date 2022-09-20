@@ -6,10 +6,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const isProduction = process.env.NODE_ENV == 'production';
 
-
-const stylesHandler = MiniCssExtractPlugin.loader;
-
-
 const config = {
     entry: './src/app.ts',
     output: {
@@ -19,17 +15,16 @@ const config = {
         open: true,
         host: 'localhost',
         compress: true,
-        port: 3000,
+        port: 3000
     },
     plugins: [
         new HtmlWebpackPlugin({
             template: './public/index.html',
         }),
 
-        new MiniCssExtractPlugin(),
-        // new MiniCssExtractPlugin({
-        //     filename: "[name]-[contenthash].css"
-        // })
+        new MiniCssExtractPlugin({
+            filename: "[name]-[contenthash].css"
+        })
 
         // Add your plugins here
         // Learn more about plugins from https://webpack.js.org/configuration/plugins/

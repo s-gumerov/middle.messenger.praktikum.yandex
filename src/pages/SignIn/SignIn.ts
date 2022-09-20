@@ -21,6 +21,8 @@ const completedFields = {
     password: false
 };
 
+
+
 const focusHandler = (e: Event) => {
 
     AuthController.checkAuth

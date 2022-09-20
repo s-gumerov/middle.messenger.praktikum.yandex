@@ -7,8 +7,6 @@ export const errorHandler = (error: XMLHttpRequest | unknown) => {
 
         if (reason === 'User already in system') {
             router.go('/messenger');
-            alert(reason);
-
         }
     }
 
