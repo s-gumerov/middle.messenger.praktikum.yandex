@@ -1,7 +1,7 @@
 ## **Описание**
 ### **Веб-приложение «Чат». Проектная работа.**
 
-https://github.com/s-gumerov/middle.messenger.praktikum.yandex/pull/3
+https://github.com/s-gumerov/middle.messenger.praktikum.yandex/pull/4
 
 * Реализован роутер. У всех страниц имеется собственный роут:
   * [/auth/signin](/auth/signin) — страница входа,
@@ -27,7 +27,7 @@ https://github.com/s-gumerov/middle.messenger.praktikum.yandex/pull/3
 **Макеты в [figma](https://www.figma.com/file/jF5fFFzgGOxQeB4CmKWTiE/Chat_external_link?node-id=0%3A1)** - https://www.figma.com/file/jF5fFFzgGOxQeB4CmKWTiE/Chat_external_link?node-id=0%3A1
 
 
-**Демонстрация на 
+**Демонстрация на
 [Netlify](https://sweet-biscuit-08a16e.netlify.app/chat)** - https://sweet-biscuit-08a16e.netlify.app/chat
 
 
@@ -41,7 +41,7 @@ npm i
 
 ### Сборка и запуск
 
-Сборка приложения. Используемый сборщик [Parcel](https://parceljs.org/):
+Сборка приложения. Используемый сборщик [Webpack](https://webpack.js.org/):
 
 ```bash
 npm run build
@@ -69,4 +69,10 @@ npm run lint
 
 ```bash
 npm run test
+```
+
+Precommit. Установка хука husky - Git:
+
+```bash
+npm run prepare
 ```
