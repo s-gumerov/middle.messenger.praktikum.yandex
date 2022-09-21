@@ -66,12 +66,11 @@
   "scripts": {
     "prepare": "husky install",
     "test": "mocha",
-    "start": "webpack --mode=production --node-env=production && node ./src/server",
+    "start": "npm run build && node ./src/server",
     "build": "webpack --mode=production --node-env=production",
     "lint": "eslint ./src",
     "stylelint": "stylelint '**/*.sass'",
     "build:dev": "webpack --mode=development",
-    "build:prod": "webpack --mode=production --node-env=production",
     "watch": "webpack --watch",
     "serve": "webpack serve"
   },

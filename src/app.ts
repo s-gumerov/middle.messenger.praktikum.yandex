@@ -10,7 +10,13 @@ import { ServerErrorPage } from './pages/500/ServerErrorPage';
 import { router } from './utils/router';
 import { connect } from './Store/Connect';
 import styles from '../public/index.sass';
+import { Actions } from './Store';
 
+const { id } = Actions.getProfileState();
+/*Если пользователь авторизован то он попадет в чат */
+if (id) {
+    router.go('/messenger');
+};
 
 
 const app = document.getElementById('root');

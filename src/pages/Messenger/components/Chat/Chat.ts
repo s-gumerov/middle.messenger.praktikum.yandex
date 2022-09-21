@@ -9,20 +9,12 @@ import { Actions } from '../../../../Store';
 import ChatController from '../../../../controllers/ChatController';
 import { formatLastMsg } from '../../../../utils/formatLastMsg';
 
-
-
-
 const setActiveChat = async (e: Event) => {
     const activeChatElement = e.currentTarget as HTMLDivElement;
     const activeChatId = activeChatElement.id;
     const chatList = Actions.getChatListState();
     const { id } = Actions.getActiveChatState();
     const prevActivChat = document.getElementById(`${id}`) as HTMLDivElement;
-
-    // const location = window.location.pathname;
-
-    // window.location.pathname = `${location}/${id}`;
-
 
     if (id && prevActivChat) {
         prevActivChat.style.background = 'none';

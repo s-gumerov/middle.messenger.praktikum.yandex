@@ -114,19 +114,24 @@ const deleteChatBtn = new Btn(
 const getMsgText = () => {
     const input = document.querySelector(`.${styles.newMsg__inputMsg}`) as HTMLInputElement;
     const msg = input.value;
-    if (msg.length < 1) {
-        return '';
-    }
     input.value = '';
     return msg;
 };
+
+const sendMessage = () => {
+    const text = getMsgText();
+    if (text.length < 1) {
+        return;
+    }
+    return MessageController.sendMessage(text);
+}
 
 const sendMsgBtn = new Btn(
     {
         msg: '',
         className: styles.newMsg__sendMsgBtn,
         clickHandler: () => {
-            MessageController.sendMessage(getMsgText());
+            sendMessage();
         }
     }
 );
@@ -142,8 +147,7 @@ const inputMsg = new Input(
         className: styles.newMsg__inputMsg,
         keyupHandler: (e: KeyboardEvent) => {
             if (e.code === 'Enter' || e.code === 'NumpadEnter') {
-                const message = getMsgText();
-                MessageController.sendMessage(message);
+                sendMessage();
             };
         }
     }
