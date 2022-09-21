@@ -1,4 +1,4 @@
-FROM node
+FROM node:latest
 WORKDIR /messenger
 COPY package.json .
 RUN npm install
