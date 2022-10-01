@@ -5,11 +5,11 @@ import { Avatar } from '../../components/avatar/Avatar';
 import { IAvatarProps } from '../../components/avatar/interfaces';
 import { Anchor } from '../../components/anchor/Anchor';
 import { InputAndLabel } from '../../components/inputAndLabel/InputAndLabel';
-import * as styles from './styles.module.sass';
+import styles from './styles.module.sass';
 import { InputAndLabelProps } from '../../components/inputAndLabel/interfaces';
 import { router } from '../../utils/router';
 import AuthController from '../../controllers/AuthController';
-import env from '../../utils/env';
+import { env } from '../../utils/env';
 import { Actions } from '../../Store';
 
 

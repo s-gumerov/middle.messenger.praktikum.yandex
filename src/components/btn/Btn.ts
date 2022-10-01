@@ -2,7 +2,7 @@ import { Component } from "../../services/Component";
 import { tpl } from "./tpl";
 import { IBtnProps } from "./interfaces";
 import { addAttribute } from "../../utils/addAttribute";
-import * as styles from './styles.module.sass';
+import styles from './styles.module.sass';
 
 export class Btn extends Component {
 

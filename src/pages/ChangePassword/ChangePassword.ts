@@ -6,7 +6,7 @@ import { IAvatarProps } from '../../components/avatar/interfaces';
 import { Btn } from '../../components/btn/Btn';
 import { Anchor } from '../../components/anchor/Anchor';
 import { InputAndLabel } from '../../components/inputAndLabel/InputAndLabel';
-import * as styles from './styles.module.sass';
+import styles from './styles.module.sass';
 import { InputAndLabelProps } from '../../components/inputAndLabel/interfaces';
 import { PASSWORD_INPUT_TITLE } from '../../utils/inputTitleMsg';
 import { PASSWORD_REGEXP } from '../../utils/regularExpressions';
@@ -16,7 +16,7 @@ import { validate } from '../../utils/validate';
 import { inputCheckToForm } from '../../utils/inputCheckToForm';
 import { IChangePassword } from './interfaces';
 import { router } from '../../utils/router';
-import env from '../../utils/env';
+import { env } from '../../utils/env';
 import UserProfileController from '../../controllers/UserProfileController';
 import { Actions } from '../../Store';
 

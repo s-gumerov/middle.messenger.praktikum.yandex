@@ -1,4 +1,4 @@
-import * as styles from './styles.module.sass';
+import styles from './styles.module.sass';
 
 export const tpl = `
     <aside class=${styles.messenger__sidebar}>

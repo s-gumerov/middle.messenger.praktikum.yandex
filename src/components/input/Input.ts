@@ -7,7 +7,6 @@ export class Input extends Component {
 
     constructor(
         {
-            autofocus,
             pattern,
             title,
             required,
@@ -49,7 +48,6 @@ export class Input extends Component {
                     keypress: keypressHandler
                 },
                 attr: {
-                    autofocus: autofocus,
                     pattern: pattern ? pattern.replace(/^.|.$/g, "") : '',
                     title: title ?? '',
                     required: required,

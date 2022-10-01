@@ -6,7 +6,7 @@ import { IAvatarProps } from '../../components/avatar/interfaces';
 import { Btn } from '../../components/btn/Btn';
 import { Anchor } from '../../components/anchor/Anchor';
 import { InputAndLabel } from '../../components/inputAndLabel/InputAndLabel';
-import * as styles from './styles.module.sass';
+import styles from './styles.module.sass';
 import { InputAndLabelProps } from '../../components/inputAndLabel/interfaces';
 import { FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE, EMAIL_INPUT_TITLE, LOGIN_INPUT_TITLE, DISPLAY_NAME_INPUT_TITLE, PHONE_INPUT_TITLE } from '../../utils/inputTitleMsg';
 import { FIRST_NAME_AND_SECOND_NAME_INPUT_TITLE_REGEXP, EMAIL_REGEXP, LOGIN_REGEXP, DISPLAY_NAME_REGEXP, PHONE_REGEXP } from '../../utils/regularExpressions';
@@ -18,7 +18,7 @@ import { setImgSrc } from '../../utils/setImgSrc';
 import { router } from '../../utils/router';
 import UserProfileController from '../../controllers/UserProfileController';
 import { IProfile } from './interfaces';
-import env from '../../utils/env';
+import { env } from '../../utils/env';
 import { Actions } from '../../Store';
 
 

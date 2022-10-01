@@ -1,7 +1,7 @@
 import { Component } from '../../services/Component';
 import { tpl } from './tpl';
 import { router } from '../../utils/router';
-import * as styles from './styles.module.sass';
+import styles from './styles.module.sass';
 import { Anchor } from '../../components/anchor/Anchor';
 
 const button = new Anchor(

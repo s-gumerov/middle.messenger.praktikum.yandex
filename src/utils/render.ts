@@ -1,4 +1,4 @@
-import Component from "../services/Component";
+import { Component } from "../services/Component";
 
 export const render = (query: string, component: Component) => {
 

@@ -4,7 +4,7 @@ import { InputAndLabelProps } from './interfaces';
 import { IInputProps } from '../input/interfaces';
 import { Label } from '../label/Label';
 import { Input } from '../input/Input';
-import * as styles from './styles.module.sass';
+import styles from './styles.module.sass';
 
 export class InputAndLabel extends Component {
     constructor(

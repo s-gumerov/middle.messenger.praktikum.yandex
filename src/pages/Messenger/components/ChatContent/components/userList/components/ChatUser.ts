@@ -1,6 +1,6 @@
 import { Component } from "../../../../../../../services/Component";
 import { tpl } from "./tpl";
-import * as styles from './styles.module.sass';
+import styles from './styles.module.sass';
 import { IChatMembersProps } from "./interfaces";
 import { Avatar } from "../../../../../../../components/avatar/Avatar";
 import { Btn } from "../../../../../../../components/btn/Btn";

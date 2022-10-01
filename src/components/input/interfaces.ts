@@ -1,5 +1,4 @@
 export interface IInputProps {
-    autofocus?: boolean,
     pattern?: string,
     title?: string,
     required?: boolean,

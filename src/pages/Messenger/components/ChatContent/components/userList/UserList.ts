@@ -3,9 +3,9 @@ import { Component, TProps } from "../../../../../../services/Component";
 import Handlebars from 'handlebars';
 import { tpl } from "./tpl";
 import { ChatUser } from "./components/ChatUser";
-import env from '../../../../../../utils/env';
+import { env } from '../../../../../../utils/env';
 import { UserListProps } from "./interfaces";
-import * as styles from './styles.module.sass';
+import styles from './styles.module.sass';
 
 const chatMembersList = () => document.querySelector(`.${styles.chatUserList}`) as HTMLElement;
 
@@ -63,7 +63,7 @@ export class UserList extends Component {
 
                 propsAndStubs[key] = `<div data-id="${propsAndStubs.__id}"></div>`;
 
-                Object.entries(list).forEach(([i, child]) => {
+                Object.entries(list).forEach(([, child]) => {
                     //является ли child "сложным"
                     if (child instanceof Component)
                         childs.push(child.getContent());
@@ -87,7 +87,7 @@ export class UserList extends Component {
             };
         });
 
-        Object.entries(propsAndStubs).forEach(([key, child]) => {
+        Object.entries(propsAndStubs).forEach(([key,]) => {
             if (containerId.includes(propsAndStubs[key])) {
                 if (fragment instanceof window.HTMLTemplateElement) {
                     const stub = fragment.content.querySelector(`[data-id="${propsAndStubs[key]}"]`);
